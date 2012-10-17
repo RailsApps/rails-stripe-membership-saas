@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :stripe_token
   attr_accessor :stripe_token
   before_save :update_stripe
-
+  before_destroy :cancel_subscription
+  
   def update_stripe
     return if email.include?('@example.com')
     if customer_id.nil?
@@ -40,6 +41,19 @@ class User < ActiveRecord::Base
     logger.error e.message
     errors.add :base, "Unable to create your subscription. #{e.message}"
     stripe_token = nil
+    false
+  end
+  
+  def cancel_subscription
+    unless customer_id.nil?
+      customer = Stripe::Customer.retrieve(customer_id)
+      if (!customer.nil?) && (customer.subscription.status == 'active')
+        customer.cancel_subscription
+      end
+    end
+  rescue Stripe::StripeError => e
+    logger.error e.message
+    errors.add :base, "Unable to cancel your subscription. #{e.message}"
     false
   end
   
