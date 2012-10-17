@@ -1,10 +1,8 @@
 RailsStripeMembershipSaas::Application.routes.draw do
-  get "content/silver"
-
+  mount StripeEvent::Engine => '/stripe'
   get "content/gold"
-
+  get "content/silver"
   get "content/platinum"
-
   authenticated :user do
     root :to => 'home#index'
   end
