@@ -1,5 +1,7 @@
 <h2>Sign up</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
+<div id="stripe_error" class="alert alert-error" style="display:none" >
+</div>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'card_form form-vertical' }) do |f| %>
   <h3><%= @plan.titleize if @plan %> Subscription Plan</h3>
   <%= hidden_field_tag 'plan', @plan %>
   <%= f.error_notification %>
@@ -7,5 +9,23 @@
   <%= f.input :email, :required => true %>
   <%= f.input :password, :required => true %>
   <%= f.input :password_confirmation, :required => true %>
+  <% if @user.stripe_token %>
+    Credit card has been accepted.
+  <% else %>
+    <div class="field">
+      <%= label_tag :card_number, "Credit Card Number" %>
+      <%= text_field_tag :card_number, nil, name: nil %>
+    </div>
+    <div class="field">
+      <%= label_tag :card_code, "Card Security Code (CVV)" %>
+      <%= text_field_tag :card_code, nil, name: nil %>
+    </div>
+    <div class="field">
+      <%= label_tag :card_month, "Card Expiration" %>
+      <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month"}%>
+      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
+    </div>
+  <% end %>
+  <%= f.hidden_field :stripe_token %>
   <%= f.button :submit, 'Sign up', :class => 'btn-primary' %>
 <% end %>
