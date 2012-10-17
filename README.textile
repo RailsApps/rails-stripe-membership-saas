@@ -1,80 +1,271 @@
-h1. Rails Stripe Membership Saas
+h1. !http://railsapps.github.com/images/rails-36x36.jpg(Rails Application for a Membership, Subscription, or SaaS Site)! Rails App for a Membership, Subscription, or SaaS Site
 
-This application was generated with the "rails_apps_composer":https://github.com/RailsApps/rails_apps_composer gem provided by the "RailsApps Project":http://railsapps.github.com/.
+Rails 3.2 example application with recurring billing using Stripe. Use for a Rails membership site, subscription site, or SaaS site (software-as-a-service). Using:
 
-h2. Diagnostics
+* "Devise":http://github.com/plataformatec/devise authentication and user management
+* "CanCan":https://github.com/ryanb/cancan authorization for administrator access
+* "Twitter Bootstrap":http://twitter.github.com/bootstrap/ front-end framework for CSS styling
+* "Stripe":https://stripe.com/
 
-This application was built with recipes that are known to work together.
+Best of all, there's a "detailed tutorial":http://railsapps.github.com/tutorial-rails-stripe-membership-saas.html to show how it's built.
 
-This application was built with preferences that are known to work together.
+You can build this application in only a few minutes using the "Rails Composer":http://railsapps.github.com/rails-composer/ tool.
 
-If the application doesn't work as expected, please "report an issue":https://github.com/RailsApps/rails_apps_composer/issues and include these diagnostics:
+!http://railsapps.github.com/images/rails-stripe-membership-saas.png(Rails Application for a Membership, Subscription, or SaaS Site)!
 
-We'd also like to know if you've found combinations of recipes or preferences that do work together.
+h2. !http://twitter-badges.s3.amazonaws.com/t_logo-a.png(Follow on Twitter)!:http://www.twitter.com/rails_apps Follow on Twitter
 
-Recipes:
-["controllers", "core", "email", "extras", "frontend", "gems", "git", "init", "models", "prelaunch", "railsapps", "readme", "routes", "setup", "testing", "views"]
+Follow the project on Twitter: "@rails_apps":http://twitter.com/rails_apps. Please tweet some praise if you like what you've found.
 
-Preferences:
-{:git=>true, :railsapps=>"rails3-bootstrap-devise-cancan", :database=>"sqlite", :unit_test=>"rspec", :integration=>"cucumber", :fixtures=>"factory_girl", :frontend=>"bootstrap", :bootstrap=>"sass", :email=>"gmail", :authentication=>"devise", :devise_modules=>"default", :authorization=>"cancan", :starter_app=>"admin_app", :form_builder=>"simple_form", :quiet_assets=>true, :dev_webserver=>"webrick", :templates=>"erb", :rvmrc=>true}
+h2. Tutorial
 
-h2. Ruby on Rails
+A complete tutorial is available:
 
-This application requires:
+h4. "View the Tutorial":http://railsapps.github.com/tutorial-rails-stripe-membership-saas.html
 
-* Ruby version 1.9.3
-* Rails version 3.2.8
+The tutorial documents each step to follow to create the application. Every step is documented concisely, so a complete beginner can create this application without any additional knowledge. However, no explanation is offered for any of the steps, so if you are a beginner, you’re advised to look for an introduction to Rails elsewhere. See a list of recommended resources for "Rails":http://railsapps.github.com/rails.html.
 
-Learn more about "Installing Rails":http://railsapps.github.com/installing-rails.html.
+h2. What Is Implemented -- and What Is Not
 
-h2. Database
+Membership sites restrict access to content such as articles, videos, or user forums. Software-as-a-service (SaaS) sites limit use of web-based software to paid subscribers. The revenue model is the same whether the site provides high-value content or software as a service: A visitor purchases a subscription and gains access to restricted areas of the site. Typically, the subscription is repurchased monthly through a service that provides recurring billing.
 
-This application uses SQLite with ActiveRecord.
+The example application provides a complete and fully functional membership site.
 
-h2. Development
+* tiered pricing for multiple subscription plans
+* optional "free trial" subscription as well as free accounts using Stripe
+* uses Stripe for no local credit card storage
+* Stripe accepts credit card payments from customers in any country or currency
+* PCI compliance using the Stripe JavaScript library
+* Stripe handles recurring billing, retries if payment fails, and cancels subscription if retries fail
+* paid subscriptions are created only after a successful credit card transaction
+* subscribers can upgrade or downgrade subscription plans
+* subscribers can cancel subscription plans
+* configurable subscription renewal period (defaults to one month)
+* administrator can change subscription plan or delete user
 
-* Template Engine: ERB
-* Testing Framework: RSpec and Factory Girl and Cucumber
-* Front-end Framework: Twitter Bootstrap (Sass)
-* Form Builder: SimpleForm
-* Authentication: Devise
-* Authorization: CanCan
+There are additional features you may want for a SaaS application, such as:
 
-h2. Email
+* Basecamp-style subdomains (each user gets their own subdomain)
+* "multitenancy":http://en.wikipedia.org/wiki/Multitenancy database segmentation
 
-The application is configured to send email using a Gmail account.
+These features are not included in this application. See the "rails3-subdomains":https://github.com/RailsApps/rails3-subdomains example application for help with subdomains. For multitenancy, try Brad Robertson's "Apartment":https://github.com/bradrobertson/apartment gem.
+
+h2. Similar Examples and Tutorials
+
+This is one in a series of Rails example apps and tutorials from the "RailsApps Project":http://railsapps.github.com/. See a list of additional "Rails examples, tutorials, and starter apps":http://railsapps.github.com/rails-examples-tutorials.html.
+
+This example application is based on the "rails3-bootstrap-devise-cancan":https://github.com/RailsApps/rails3-bootstrap-devise-cancan starter application. This example application uses ActiveRecord and a SQLite database with RSpec and Cucumber for testing.
+
+You might also be interested in the "rails-prelaunch-signup":https://github.com/RailsApps/rails-prelaunch-signup example and tutorial from the RailsApps project.
+
+h2. Dependencies
+
+Before generating your application, you will need:
+
+* The Ruby language (version 1.9.3)
+* Rails 3.2
+
+See the article "Installing Rails":http://railsapps.github.com/installing-rails.html for advice about updating Rails and your development environment.
+
+h2. Getting the Application
+
+You have several options for getting the code. You can _fork_, _clone_, or _generate_.
+
+h3. Fork
+
+If you'd like to add features (or bug fixes) to improve the example application, you can fork the GitHub repo and "make pull requests":http://help.github.com/send-pull-requests/. Your code contributions are welcome!
+
+h3. Clone
+
+If you want to copy and customize the app with changes that are only useful for your own project, you can clone the GitHub repo. You'll need to search-and-replace the project name throughout the application. You probably should generate the app instead (see below). To clone:
+
+<pre>
+$ git clone git://github.com/RailsApps/rails-stripe-membership-saas.git
+</pre>
+  
+You'll need "git":http://git-scm.com/ on your machine. See "Rails and Git":http://railsapps.github.com/rails-git.html.
+
+h3. Generate
+
+A future version of the "Rails Composer":http://railsapps.github.com/rails-composer/ tool will be able to generate the example application. You'll be able to give it your own project name when you generate the app. Generating the application gives you many additional options.
 
 h2. Getting Started
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+h3. Install the Required Gems
 
-h2. Documentation and Support
+Check the Gemfile to see which gems are used by this application.
 
-This is the only documentation.
+Run the @bundle install@ command to install the required gems on your computer:
 
-h4. Issues
+<pre>
+$ bundle install
+</pre>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+You can check which gems are installed on your computer with:
 
-h2. Similar Projects
+<pre>
+$ gem list
+</pre>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Keep in mind that you have installed these gems locally. When you deploy the app to another server, the same gems (and versions) must be available.
+
+I recommend using "rvm":https://rvm.io/, the Ruby Version Manager, to create a project-specific gemset for the application. See the article "Installing Rails":http://railsapps.github.com/installing-rails.html.
+
+h3. Configure Email
+
+You must configure the application for your email account. See the article "Send Email with Rails":http://railsapps.github.com/rails-send-email.html.
+
+h3. Configure Devise
+
+You can modify the configuration file for Devise if you want to use something other than the defaults:
+
+* *config/initializers/devise.rb*
+
+h3. Set Up a Database Seed File
+
+You'll want to set up a default user so you can easily log in to test the app. You can modify the file *db/seeds.rb* for your own name, email and password. You can also set a list of roles that correspond to the subscription plans you will offer.
+
+<pre>
+puts 'CREATING ROLES'
+Role.create([
+  { :name => 'admin' }, 
+  { :name => 'silver' }, 
+  { :name => 'gold' },
+  { :name => 'platinum' }
+], :without_protection => true)
+puts 'SETTING UP DEFAULT USER LOGIN'
+user = User.create! :name => 'First User', :email => 'user@example.com', :password => 'please', :password_confirmation => 'please'
+user.add_role :admin
+puts 'admin created: ' << user.name
+user2 = User.create! :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
+user2.add_role :silver
+user3 = User.create! :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
+user3.add_role :gold
+user4 = User.create! :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
+user4.add_role :platinum
+puts "added users: #{user2.name}, #{user3.name}, #{user4.name}"
+</pre>
+
+You can change the roles and name, email, and password as you wish.
+
+If you include your private password in the file, be sure to add the filename to your *.gitignore* file so that your password doesn't become available in your public GitHub repository.
+
+Note that it's not necessary to personalize the *db/seeds.rb* file before you deploy your app. You can deploy the app with an example user and then use the application's "Edit Account" feature to change name, email address, and password after you log in. Use this feature to log in as an administrator and change the user name and password to your own.
+
+The *db/seeds.rb* file is the only place where we create a list of possible roles. There is no other configuration of roles. Any new role can be added to the roles datatable with a statement such @user.add_role :superhero@.
+
+h3. Set the Database
+
+Prepare the database and add the default user to the database by running the commands:
+
+<pre>
+$ rake db:migrate
+$ rake db:seed
+</pre>
+
+Set the database for running tests:
+
+<pre>
+$ rake db:test:prepare
+</pre>
+
+If you’re not using "rvm":https://rvm.io/, the Ruby Version Manager, you should preface each rake command with @bundle exec@. You don’t need to use @bundle exec@ if you are using rvm version 1.11.0 or newer.
+
+h2. Test the App
+
+You can check that your app runs properly by entering the command:
+
+@$ rails server@
+
+To see your application in action, open a browser window and navigate to "http://localhost:3000/":http://localhost:3000.
+
+Sign in as the first user (the administrator) using: 
+
+* email: user@example.com
+* password: please
+
+You'll see a navigation link for Admin. Clicking the link will display a page with a list of users at
+"http://localhost:3000/users":http://localhost:3000/users.
+
+To sign in as the second user, use
+
+* email: user2@example.com
+* password: please
+
+The second user will not see the Admin navigation link and will not be able to access the page at
+"http://localhost:3000/users":http://localhost:3000/users.
+
+You should be able to create additional users using the fake credit card number _4242424242424242_. You'll see the new users listed when you log in as an administrator. And you'll see the new users listed as customers when you visit your Stripe dashboard.
+
+Stop the server with Control-C.
+
+If you test the app by starting the web server and then leave the server running while you install new gems, you’ll have to restart the server to see any changes. The same is true for changes to configuration files in the config folder. This can be confusing to new Rails developers because you can change files in the app folders without restarting the server. Stop the server each time after testing and you will avoid this issue.
+
+h2. Deploy to Heroku
+
+For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.github.com/rails-heroku-tutorial.html. Heroku provides low cost, easily configured Rails application hosting.
+
+Before you deploy to production, modify the *app/models/user.rb* file to remove the statement @return if email.include?('example.com')@. If you don't do so, your application will allow any visitor to create a free account by using an “example.com” email address.
+
+Be sure to set up SSL before you make your application available in production. See the "Heroku documentation on SSL":https://devcenter.heroku.com/articles/ssl.
+
+h2. Customizing
+
+This application provides a fully functional membership site that's ready to take credit card payments and serve access to restricted content.
+
+It uses Stripe for payment processing, allows users to change credit cards or subscription plans, and uses Stripe webhooks to delete users who have expired or declined credit cards.
+
+You might consider a few enhancements. For example, you might want the application to respond to a Stripe webhook event when a credit card payment is successful by sending a "paid" invoice. Or you might respond to Stripe webhook events when credit card payments are unsuccessful by sending a friendly note encouraging the user to check for an expired credit card before the subscription is cancelled.
+
+If you have suggestions for additional features, please create an "issue":http://github.com/RailsApps/rails-stripe-membership-saas/issues on GitHub.
+
+h2. Testing
+
+This is an early release of the application and does not contain a full suite of RSpec unit tests and Cucumber scenarios and step definitions.
+
+After installing the application, run @rake -T@ to check that rake tasks for RSpec and Cucumber are available.
+
+Run @rake spec@ to run all RSpec tests.
+
+Run @rake cucumber@ (or more simply, @cucumber@) to run all Cucumber scenarios.
+
+Please send the author a message, create an issue, or submit a pull request if you can contribute improved RSpec or Cucumber files.
+
+h2. Troubleshooting
+
+Problems? Check the "issues":https://github.com/RailsApps/rails-stripe-membership-saas/issues.
+
+h2. Documentation
+
+The "tutorial":http://railsapps.github.com/tutorial-rails-bootstrap-devise-cancan.html provides additional documentation.
+
+h2. Issues
+
+Please create a "GitHub issue":http://github.com/RailsApps/rails-stripe-membership-saas/issues if you identify any problems or have suggestions for improvements.
+
+h2. Where to Get Help
+
+Your best source for help with problems is "Stack Overflow":http://stackoverflow.com/questions/tagged/ruby-on-rails-3. Your issue may have been encountered and addressed by others.
+
+You can also try "Rails Hotline":http://www.railshotline.com/, a free telephone hotline for Rails help staffed by volunteers.
 
 h2. Contributing
 
 If you make improvements to this application, please share with others.
 
-* Fork the project on GitHub.
-* Make your feature addition or bug fix.
-* Commit with Git.
-* Send the author a pull request.
+Send the author a message, create an "issue":http://github.com/RailsApps/rails-stripe-membership-saas/issues, or fork the project and submit a pull request.
 
 If you add functionality to this application, create an alternative implementation, or build an application that is similar, please contact me and I'll add a note to the README so that others can find your work.
 
 h2. Credits
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Daniel Kehoe implemented the application and wrote the tutorial.
 
-h2. License
+Is the app useful to you? Follow the project on Twitter: "@rails_apps":http://twitter.com/rails_apps
+and tweet some praise. I'd love to know you were helped out by what I've put together.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+h2. MIT License
+
+"MIT License":http://www.opensource.org/licenses/mit-license
+
+Copyright © 2012 Daniel Kehoe

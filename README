@@ -1,19 +1,28 @@
 Rails Stripe Membership Saas
 ========================
 
-This application was generated with the rails_apps_composer gem:
-https://github.com/RailsApps/rails_apps_composer
-provided by the RailsApps Project:
-http://railsapps.github.com/
+You can use this project as a starting point for a Rails web application. It requires Rails 3 and uses Devise for user management and authentication, CanCan for authorization, Twitter Bootstrap for CSS styling, and Stripe for recurring billing.
+
+Devise
+http://github.com/plataformatec/devise
+
+CanCan
+https://github.com/ryanb/cancan
+
+Twitter Bootstrap
+http://twitter.github.com/bootstrap/
+
+Stripe
+https://stripe.com/
 
 ________________________
 
-Recipes:
-["controllers", "core", "email", "extras", "frontend", "gems", "git", "init", "models", "prelaunch", "railsapps", "readme", "routes", "setup", "testing", "views"]
+For more information, please see the updated README file on GitHub:
 
-Preferences:
-{:git=>true, :railsapps=>"rails3-bootstrap-devise-cancan", :database=>"sqlite", :unit_test=>"rspec", :integration=>"cucumber", :fixtures=>"factory_girl", :frontend=>"bootstrap", :bootstrap=>"sass", :email=>"gmail", :authentication=>"devise", :devise_modules=>"default", :authorization=>"cancan", :starter_app=>"admin_app", :form_builder=>"simple_form", :quiet_assets=>true, :dev_webserver=>"webrick", :templates=>"erb", :rvmrc=>true}
+https://github.com/railsapps/rails-stripe-membership-saas
 
 ________________________
 
-License
+MIT License
+
+http://www.opensource.org/licenses/mit-license
