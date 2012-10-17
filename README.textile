@@ -5,11 +5,9 @@ Rails 3.2 example application with recurring billing using Stripe. Use for a Rai
 * "Devise":http://github.com/plataformatec/devise authentication and user management
 * "CanCan":https://github.com/ryanb/cancan authorization for administrator access
 * "Twitter Bootstrap":http://twitter.github.com/bootstrap/ front-end framework for CSS styling
-* "Stripe":https://stripe.com/
+* "Stripe":https://stripe.com/ for recurring billing and subscription management
 
 Best of all, there's a "detailed tutorial":http://railsapps.github.com/tutorial-rails-stripe-membership-saas.html to show how it's built.
-
-You can build this application in only a few minutes using the "Rails Composer":http://railsapps.github.com/rails-composer/ tool.
 
 !http://railsapps.github.com/images/rails-stripe-membership-saas.png(Rails Application for a Membership, Subscription, or SaaS Site)!
 
@@ -42,6 +40,8 @@ The example application provides a complete and fully functional membership site
 * subscribers can cancel subscription plans
 * configurable subscription renewal period (defaults to one month)
 * administrator can change subscription plan or delete user
+
+h4. What is Not Implemented
 
 There are additional features you may want for a SaaS application, such as:
 
@@ -87,7 +87,7 @@ You'll need "git":http://git-scm.com/ on your machine. See "Rails and Git":http:
 
 h3. Generate
 
-A future version of the "Rails Composer":http://railsapps.github.com/rails-composer/ tool will be able to generate the example application. You'll be able to give it your own project name when you generate the app. Generating the application gives you many additional options.
+A future version of the "Rails Composer":http://railsapps.github.com/rails-composer/ tool will be able to generate the example application. You'll be able to give it your own project name when you generate the app. This option is not yet available.
 
 h2. Getting Started
 
@@ -237,7 +237,7 @@ Problems? Check the "issues":https://github.com/RailsApps/rails-stripe-membershi
 
 h2. Documentation
 
-The "tutorial":http://railsapps.github.com/tutorial-rails-bootstrap-devise-cancan.html provides additional documentation.
+The "tutorial":http://railsapps.github.com/tutorial-rails-stripe-membership-saas.html provides additional documentation.
 
 h2. Issues
 
