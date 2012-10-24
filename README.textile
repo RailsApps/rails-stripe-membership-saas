@@ -318,7 +318,7 @@ A Stripe webhook is an HTTP request from Stripe's servers to your site, containi
 
 The example application only responds to "customer.subscription.deleted" events. You can customize the application to respond to other events (such as sending a thank you email in response to an “invoice.payment_succeeded” event).
 
-For webhooks to work, you must visit your Stripe dashboard at "https://manage.stripe.com/#account/webhooks ":https://manage.stripe.com/#account/webhooks  and add the URL for your application, such as "http://example.com/stripe":http://example.com/stripe.
+For webhooks to work, you must visit your Stripe dashboard at "https://manage.stripe.com/#account/webhooks":https://manage.stripe.com/#account/webhooks  and add the URL for your application, such as "http://example.com/stripe":http://example.com/stripe.
 
 h2. Test the App
 
