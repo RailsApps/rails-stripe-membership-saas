@@ -87,9 +87,99 @@ You'll need "git":http://git-scm.com/ on your machine. See "Rails and Git":http:
 
 h3. Generate
 
-A future version of the "Rails Composer":http://railsapps.github.com/rails-composer/ tool will be able to generate the example application. You'll be able to give it your own project name when you generate the app. This option is not yet available.
+If you want to use the project as a starter app, use the "Rails Composer":http://railsapps.github.com/rails-composer/ tool to generate a new version of the example app. You'll be able to give it your own project name when you generate the app. Generating the application gives you many additional options.
+
+To build the example application, run the command:
+
+<pre>
+$ rails new rails-stripe-membership-saas -m https://raw.github.com/RailsApps/rails-composer/master/composer.rb -T
+</pre>
+
+Use the @-T@ flag to skip Test::Unit files.
+
+The @$@ character indicates a shell prompt; don't include it when you run the command.
+
+This creates a new Rails app named @rails-stripe-membership-saas@ on your computer. You can use a different name if you wish.
+
+You'll see a prompt:
+
+<pre>
+question  Install an example application?
+      1)  I want to build my own application
+      2)  rails-stripe-membership-saas
+      3)  rails-prelaunch-signup
+      4)  rails3-bootstrap-devise-cancan
+      5)  rails3-devise-rspec-cucumber
+      6)  rails3-mongoid-devise
+      7)  rails3-mongoid-omniauth
+      8)  rails3-subdomains
+</pre>
+
+Choose *rails-stripe-membership-saas*. The Rails Composer tool may give you other options (other choices may have been added since these notes were written).
+
+The application generator template will ask you for additional preferences: 
+
+<pre>
+ question  Web server for development?
+       1)  WEBrick (default)
+       2)  Thin
+       3)  Unicorn
+       4)  Puma
+ question  Web server for production?
+       1)  Same as development
+       2)  Thin
+       3)  Unicorn
+       4)  Puma
+ question  Template engine?
+       1)  ERB
+       2)  Haml
+       3)  Slim
+   extras  Set a robots.txt file to ban spiders? (y/n)
+   extras  Create a project-specific rvm gemset and .rvmrc? (y/n)
+   extras  Create a GitHub repository? (y/n)
+</pre>
+
+h4. Web Servers
+
+Use the default WEBrick server for convenience. If you plan to deploy to Heroku, select "thin" as your production webserver.
+
+h4. Template Engine
+
+The example application uses the default "ERB" Rails template engine. Optionally, you can use another template engine, such as Haml or Slim. See instructions for "Haml and Rails":http://railsapps.github.com/rails-haml.html.
+
+h4. Other Choices
+
+Set a robots.txt file to ban spiders if you want to keep your new site out of Google search results.
+
+It is a good idea to use "rvm":https://rvm.io/, the Ruby Version Manager, and create a project-specific rvm gemset and .rvmrc file (not available on Windows). See "Installing Rails":http://railsapps.github.com/installing-rails.html.
+
+If you choose to create a GitHub repository, the generator will prompt you for a GitHub username and password.
+
+h4. Troubleshooting
+
+If you get an error "OpenSSL certificate verify failed" or "Gem::RemoteFetcher::FetchError: SSL_connect" see the article "OpenSSL errors and Rails":http://railsapps.github.com/openssl-certificate-verify-failed.html.
+
+If you get an error like this:
+
+<pre>
+Your bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.
+    composer  Running 'after bundler' callbacks.
+The template [...] could not be loaded.
+Error: You have already activated ..., but your Gemfile requires .... 
+Using bundle exec may solve this.
+</pre>
+
+It's due to conflicting gem versions. See the article "Rails Error: “You have already activated (…)”":http://railsapps.github.com/rails-error-you-have-already-activated.html.
+
+h3. Edit the README
+
+If you're storing the app in a GitHub repository, please edit the README files to add a description of the app and your contact info. If you don't change the README, people will think I am the author of your version of the application.
 
 h2. Getting Started
+
+h3. Stripe Account
+
+The application implements recurring billing using "Stripe":https://stripe.com/. Before you start, go to the Stripe website and set up an account. You don’t need a credit card merchant account or payment gateway. There’s no approval process to delay getting started.
 
 h3. Install the Required Gems
 
@@ -170,6 +260,65 @@ $ rake db:test:prepare
 </pre>
 
 If you’re not using "rvm":https://rvm.io/, the Ruby Version Manager, you should preface each rake command with @bundle exec@. You don’t need to use @bundle exec@ if you are using rvm version 1.11.0 or newer.
+
+h3. Configure the Stripe Initializer
+
+The Stripe gem requires an API key to operate. You also need to supply a public key when initiating a transaction. You can find both keys on the Stripe website when you visit your "Stripe account page":https://manage.stripe.com/#account/apikeys. You'll store the API and public key in an initializer file.
+
+Here's the file *config/initializers/stripe.rb*:
+
+<pre>
+Stripe.api_key = ENV["STRIPE_API_KEY"]
+STRIPE_PUBLIC_KEY = ENV["STRIPE_PUBLIC_KEY"]
+</pre>
+
+For security, don't record sensitive information in your application code where it might be exposed publicly on a GitHub repo. Instead, set Unix environment variables in the file that is read when starting an interactive shell (the *~/.bashrc* file for the bash shell). This will keep the password out of your repository.
+
+Add this to your *~/.bashrc* file (or the equivalent file for your preferred Unix shell):
+
+<pre>
+export STRIPE_API_KEY="secret"
+export STRIPE_PUBLIC_KEY="secret"
+</pre>
+
+Replace "secret" with your keys. You can find both keys on your "Stripe account page":https://manage.stripe.com/#account/apikeys. Two sets of keys are available: one for testing, one for live transactions. Use the testing keys on your development machine. When you deploy, use the live keys. If you plan to use Heroku for hosting, make a note for yourself to set up the Heroku environment variables after deployment.
+
+Here's how to set Heroku environment variables to provide the same data your application obtains from your local shell environment:
+
+<pre>
+$ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
+</pre>
+
+You can't set Heroku environment variables now; you'll do that after you deploy.
+
+h3. Prepare Your Stripe Account
+
+Before you can use the application, you must prepare your Stripe account to recognize the subscription plans you'll offer.
+
+This step is necessary if you're going to use Stripe to automatically handle recurring billing. To match the example application, tell Stripe that you have three plans named "Silver", "Gold", and "Platinum" that will be billed monthly at rates of $9, $19, and $29. Once a customer is created and assigned a plan, Stripe will do all the work of notifying the user, initiating monthly billing, and contacting the user when a credit card is declined or expires.
+
+Go to the Stripe "plan management page":https://manage.stripe.com/#plans to create a subscription plan. Stripe offers "documentation about creating a plan":https://stripe.com/docs/subscriptions and "additional detail about plans":https://stripe.com/docs/api#plans.
+
+Look for the toggle switch "Live/Test" and set it to "Test." Click the button to "Create your first plan."
+
+Create three different plans with the following values:
+
+|_. ID |_. Name |_. Amount |_. Interval |
+| silver | Silver | 9.00 | monthly |
+| gold | Gold | 19.00 | monthly |
+| platinum | Platinum | 29.00 | monthly |
+
+"ID" is a unique string of your choice that is used to identify the plan when subscribing a customer. In our application, each plan should have an ID that corresponds to the roles we've created to manage access. "Name" is displayed on invoices and in the Stripe web interface. "Amount" is the subscription price in US dollars. "Interval" is the billing frequency. Optionally, you can specify a trial period (in days). If you include a trial period, the customer won't be billed for the first time until the trial period ends. If the customer cancels before the trial period is over, she'll never be billed at all.
+
+h3. Stripe Webhooks
+
+When a credit card expires or a monthly transaction is declined, Stripe will automatically retry a recurring payment after it fails. After a number of attempts (set in your Stripe account settings), Stripe will cancel the subscription. Your application needs to know to deny access for a subscriber with an expired account. Stripe provides webhooks to communicate events to you (for details, see the "Stripe webhooks documentation":https://stripe.com/docs/webhooks).
+
+A Stripe webhook is an HTTP request from Stripe's servers to your site, containing JSON data that provides data about the event, plus an event id that can be used to retrive the data from the Stripe server. The example application responds to Stripe webhooks, using an implementation provided by Danny Whalen’s "stripe_event":https://github.com/integrallis/stripe_event gem. The stripe_event gem is a Rails engine that responds to webhook requests at "http://localhost:3000/stripe":http://localhost:3000/stripe (you can change the URL by modifying the engine mounting in the *config/routes.rb* file).
+
+The example application only responds to "customer.subscription.deleted" events. You can customize the application to respond to other events (such as sending a thank you email in response to an “invoice.payment_succeeded” event).
+
+For webhooks to work, you must visit your Stripe dashboard at "https://manage.stripe.com/#account/webhooks ":https://manage.stripe.com/#account/webhooks  and add the URL for your application, such as "http://example.com/stripe":http://example.com/stripe.
 
 h2. Test the App
 
