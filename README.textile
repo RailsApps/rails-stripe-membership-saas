@@ -52,11 +52,19 @@ These features are not included in this application. See the "rails3-subdomains"
 
 h2. Similar Examples and Tutorials
 
+h4. RailsApps
+
 This is one in a series of Rails example apps and tutorials from the "RailsApps Project":http://railsapps.github.com/. See a list of additional "Rails examples, tutorials, and starter apps":http://railsapps.github.com/rails-examples-tutorials.html.
 
 This example application is based on the "rails3-bootstrap-devise-cancan":https://github.com/RailsApps/rails3-bootstrap-devise-cancan starter application. This example application uses ActiveRecord and a SQLite database with RSpec and Cucumber for testing.
 
 You might also be interested in the "rails-prelaunch-signup":https://github.com/RailsApps/rails-prelaunch-signup example and tutorial from the RailsApps project.
+
+h4. Other Projects
+
+* Bruno Bornsztein's "striped_rails":https://github.com/bborn/striped_rails subscription site as a Rails engine
+* Alex Peachey's "striped_rails":https://github.com/alexpeachey/striped_rails starter app for a subscription site
+* Stripe's "monospace-rails":https://github.com/stripe/monospace-rails sample application
 
 h2. Dependencies
 
