@@ -1,0 +1,11 @@
+h1. CHANGELOG
+
+h2. 1.0.1 October 26, 2012
+
+* require a new user to choose a subscription plan (contributed by Taylor Mock)
+* add mailer specs (contributed by Taylor Mock)
+* fix rspec test for content controller (contributed by Jordan Andree)
+
+h2. 1.0.0 October 25, 2012
+
+* initial release (build using rails_apps_composer 2.2.16)
