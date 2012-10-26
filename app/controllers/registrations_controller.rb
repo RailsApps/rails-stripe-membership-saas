@@ -2,7 +2,11 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new
     @plan = params[:plan]
-    super
+    if @plan
+      super
+    else
+      redirect_to root_path, :notice => 'Please select a subscription plan below'
+    end
   end
 
   private

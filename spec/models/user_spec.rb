@@ -100,4 +100,17 @@ describe User do
 
   end
 
+  describe "expire" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "sends an email to user" do
+      @user.expire
+      ActionMailer::Base.deliveries.last.to.should == [@user.email]
+    end
+
+  end
+
 end
