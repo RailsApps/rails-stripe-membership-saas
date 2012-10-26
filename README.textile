@@ -328,6 +328,16 @@ The example application only responds to "customer.subscription.deleted" events.
 
 For webhooks to work, you must visit your Stripe dashboard at "https://manage.stripe.com/#account/webhooks":https://manage.stripe.com/#account/webhooks  and add the URL for your application, such as "http://example.com/stripe":http://example.com/stripe.
 
+h3. Change your Application's Secret Token
+
+Because the your application's secret token is currently public in this sample application, it is crucial that you change it before deploying your application in production mode. Otherwise, people could change their session information, and potentially access your SaaS or membership site as a premium user or administrator! Edit your *config/initializers/secret_token.rb* file:
+
+<pre>
+RailsStripeMembershipSaas::Application.config.secret_token = '...some really long, random string...'
+</pre>
+
+Ideally, your secret token should be at least 30 characters long and completely random.
+
 h2. Test the App
 
 You can check that your app runs properly by entering the command:
