@@ -2,7 +2,7 @@
 
 def create_visitor
   @visitor ||= { :name => "Testy McUserton", :email => "example@example.com",
-    :password => "please", :password_confirmation => "please" }
+    :password => "please", :password_confirmation => "please", :role => "silver" }
 end
 
 def find_user
@@ -20,7 +20,7 @@ def create_user
   create_visitor
   delete_user
   @user = FactoryGirl.create(:user, email: @visitor[:email])
-  @user.add_role("")
+  @user.add_role(@visitor[:role])
 end
 
 def delete_user
@@ -30,7 +30,7 @@ end
 
 def sign_up
   delete_user
-  visit '/users/sign_up'
+  visit '/users/sign_up/?plan=silver'
   fill_in "Name", :with => @visitor[:name]
   fill_in "Email", :with => @visitor[:email]
   fill_in "Password", :with => @visitor[:password]
@@ -102,6 +102,10 @@ When /^I sign up without a password$/ do
   sign_up
 end
 
+When /^I sign up without a subscription plan$/ do
+  visit '/users/sign_up'
+end
+
 When /^I sign up with a mismatched password confirmation$/ do
   create_visitor
   @visitor = @visitor.merge(:password_confirmation => "please123")
@@ -167,6 +171,10 @@ end
 
 Then /^I should see a mismatched password message$/ do
   page.should have_content "doesn't match confirmation"
+end
+
+Then /^I should see a missing subscription plan message$/ do
+  page.should have_content "Please select a subscription plan below"
 end
 
 Then /^I should see a signed out message$/ do
