@@ -7,11 +7,19 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :role_ids, :as => :admin
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :stripe_token
   attr_accessor :stripe_token
   before_save :update_stripe
   before_destroy :cancel_subscription
+
+  def update_plan(role)
+    self.remove_role(self.roles.first.name)
+    self.add_role(role.name)
+    unless customer_id.nil?
+      customer = Stripe::Customer.retrieve(customer_id)
+      customer.update_subscription(:plan => role.name)
+    end
+  end
   
   def update_stripe
     return if email.include?('@example.com')

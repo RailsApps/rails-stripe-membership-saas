@@ -9,6 +9,13 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update
+    role = Role.find(params[:user][:role_ids]) unless params[:user][:role_ids].nil?
+    params[:user] = params[:user].except(:role_ids)
+    super
+    resource.update_plan(role) unless role.nil?
+  end
+  
   private
   def build_resource(*args)
     super
