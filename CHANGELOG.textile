@@ -2,7 +2,8 @@ h1. CHANGELOG
 
 h2. 1.0.2 November 8, 2012
 
-* fix issue #13 (removing a user sunscription plan won't alter the Role database)
+* fix issue #13 (removing a user subscription plan won't alter the Role database)
+* fix issue #12 (example.com email addresses can be used in development and test but not production)
 
 h2. 1.0.1 October 27, 2012
 
