@@ -1,5 +1,9 @@
 h1. CHANGELOG
 
+h2. 1.0.2 November 8, 2012
+
+* fix issue #13 (removing a user sunscription plan won't alter the Role database)
+
 h2. 1.0.1 October 27, 2012
 
 * fix issue #8 (mass assignment error when changing plans)
