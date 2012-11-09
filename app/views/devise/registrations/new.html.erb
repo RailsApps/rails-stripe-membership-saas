@@ -2,8 +2,8 @@
 <div id="stripe_error" class="alert alert-error" style="display:none" >
 </div>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'card_form form-vertical' }) do |f| %>
-  <h3><%= @plan.titleize if @plan %> Subscription Plan</h3>
-  <%= hidden_field_tag 'plan', @plan %>
+  <h3><%= params[:plan].titleize if params[:plan] %> Subscription Plan</h3>
+  <%= hidden_field_tag 'plan', params[:plan] %>
   <%= f.error_notification %>
   <%= f.input :name, :autofocus => true %> 
   <%= f.input :email, :required => true %>
