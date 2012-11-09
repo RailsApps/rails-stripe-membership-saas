@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   before_destroy :cancel_subscription
 
   def update_plan(role)
-    self.remove_role(self.roles.first.name)
+    self.role_ids = []
     self.add_role(role.name)
     unless customer_id.nil?
       customer = Stripe::Customer.retrieve(customer_id)
