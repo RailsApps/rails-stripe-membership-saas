@@ -1,5 +1,9 @@
 h1. CHANGELOG
 
+h2. 1.0.3 November 11, 2012
+
+* fix issue #15: ddded the stripe error response div to the account/edit page (contributed by Matt Witek)
+
 h2. 1.0.2 November 9, 2012
 
 * fix issue #14: make sure plan parameter persists after failed registration (contributed by Matt Witek)
