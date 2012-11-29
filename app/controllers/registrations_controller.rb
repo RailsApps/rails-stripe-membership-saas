@@ -10,10 +10,28 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
+    @user = User.find(current_user.id)
     role = Role.find(params[:user][:role_ids]) unless params[:user][:role_ids].nil?
     params[:user] = params[:user].except(:role_ids)
-    super
-    resource.update_plan(role) unless role.nil?
+    successfully_updated = false
+    unless params[:user][:email].nil? or params[:user][:password].nil?
+      email_changed = @user.email != params[:user][:email]
+      password_changed = !params[:user][:password].empty?
+      if email_changed or password_changed
+        successfully_updated = @user.update_with_password(params[:user])
+      end
+    else
+      successfully_updated = @user.update_without_password(params[:user])
+    end
+    if successfully_updated
+      @user.update_plan(role) unless role.nil?
+      set_flash_message :notice, :updated
+      # Sign in the user bypassing validation in case his password changed
+      sign_in @user, :bypass => true
+      redirect_to after_update_path_for(@user)
+    else
+      render :edit
+    end
   end
   
   private

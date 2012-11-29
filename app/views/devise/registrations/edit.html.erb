@@ -34,8 +34,6 @@
     </div>
     <div class="modal-body">
       <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline' %>
-      <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password %></div>
     </div>
     <div class="modal-footer">
       <%= f.submit "Change Plan", :class => "btn btn-primary" %>
@@ -64,8 +62,6 @@
         <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
         <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
       </div>
-      <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password %></div>
       <%= f.hidden_field :name %>
       <%= f.hidden_field :email %>
       <%= f.hidden_field :stripe_token %>
