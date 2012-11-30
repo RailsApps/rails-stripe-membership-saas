@@ -15,9 +15,10 @@ class RegistrationsController < Devise::RegistrationsController
     params[:user] = params[:user].except(:role_ids)
     successfully_updated = false
     unless params[:user][:email].nil? or params[:user][:password].nil?
+      name_changed = @user.name != params[:user][:name]
       email_changed = @user.email != params[:user][:email]
       password_changed = !params[:user][:password].empty?
-      if email_changed or password_changed
+      if email_changed or password_changed or name_changed
         successfully_updated = @user.update_with_password(params[:user])
       end
     else
