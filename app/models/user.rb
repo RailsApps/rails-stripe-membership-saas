@@ -46,9 +46,9 @@ class User < ActiveRecord::Base
     self.customer_id = customer.id
     self.stripe_token = nil
   rescue Stripe::StripeError => e
-    logger.error e.message
-    errors.add :base, "Unable to create your subscription. #{e.message}"
-    stripe_token = nil
+    logger.error "Stripe Error: " + e.message
+    errors.add :base, "Unable to create your subscription. #{e.message}."
+    self.stripe_token = nil
     false
   end
   
@@ -60,8 +60,8 @@ class User < ActiveRecord::Base
       end
     end
   rescue Stripe::StripeError => e
-    logger.error e.message
-    errors.add :base, "Unable to cancel your subscription. #{e.message}"
+    logger.error "Stripe Error: " + e.message
+    errors.add :base, "Unable to cancel your subscription. #{e.message}."
     false
   end
   

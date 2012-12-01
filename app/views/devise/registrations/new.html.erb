@@ -5,6 +5,7 @@
   <h3><%= params[:plan].titleize if params[:plan] %> Subscription Plan</h3>
   <%= hidden_field_tag 'plan', params[:plan] %>
   <%= f.error_notification %>
+  <%= devise_error_messages! %>
   <%= f.input :name, :autofocus => true %> 
   <%= f.input :email, :required => true %>
   <%= f.input :password, :required => true %>
