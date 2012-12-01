@@ -133,6 +133,10 @@ When /^I change my email address$/ do
   click_button "Update"
 end
 
+When /^I follow the subscribe for silver path$/ do
+  visit '/users/sign_up/?plan=silver'
+end
+
 ### THEN ###
 Then /^I should be signed in$/ do
   page.should have_content "Logout"
@@ -143,6 +147,18 @@ end
 Then /^I should be signed out$/ do
   page.should have_content "Login"
   page.should_not have_content "Logout"
+end
+
+Then /^I should see "(.*?)"$/ do |text|
+  page.should have_content text
+end
+
+Then /^I should be on the "([^"]*)" page$/ do |path_name|
+  current_path.should == send("#{path_name.parameterize('_')}_path")
+end
+
+Then /I should be on the new silver user registration page$/ do
+  current_path_with_args.should == '/users/sign_up/?plan=silver'
 end
 
 Then /^I see an unconfirmed account message$/ do
