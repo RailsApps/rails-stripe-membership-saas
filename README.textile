@@ -372,8 +372,6 @@ h2. Deploy to Heroku
 
 For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.github.com/rails-heroku-tutorial.html. Heroku provides low cost, easily configured Rails application hosting.
 
-Before you deploy to production, modify the *app/models/user.rb* file to remove the statement @return if email.include?('example.com')@. If you don't do so, your application will allow any visitor to create a free account by using an “example.com” email address.
-
 Be sure to set up SSL before you make your application available in production. See the "Heroku documentation on SSL":https://devcenter.heroku.com/articles/ssl.
 
 h2. Customizing
