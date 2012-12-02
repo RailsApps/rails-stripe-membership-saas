@@ -51,3 +51,20 @@ Feature: User signs up with stripe
     When I press "Sign up"
     Then I should be on the new silver user registration page
     And I should see "Your card's security code is invalid"
+
+    @javascript
+    Scenario: With invalid card security code
+      Given I fill in the following:
+        | Name                       | Testy McDecline   |
+        | Email                      | testy@testing.com |
+        | user_password              | secret_password   |
+        | user_password_confirmation | secret_password   |
+        | Credit Card Number         | 4000000000000002  |
+        | card_code                  | 111               |
+      Then I select "10 - October" as the "month"
+      And I select "2016" as the "year"
+      When I press "Sign up"
+      Then I should be on the new silver user registration page
+      And I should see "declined"
+      
+      
