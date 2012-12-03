@@ -53,7 +53,7 @@ Feature: User signs up with stripe
     And I should see "Your card's security code is invalid"
 
     @javascript
-    Scenario: With invalid card security code
+    Scenario: With declined card
       Given I fill in the following:
         | Name                       | Testy McDecline   |
         | Email                      | testy@testing.com |
@@ -64,7 +64,7 @@ Feature: User signs up with stripe
       Then I select "10 - October" as the "month"
       And I select "2016" as the "year"
       When I press "Sign up"
-      Then I should be on the new silver user registration page
+      Then I should be on the "user registration" page
       And I should see "declined"
-      
-      
+
+
