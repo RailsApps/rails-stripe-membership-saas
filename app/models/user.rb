@@ -19,6 +19,11 @@ class User < ActiveRecord::Base
       customer = Stripe::Customer.retrieve(customer_id)
       customer.update_subscription(:plan => role.name)
     end
+    true
+  rescue Stripe::StripeError => e
+    logger.error "Stripe Error: " + e.message
+    errors.add :base, "Unable to update your subscription. #{e.message}."
+    false
   end
   
   def update_stripe

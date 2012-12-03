@@ -9,32 +9,26 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def update
-    @user = User.find(current_user.id)
+  def update_plan
+    @user = current_user
     role = Role.find(params[:user][:role_ids]) unless params[:user][:role_ids].nil?
-    params[:user] = params[:user].except(:role_ids)
-    successfully_updated = false
-    unless params[:user][:email].nil? or params[:user][:password].nil?
-      name_changed = @user.name != params[:user][:name]
-      email_changed = @user.email != params[:user][:email]
-      password_changed = !params[:user][:password].empty?
-      if email_changed or password_changed or name_changed
-        successfully_updated = @user.update_with_password(params[:user])
-      end
+    if @user.update_plan(role)
+      redirect_to edit_user_registration_path, :notice => "Updated plan."
     else
-      successfully_updated = @user.update_without_password(params[:user])
-    end
-    if successfully_updated
-      @user.update_plan(role) unless role.nil?
-      set_flash_message :notice, :updated
-      # Sign in the user bypassing validation in case his password changed
-      sign_in @user, :bypass => true
-      redirect_to after_update_path_for(@user)
-    else
-      render :edit
+      redirect_to edit_user_registration_path, :alert => "Unable to update plan."
     end
   end
-  
+
+  def update_card
+    @user = current_user
+    @user.stripe_token = params[:user][:stripe_token]
+    if @user.save
+      redirect_to edit_user_registration_path, :notice => "Updated card."
+    else
+      redirect_to edit_user_registration_path, :alert => "Unable to update card."
+    end
+  end
+
   private
   def build_resource(*args)
     super
