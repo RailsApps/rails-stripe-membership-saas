@@ -33,8 +33,8 @@ def sign_up
   visit '/users/sign_up/?plan=silver'
   fill_in "Name", :with => @visitor[:name]
   fill_in "Email", :with => @visitor[:email]
-  fill_in "Password", :with => @visitor[:password]
-  fill_in "Password confirmation", :with => @visitor[:password_confirmation]
+  fill_in "user_password", :with => @visitor[:password]
+  fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
   click_button "Sign up"
   find_user
 end
@@ -126,11 +126,15 @@ When /^I sign in with a wrong password$/ do
   sign_in
 end
 
-When /^I edit my account details$/ do
+When /^I change my email address$/ do
   click_link "Edit account"
-  fill_in "Name", :with => "newname"
-  fill_in "Current password", :with => @visitor[:password]
+  fill_in "user_email", :with => "different@example.com"
+  fill_in "user_current_password", :with => @visitor[:password]
   click_button "Update"
+end
+
+When /^I follow the subscribe for silver path$/ do
+  visit '/users/sign_up/?plan=silver'
 end
 
 ### THEN ###
@@ -143,6 +147,18 @@ end
 Then /^I should be signed out$/ do
   page.should have_content "Login"
   page.should_not have_content "Logout"
+end
+
+Then /^I should see "(.*?)"$/ do |text|
+  page.should have_content text
+end
+
+Then /^I should be on the "([^"]*)" page$/ do |path_name|
+  current_path.should == send("#{path_name.parameterize('_')}_path")
+end
+
+Then /I should be on the new silver user registration page$/ do
+  current_path_with_args.should == '/users/sign_up/?plan=silver'
 end
 
 Then /^I see an unconfirmed account message$/ do

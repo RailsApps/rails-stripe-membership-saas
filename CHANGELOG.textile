@@ -1,5 +1,12 @@
 h1. CHANGELOG
 
+h2. 1.0.5 December 2, 2012
+
+* fix issue #17: handle 'card declined' errors
+* add tests for Stripe authorization (contributed by Taylor Mock)
+* improve Registrations controller so current password is not required to change plan or credit card
+* fix issue #25: Capybara needs disambiguation
+
 h2. 1.0.4 November 13, 2012
 
 * display month numbers for credit card expiry on new and edit registration forms (contributed by Aaron Breckenridge)

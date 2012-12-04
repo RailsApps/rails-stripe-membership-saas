@@ -2,6 +2,7 @@
 <div id="stripe_error" class="alert alert-error" style="display:none" ></div>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
   <%= f.error_notification %>
+  <%= display_base_errors resource %>
   <%= f.input :name, :autofocus => true %>
   <%= f.input :email, :required => true %>
   <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
@@ -27,15 +28,13 @@
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini' %></p>
 
 <div id="plan-options" class="modal" style="display: none;">
-  <%= simple_form_for resource, :as => resource_name, :url => registration_path(resource_name) , :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
+  <%= simple_form_for resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
     <div class="modal-header">
       <a class="close" data-dismiss="modal">&#215;</a>
       <h3>Change Plan</h3>
     </div>
     <div class="modal-body">
       <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline' %>
-      <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password %></div>
     </div>
     <div class="modal-footer">
       <%= f.submit "Change Plan", :class => "btn btn-primary" %>
@@ -45,7 +44,7 @@
 </div>
 
 <div id="card-data" class="modal" style="display: none;">
-  <%= simple_form_for resource, :as => resource_name, :url => registration_path(resource_name) , :html => {:method => :put, :class => 'form-horizontal card_form' } do |f| %>
+  <%= simple_form_for resource, :as => resource_name, :url => update_card_path, :html => {:method => :put, :class => 'form-horizontal card_form' } do |f| %>
     <div class="modal-header">
       <a class="close" data-dismiss="modal">&#215;</a>
       <h3>Change Credit Card</h3>
@@ -64,8 +63,6 @@
         <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
         <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
       </div>
-      <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password %></div>
       <%= f.hidden_field :name %>
       <%= f.hidden_field :email %>
       <%= f.hidden_field :stripe_token %>

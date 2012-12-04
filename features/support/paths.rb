@@ -5,6 +5,10 @@ module NavigationHelpers
   #
   # step definition in web_steps.rb
   #
+  def current_path_with_args
+    current_url.sub(%r{.*?://},'')[%r{[/\?\#].*}] || '/'
+  end
+
   def path_to(page_name)
     case page_name
 
