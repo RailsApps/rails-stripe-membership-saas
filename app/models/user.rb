@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
     self.stripe_token = nil
   rescue Stripe::StripeError => e
     logger.error "Stripe Error: " + e.message
-    errors.add :base, "Unable to create your subscription. #{e.message}."
+    errors.add :base, "#{e.message}."
     self.stripe_token = nil
     false
   end
