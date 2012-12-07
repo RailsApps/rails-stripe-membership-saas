@@ -11,7 +11,7 @@
   <%= f.input :password, :required => true %>
   <%= f.input :password_confirmation, :required => true %>
   <% if @user.stripe_token %>
-    Credit card has been accepted.
+    <p>Credit card acceptance is pending.</p>
   <% else %>
     <div class="field">
       <%= label_tag :card_number, "Credit Card Number" %>
