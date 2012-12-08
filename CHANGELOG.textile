@@ -1,5 +1,11 @@
 h1. CHANGELOG
 
+h2. 1.0.6 December 7, 2012
+
+* handle cancellation when Stripe customer is already deleted
+* change message to 'Credit card acceptance is pending' to handle 'card declined' situations
+* fix issue #17, eliminate display of empty error div when form has errors
+
 h2. 1.0.5 December 2, 2012
 
 * fix issue #17: handle 'card declined' errors
