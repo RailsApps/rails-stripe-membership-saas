@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
   def cancel_subscription
     unless customer_id.nil?
       customer = Stripe::Customer.retrieve(customer_id)
-      unless customer.nil? or customer.deleted
+      unless customer.nil? or customer.respond_to?('deleted')
         if customer.subscription.status == 'active'
           customer.cancel_subscription
         end

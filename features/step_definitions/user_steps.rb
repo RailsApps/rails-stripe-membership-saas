@@ -133,6 +133,12 @@ When /^I change my email address$/ do
   click_button "Update"
 end
 
+When /^I delete my account$/ do
+  click_link "Edit account"
+  click_link "Cancel my account"
+  page.driver.browser.switch_to.alert.accept
+end
+
 When /^I follow the subscribe for silver path$/ do
   visit '/users/sign_up/?plan=silver'
 end
@@ -203,6 +209,10 @@ end
 
 Then /^I should see an account edited message$/ do
   page.should have_content "You updated your account successfully."
+end
+
+Then /^I should see an account deleted message$/ do
+  page.should have_content "account was successfully cancelled"
 end
 
 Then /^I should see my name$/ do
