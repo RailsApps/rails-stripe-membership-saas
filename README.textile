@@ -280,18 +280,15 @@ Stripe.api_key = ENV["STRIPE_API_KEY"]
 STRIPE_PUBLIC_KEY = ENV["STRIPE_PUBLIC_KEY"]
 </pre>
 
-For security, don't record sensitive information in your application code where it might be exposed publicly on a GitHub repo. Instead, set Unix environment variables in the file that is read when starting an interactive shell (the *~/.bashrc* file for the bash shell). This will keep the password out of your repository.
+For security, don't record sensitive information in your application code where it might be exposed publicly on a GitHub repo.
 
-Add this to your *~/.bashrc* file (or the equivalent file for your preferred Unix shell):
+Instead, rename the file *config/development.example.yml* to *config/development.yml*
 
-<pre>
-export STRIPE_API_KEY="secret"
-export STRIPE_PUBLIC_KEY="secret"
-</pre>
+Open *config/development.yml* and replace "Your_Stripe_API_Key" and "Your_Stripe_Public_Key" with the keys provided by Stripe.
 
-Replace "secret" with your keys. You can find both keys on your "Stripe account page":https://manage.stripe.com/#account/apikeys. Two sets of keys are available: one for testing, one for live transactions. Use the testing keys on your development machine. When you deploy, use the live keys. If you plan to use Heroku for hosting, make a note for yourself to set up the Heroku environment variables after deployment.
+You can find both keys on your "Stripe account page":https://manage.stripe.com/#account/apikeys. Two sets of keys are available: one for testing, one for live transactions. Use the testing keys on your development machine. When you deploy, use the live keys. If you plan to use Heroku for hosting, make a note for yourself to set up the Heroku environment variables after deployment.
 
-Here's how to set Heroku environment variables to provide the same data your application obtains from your local shell environment:
+Here's how to set Heroku environment variables to provide the same data your application obtains from the 'development.yml' file:
 
 <pre>
 $ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
