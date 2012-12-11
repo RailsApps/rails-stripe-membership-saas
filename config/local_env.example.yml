@@ -1,0 +1,12 @@
+# Rename this file to local_env.yml
+# Add account settings and API keys here.
+# This file is in .gitignore to keep your settings secret!
+# Each entry gets set as a local environment variable.
+# This file overrides ENV variables in the Unix shell.
+# For example, setting:
+# GMAIL_USERNAME: 'Your_Gmail_Username'
+# makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
+STRIPE_API_KEY: 'Your_Stripe_API_key'
+STRIPE_PUBLIC_KEY: 'Your_Stripe_Public_Key'
+GMAIL_USERNAME: 'Your_Gmail_Username'
+GMAIL_PASSWORD: 'Your_Gmail_Password'
