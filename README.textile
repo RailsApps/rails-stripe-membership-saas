@@ -244,13 +244,27 @@ user4.add_role :platinum
 puts "added users: #{user2.name}, #{user3.name}, #{user4.name}"
 </pre>
 
-You can change the roles and name, email, and password as you wish.
+You can change the roles and name, email, and password as you wish. See the advice below about using "example.com" email addresses.
 
 If you include your private password in the file, be sure to add the filename to your *.gitignore* file so that your password doesn't become available in your public GitHub repository.
 
 Note that it's not necessary to personalize the *db/seeds.rb* file before you deploy your app. You can deploy the app with an example user and then use the application's "Edit Account" feature to change name, email address, and password after you log in. Use this feature to log in as an administrator and change the user name and password to your own.
 
 The *db/seeds.rb* file is the only place where we create a list of possible roles. There is no other configuration of roles. Any new role can be added to the roles datatable with a statement such @user.add_role :superhero@.
+
+h3. Using "example.com" Email Addresses
+
+The application handles "example.com" email addresses as a special case. Users with an "example.com" domain will not be added to Stripe as subscribers; they will only be added to the application database. This makes it possible to run @rake db:seed@ to set up the administrator's account and any sample users for development and testing.
+
+If you test subscribing a new user (providing a fake credit card number such as _4242424242424242_), don't use an "example.com" email address if you want to see the results in the Stripe administrative dashboard.
+
+If you wish to special case a different domain for email addresses (such as your own for an administrator's account), look at the *app/models/user.rb* file. Change the statement in the @update_stripe@ method:
+
+<pre>
+return if email.include?('@example.com') and not Rails.env.production?
+</pre>
+
+As you can see from the code, the "example.com" email addresses will not be special cased in production. That means @rake db:seed@ will fail with errors if you attempt to run it on Heroku after deployment. See advice below about deploying to Heroku.
 
 h3. Set the Database
 
@@ -271,7 +285,9 @@ If you’re not using "rvm":https://rvm.io/, the Ruby Version Manager, you shoul
 
 h3. Configure the Stripe Initializer
 
-The Stripe gem requires an API key to operate. You also need to supply a public key when initiating a transaction. You can find both keys on the Stripe website when you visit your "Stripe account page":https://manage.stripe.com/#account/apikeys. You'll store the API and public key in an initializer file.
+The Stripe gem requires an API key to operate. You also need to supply a public key when initiating a transaction. You can find both keys on your "Stripe account page":https://manage.stripe.com/#account/apikeys. Two sets of keys are available: one for testing, one for live transactions. Use the testing keys on your development machine. When you deploy, use the live keys.
+
+You'll store the API and public key in an initializer file.
 
 Here's the file *config/initializers/stripe.rb*:
 
@@ -280,24 +296,21 @@ Stripe.api_key = ENV["STRIPE_API_KEY"]
 STRIPE_PUBLIC_KEY = ENV["STRIPE_PUBLIC_KEY"]
 </pre>
 
-For security, don't record sensitive information in your application code where it might be exposed publicly on a GitHub repo. Instead, set Unix environment variables in the file that is read when starting an interactive shell (the *~/.bashrc* file for the bash shell). This will keep the password out of your repository.
+For security, don't record sensitive information in your application code where it might be exposed publicly on a GitHub repo.
 
-Add this to your *~/.bashrc* file (or the equivalent file for your preferred Unix shell):
+Instead, rename the file *config/local_env.example.yml* to *config/local_env.yml*.
 
-<pre>
-export STRIPE_API_KEY="secret"
-export STRIPE_PUBLIC_KEY="secret"
-</pre>
+Open *config/local_env.yml* and replace "Your_Stripe_API_Key" and "Your_Stripe_Public_Key" with the keys provided by Stripe.
 
-Replace "secret" with your keys. You can find both keys on your "Stripe account page":https://manage.stripe.com/#account/apikeys. Two sets of keys are available: one for testing, one for live transactions. Use the testing keys on your development machine. When you deploy, use the live keys. If you plan to use Heroku for hosting, make a note for yourself to set up the Heroku environment variables after deployment.
+See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information. As an alternative to using the *config/local_env.yml* file, the article shows how to set environment variables in the Unix shell.
 
-Here's how to set Heroku environment variables to provide the same data your application obtains from your local shell environment:
+Here's how to set Heroku environment variables to provide the same data:
 
 <pre>
 $ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
 </pre>
 
-You can't set Heroku environment variables now; you'll do that after you deploy.
+You can't set Heroku environment variables now; you'll do that after you deploy. If you plan to use Heroku for hosting, make a note for yourself to set up the Heroku environment variables after deployment.
 
 h3. Prepare Your Stripe Account
 
@@ -362,7 +375,7 @@ To sign in as the second user, use
 The second user will not see the Admin navigation link and will not be able to access the page at
 "http://localhost:3000/users":http://localhost:3000/users.
 
-You should be able to create additional users using the fake credit card number _4242424242424242_. You'll see the new users listed when you log in as an administrator. And you'll see the new users listed as customers when you visit your Stripe dashboard.
+You should be able to create additional users using the fake credit card number _4242424242424242_. You'll see the new users listed when you log in as an administrator. And you'll see the new users listed as customers when you visit your Stripe dashboard (as explained above, users with "example.com" email addresses will not be added to Stripe in development or testing).
 
 Stop the server with Control-C.
 
@@ -373,6 +386,44 @@ h2. Deploy to Heroku
 For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.github.com/rails-heroku-tutorial.html. Heroku provides low cost, easily configured Rails application hosting.
 
 Be sure to set up SSL before you make your application available in production. See the "Heroku documentation on SSL":https://devcenter.heroku.com/articles/ssl.
+
+You'll need to set your Stripe API and public key as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information. Here's how to set Heroku environment variables for your Stripe API and public key:
+
+<pre>
+$ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
+</pre>
+
+Prior to deployment, it's advisable to change your *db/seeds.rb* file. At a minimum, change the "example.com" address for the administrator and remove the "example.com" sample users. Optionally, you can change your own name, email and password or wait and change the values through the application "Edit account" interface later. You can also change list of roles that correspond to the subscription plans you will offer.
+
+<pre>
+puts 'CREATING ROLES'
+Role.create([
+  { :name => 'admin' }, 
+  { :name => 'silver' }, 
+  { :name => 'gold' },
+  { :name => 'platinum' }
+], :without_protection => true)
+puts 'SETTING UP DEFAULT USER LOGIN'
+user = User.create! :name => 'My Name', :email => 'me@mydomain.com', :password => 'please', :password_confirmation => 'please'
+user.add_role :admin
+puts 'admin created: ' << user.name
+</pre>
+
+You can change the roles and name, email, and password as you wish. See the advice below about using "example.com" email addresses.
+
+You'll need to special case your administrator's email address in the *app/models/user.rb* file. Change the statement in the @update_stripe@ method:
+
+<pre>
+return if email.include?('@example.com') and not Rails.env.production?
+</pre>
+
+to 
+
+<pre>
+return if email.include?('@mydomain.com')
+</pre>
+
+If you don't special case your email address, @rake db:seed@ will fail with errors if you attempt to run it on Heroku after deployment, since you are not supplying a credit card for Stripe for the administrator.
 
 h2. Customizing
 
