@@ -437,7 +437,7 @@ If you have suggestions for additional features, please create an "issue":http:/
 
 h2. Testing
 
-This is an early release of the application and does not contain a full suite of RSpec unit tests and Cucumber scenarios and step definitions.
+The application provides a suite of RSpec unit tests and Cucumber scenarios and step definitions.
 
 After installing the application, run @rake -T@ to check that rake tasks for RSpec and Cucumber are available.
 
@@ -476,6 +476,8 @@ If you add functionality to this application, create an alternative implementati
 h2. Credits
 
 Daniel Kehoe implemented the application and wrote the tutorial.
+
+Taylor Mock contributed tests and feature improvements.
 
 Is the app useful to you? Follow the project on Twitter: "@rails_apps":http://twitter.com/rails_apps
 and tweet some praise. I'd love to know you were helped out by what I've put together.
