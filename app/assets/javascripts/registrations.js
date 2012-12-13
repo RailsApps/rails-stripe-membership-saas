@@ -1,6 +1,6 @@
 $('.registrations').ready(function() {
   $.externalScript('https://js.stripe.com/v1/').done(function(script, textStatus) {
-      Stripe.setPublishableKey('<%= STRIPE_PUBLIC_KEY %>');
+      Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
       var subscription = {
         setupForm: function() {
           return $('.card_form').submit(function() {
