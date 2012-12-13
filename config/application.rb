@@ -79,6 +79,14 @@ module RailsStripeMembershipSaas
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Deals with heroku issue when rake assets:precompile during deployment.
+    # You may have to set it to false if you receive the following error when deploying to heroku:
+    #   could not connect to server: Connection refused
+    #   Is the server running on host "127.0.0.1" and accepting
+    #   TCP/IP connections on port xxxx?
+    # See https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar#troubleshooting for more information.
+    # config.assets.initialize_on_precompile = false
+
     # Set local environment variables from a file /config/local_env.yml
     # See http://railsapps.github.com/rails-environment-variables.html
     config.before_configuration do
