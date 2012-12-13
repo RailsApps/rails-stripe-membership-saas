@@ -8,6 +8,7 @@
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= yield(:head) %>
+    <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
     <header class="navbar navbar-fixed-top">

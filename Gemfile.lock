@@ -31,6 +31,10 @@ GEM
     addressable (2.3.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    better_errors (0.2.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.7.0)
+    binding_of_caller (0.6.8)
     bootstrap-sass (2.2.1.1)
       sass (~> 3.2)
     builder (3.0.4)
@@ -44,6 +48,7 @@ GEM
       xpath (~> 1.0.0)
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
+    coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -188,6 +193,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  better_errors (>= 0.0.8)
+  binding_of_caller (>= 0.6.8)
   bootstrap-sass (>= 2.1.1.0)
   cancan (>= 1.6.8)
   capybara (>= 2.0.1)
