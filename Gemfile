@@ -22,5 +22,6 @@ gem "simple_form", ">= 2.0.4"
 gem "stripe", ">= 1.7.4"
 gem "stripe_event", ">= 0.4.0"
 gem "quiet_assets", ">= 1.0.1", :group => :development
-gem "better_errors", ">= 0.0.8", :group => :development
+gem "figaro", ">= 0.5.0"
+gem "better_errors", ">= 0.2.0", :group => :development
 gem "binding_of_caller", ">= 0.6.8", :group => :development

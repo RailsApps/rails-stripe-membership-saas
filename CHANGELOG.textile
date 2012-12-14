@@ -1,5 +1,9 @@
 h1. CHANGELOG
 
+h2. 1.0.7 December 14, 2012
+
+* use 'figaro' gem to set local environment variables for Stripe credentials
+
 h2. 1.0.6 December 7, 2012
 
 * handle cancellation when Stripe customer is already deleted
