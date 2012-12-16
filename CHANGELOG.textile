@@ -2,6 +2,7 @@ h1. CHANGELOG
 
 h2. 1.0.8 December 16, 2012
 
+* add option to use a coupon when subscribing (fix issue #36)
 * use metatag to set STRIPE_PUBLIC_KEY in 'app/assets/javascripts/registrations.js' file (fix issue #29)
 * use 'find_or_create_by_name' in the 'db/seeds.rb' file to avoid duplicate roles (fix issue #41)
 * set roles and admin user credentials from 'application.yml' file
