@@ -270,35 +270,35 @@ h3. Set Up a Database Seed File
 The *db/seeds.rb* file initializes the database with default values. To keep some data private, and consolidate configuration settings in a single location, we use the *config/application.yml* file to set environment variables and then use the environment variables in the *db/seeds.rb* file.
 
 <pre>
-puts 'CREATING ROLES'
+puts 'ROLES'
 YAML.load(ENV['ROLES']).each do |role|
-  puts 'creating role: ' << role
-  Role.create({ :name => role }, :without_protection => true)
+  Role.find_or_create_by_name({ :name => role }, :without_protection => true)
+  puts 'role: ' << role
 end
-puts 'SETTING UP DEFAULT USER LOGIN'
-user = User.create! :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
-puts 'New user created: ' << user.name
+puts 'DEFAULT USERS'
+user = User.find_or_create_by_name :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+puts 'user: ' << user.name
 user.add_role :admin
-user2 = User.create! :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
+user2 = User.find_or_create_by_name :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
 user2.add_role :silver
-user3 = User.create! :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
+user3 = User.find_or_create_by_name :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
 user3.add_role :gold
-user4 = User.create! :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
+user4 = User.find_or_create_by_name :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
 user4.add_role :platinum
-puts "added users: #{user2.name}, #{user3.name}, #{user4.name}"
+puts "users: #{user2.name}, #{user3.name}, #{user4.name}"
 </pre>
 
-You can change the administrator name, email, and password in this file but it is better to make the changes in the *config/application.yml* file to keep the credentials private. If you include your private password in the *db/seeds.rb* file, be sure to add the filename to your *.gitignore* file so that your password doesn't become available in your public GitHub repository.
+You can change the administrator name, email, and password in this file but it is better to make the changes in the *config/application.yml* file to keep the credentials private. If you decide to include your private password in the *db/seeds.rb* file, be sure to add the filename to your *.gitignore* file so that your password doesn't become available in your public GitHub repository.
 
 Note that it's not necessary to personalize the *db/seeds.rb* file before you deploy your app. You can deploy the app with an example user and then use the application's "Edit Account" feature to change name, email address, and password after you log in. Use this feature to log in as an administrator and change the user name and password to your own.
 
-The *db/seeds.rb* file reads a list of roles from the *config/application.yml* file and adds the roles to the database. In fact, any new role can be added to the roles datatable with a statement such @user.add_role :superhero@. Setting the roles in the *db/seeds.rb* file makes sure each role is listed and available should a user wish to change roles.
+The *db/seeds.rb* file reads a list of roles from the *config/application.yml* file and adds the roles to the database. In fact, any new role can be added to the roles datatable with a statement such @user.add_role :superhero@. Setting the roles in the *db/seeds.rb* file simply makes sure each role is listed and available should a user wish to change roles.
 
 h3. Using "example.com" Email Addresses
 
 The application handles the administrator's account and any "example.com" email addresses as a special case. Users with an "example.com" domain will not be added to Stripe as subscribers; they will only be added to the application database. This makes it possible to run @rake db:seed@ to add administrator and set up sample users for development and testing.
 
-If you test subscribing a new user (providing a fake credit card number such as _4242424242424242_), don't use an "example.com" email address if you want to see the results in the Stripe administrative dashboard.
+If you want to see Stripe's response when subscribing a new user (using a fake credit card number such as _4242424242424242_), don't use an "example.com" email address.
 
 Two statements in the @update_stripe@ method in the *app/models/user.rb* file implement the special case so that the Stripe server is not contacted:
 
@@ -322,6 +322,8 @@ Prepare the database and add the default user to the database by running the com
 $ rake db:migrate
 $ rake db:seed
 </pre>
+
+Use @rake db:reset@ if you want to empty and reseed the database.
 
 Set the database for running tests:
 
@@ -375,7 +377,7 @@ h3. Change your Application's Secret Token
 
 If you've used the Rails Composer tool to generate the application, the application's secret token will be unique, just as with any Rails application generated with the @rails new@ command.
 
-However, if you've cloned the application from GitHub, it is crucial that you change the application's secret token before deploying your application in production mode. Otherwise, people could change their session information, and potentially access your SaaS or membership site as a premium user or administrator! Ideally, your secret token should be at least 30 characters long and completely random. Edit your *config/initializers/secret_token.rb* file:
+However, if you've cloned the application directly from GitHub, it is crucial that you change the application's secret token before deploying your application in production mode. Otherwise, people could change their session information, and potentially access your SaaS or membership site as a premium user or administrator. Your secret token should be at least 30 characters long and completely random. Edit your *config/initializers/secret_token.rb* file:
 
 <pre>
 RailsStripeMembershipSaas::Application.config.secret_token = '...some really long, random string...'
@@ -389,7 +391,7 @@ You can check that your app runs properly by entering the command:
 
 To see your application in action, open a browser window and navigate to "http://localhost:3000/":http://localhost:3000.
 
-If you are using the default values from the *config/application.yml* file, you can sign in as the first user (the administrator) using: 
+If you are using the default values from the *config/application.yml* file, you can sign in as the administrator using: 
 
 * email: user@example.com
 * password: please
@@ -405,7 +407,7 @@ To sign in as the second user, use
 The second user will not see the Admin navigation link and will not be able to access the page at
 "http://localhost:3000/users":http://localhost:3000/users.
 
-You should be able to create additional users using the fake credit card number _4242424242424242_. You'll see the new users listed when you log in as an administrator. And you'll see the new users listed as customers when you visit your Stripe dashboard (as explained above, users with "example.com" email addresses will not be added to Stripe in development or testing).
+You should be able to create additional users using the fake credit card number _4242424242424242_. You'll see the new users listed when you log in as an administrator. And you'll see the new users listed as customers when you visit your Stripe dashboard. As explained above, users with "example.com" email addresses will not be added to Stripe in development or testing.
 
 Stop the server with Control-C.
 
@@ -434,14 +436,14 @@ $ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
 Prior to deployment, it's advisable to change your *db/seeds.rb* file. At a minimum, remove the "example.com" sample users. Optionally, you can change the administrator name, email and password though it is better to wait and change the values through the application "Edit account" interface later.
 
 <pre>
-puts 'CREATING ROLES'
+puts 'ROLES'
 YAML.load(ENV['ROLES']).each do |role|
-  puts 'creating role: ' << role
-  Role.create({ :name => role }, :without_protection => true)
+  Role.find_or_create_by_name({ :name => role }, :without_protection => true)
+  puts 'role: ' << role
 end
-puts 'SETTING UP DEFAULT USER LOGIN'
-user = User.create! :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
-puts 'New user created: ' << user.name
+puts 'DEFAULT USERS'
+user = User.find_or_create_by_name :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+puts 'user: ' << user.name
 user.add_role :admin
 </pre>
 
