@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
+<% end %>
 <h2>Sign up</h2>
 <div id="stripe_error" class="alert alert-error" style="display:none" >
 </div>
