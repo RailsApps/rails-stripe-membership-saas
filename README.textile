@@ -95,7 +95,7 @@ You'll need "git":http://git-scm.com/ on your machine. See "Rails and Git":http:
 
 h3. Generate
 
-If you want to use the project as a starter app, use the "Rails Composer":http://railsapps.github.com/rails-composer/ tool to generate a new version of the example app. You'll be able to give it your own project name when you generate the app. Generating the application gives you many additional options.
+If you want to use the project as a starter app, use the "Rails Composer":http://railsapps.github.com/rails-composer/ tool to generate a new version of the example app. You'll be able to give it your own project name when you generate the app. Generating the application gives you additional options.
 
 To build the example application, run the command:
 
@@ -149,7 +149,9 @@ The application generator template will ask you for additional preferences:
 
 h4. Web Servers
 
-Use the default WEBrick server for convenience. If you plan to deploy to Heroku, select "thin" as your production webserver.
+We recommend Thin in development for speed and less noise in the log files.
+
+If you plan to deploy to Heroku, select Thin as your production webserver.
 
 h4. Template Engine
 
@@ -185,15 +187,23 @@ If you're storing the app in a GitHub repository, please edit the README files t
 
 h2. Getting Started
 
+See the article "Installing Rails":http://railsapps.github.com/installing-rails.html to make sure your development environment is prepared properly.
+
 h3. Stripe Account
 
 The application implements recurring billing using "Stripe":https://stripe.com/. Before you start, go to the Stripe website and set up an account. You don’t need a credit card merchant account or payment gateway. There’s no approval process to delay getting started.
+
+h3. Use RVM
+
+I recommend using "rvm":https://rvm.io/, the Ruby Version Manager, to create a project-specific gemset for the application. If you generate the application with the Rails Composer tool, you can create a project-specific gemset.
 
 h3. Install the Required Gems
 
 Check the Gemfile to see which gems are used by this application.
 
-Run the @bundle install@ command to install the required gems on your computer:
+If you generate the application with the Rails Composer tool, all gems will be installed.
+
+Otehrwise, run the @bundle install@ command to install the required gems on your computer:
 
 <pre>
 $ bundle install
@@ -207,8 +217,6 @@ $ gem list
 
 Keep in mind that you have installed these gems locally. When you deploy the app to another server, the same gems (and versions) must be available.
 
-I recommend using "rvm":https://rvm.io/, the Ruby Version Manager, to create a project-specific gemset for the application. See the article "Installing Rails":http://railsapps.github.com/installing-rails.html.
-
 h3. Configure Email
 
 You must configure the application for your email account. See the article "Send Email with Rails":http://railsapps.github.com/rails-send-email.html.
@@ -219,22 +227,58 @@ You can modify the configuration file for Devise if you want to use something ot
 
 * *config/initializers/devise.rb*
 
+h3. Configuration File
+
+The application uses the "figaro gem":https://github.com/laserlemon/figaro to set environment variables. Credentials for your administrator account and Stripe API keys are set in the *config/application.yml* file. The *.gitignore* file prevents the *config/application.yml* file from being saved in the git repository so your credentials are kept private. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information.
+
+Modify the file *config/application.yml*:
+
+<pre>
+# Add account credentials and API keys here.
+# See http://railsapps.github.com/rails-environment-variables.html
+# This file should be listed in .gitignore to keep your settings secret!
+# Each entry sets a local environment variable and overrides ENV variables in the Unix shell.
+# For example, setting:
+# GMAIL_USERNAME: Your_Gmail_Username
+# makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
+# Add application configuration variables here, as shown below.
+#
+GMAIL_USERNAME: Your_Username
+GMAIL_PASSWORD: Your_Password
+ADMIN_NAME: First User
+ADMIN_EMAIL: user@example.com
+ADMIN_PASSWORD: please
+ROLES: [admin, silver, gold, platinum]
+STRIPE_API_KEY: Your_Stripe_API_key
+STRIPE_PUBLIC_KEY: Your_Stripe_Public_Key
+</pre>
+
+Set the user name and password needed for the application to send email.
+
+If you wish, set your name, email address, and password for an administrator's account. If you prefer, you can use the default to sign in to the application and edit the account after deployment. It is always a good idea to change the administrator's password after the application is deployed.
+
+The roles you specify in the configuration file are the subscription plans that will be available to the application's users. You will need an "admin" role. Keep the "silver", "gold", and "platinum" roles while you are testing the application. You can change these roles later, after you familiarize yourself with the application and begin to customize it for your own needs.
+
+The Stripe gem requires an API key to operate. You also need to supply a public key when initiating a transaction. You can find both keys on your "Stripe account page":https://manage.stripe.com/#account/apikeys. Two sets of keys are available: one for testing, one for live transactions. Use the testing keys on your development machine. When you deploy, use the live keys.
+
+All configuration values in the *config/application.yml* file are available anywhere in the application as environment variables. For example, @ENV["GMAIL_USERNAME"]@ will return the string "Your_Username".
+
+If you prefer, you can delete the *config/application.yml* file and set each value as an environment variable in the Unix shell.
+
 h3. Set Up a Database Seed File
 
-You'll want to set up a default user so you can easily log in to test the app. You can modify the file *db/seeds.rb* for your own name, email and password. You can also set a list of roles that correspond to the subscription plans you will offer.
+The *db/seeds.rb* file initializes the database with default values. To keep some data private, and consolidate configuration settings in a single location, we use the *config/application.yml* file to set environment variables and then use the environment variables in the *db/seeds.rb* file.
 
 <pre>
 puts 'CREATING ROLES'
-Role.create([
-  { :name => 'admin' }, 
-  { :name => 'silver' }, 
-  { :name => 'gold' },
-  { :name => 'platinum' }
-], :without_protection => true)
+YAML.load(ENV['ROLES']).each do |role|
+  puts 'creating role: ' << role
+  Role.create({ :name => role }, :without_protection => true)
+end
 puts 'SETTING UP DEFAULT USER LOGIN'
-user = User.create! :name => 'First User', :email => 'user@example.com', :password => 'please', :password_confirmation => 'please'
+user = User.create! :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+puts 'New user created: ' << user.name
 user.add_role :admin
-puts 'admin created: ' << user.name
 user2 = User.create! :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
 user2.add_role :silver
 user3 = User.create! :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
@@ -244,27 +288,31 @@ user4.add_role :platinum
 puts "added users: #{user2.name}, #{user3.name}, #{user4.name}"
 </pre>
 
-You can change the roles and name, email, and password as you wish. See the advice below about using "example.com" email addresses.
-
-If you include your private password in the file, be sure to add the filename to your *.gitignore* file so that your password doesn't become available in your public GitHub repository.
+You can change the administrator name, email, and password in this file but it is better to make the changes in the *config/application.yml* file to keep the credentials private. If you include your private password in the *db/seeds.rb* file, be sure to add the filename to your *.gitignore* file so that your password doesn't become available in your public GitHub repository.
 
 Note that it's not necessary to personalize the *db/seeds.rb* file before you deploy your app. You can deploy the app with an example user and then use the application's "Edit Account" feature to change name, email address, and password after you log in. Use this feature to log in as an administrator and change the user name and password to your own.
 
-The *db/seeds.rb* file is the only place where we create a list of possible roles. There is no other configuration of roles. Any new role can be added to the roles datatable with a statement such @user.add_role :superhero@.
+The *db/seeds.rb* file reads a list of roles from the *config/application.yml* file and adds the roles to the database. In fact, any new role can be added to the roles datatable with a statement such @user.add_role :superhero@. Setting the roles in the *db/seeds.rb* file makes sure each role is listed and available should a user wish to change roles.
 
 h3. Using "example.com" Email Addresses
 
-The application handles "example.com" email addresses as a special case. Users with an "example.com" domain will not be added to Stripe as subscribers; they will only be added to the application database. This makes it possible to run @rake db:seed@ to set up the administrator's account and any sample users for development and testing.
+The application handles the administrator's account and any "example.com" email addresses as a special case. Users with an "example.com" domain will not be added to Stripe as subscribers; they will only be added to the application database. This makes it possible to run @rake db:seed@ to add administrator and set up sample users for development and testing.
 
 If you test subscribing a new user (providing a fake credit card number such as _4242424242424242_), don't use an "example.com" email address if you want to see the results in the Stripe administrative dashboard.
 
-If you wish to special case a different domain for email addresses (such as your own for an administrator's account), look at the *app/models/user.rb* file. Change the statement in the @update_stripe@ method:
+Two statements in the @update_stripe@ method in the *app/models/user.rb* file implement the special case so that the Stripe server is not contacted:
 
 <pre>
-return if email.include?('@example.com') and not Rails.env.production?
+def update_stripe
+  return if email.include?(ENV['ADMIN_EMAIL'])
+  return if email.include?('@example.com') and not Rails.env.production?
+  .
+  .
+  .
+end
 </pre>
 
-As you can see from the code, the "example.com" email addresses will not be special cased in production. That means @rake db:seed@ will fail with errors if you attempt to run it on Heroku after deployment. See advice below about deploying to Heroku.
+As you can see from the code, the "example.com" email addresses will not be special cased in production. That means @rake db:seed@ will fail with errors if you attempt to run it after deployment. See advice below about deploying to Heroku. You should remove the sample users (but not the administrator) from the *db/seeds.rb* file before deploying to production.
 
 h3. Set the Database
 
@@ -283,34 +331,16 @@ $ rake db:test:prepare
 
 If you’re not using "rvm":https://rvm.io/, the Ruby Version Manager, you should preface each rake command with @bundle exec@. You don’t need to use @bundle exec@ if you are using rvm version 1.11.0 or newer.
 
-h3. Configure the Stripe Initializer
+h3. The Stripe Initializer
 
-The Stripe gem requires an API key to operate. You also need to supply a public key when initiating a transaction. You can find both keys on your "Stripe account page":https://manage.stripe.com/#account/apikeys. Two sets of keys are available: one for testing, one for live transactions. Use the testing keys on your development machine. When you deploy, use the live keys.
-
-You'll store the API and public key in an initializer file.
-
-Here's the file *config/initializers/stripe.rb*:
+The file *config/initializers/stripe.rb* sets the Stripe API key and public key from environment variables:
 
 <pre>
 Stripe.api_key = ENV["STRIPE_API_KEY"]
 STRIPE_PUBLIC_KEY = ENV["STRIPE_PUBLIC_KEY"]
 </pre>
 
-For security, don't record sensitive information in your application code where it might be exposed publicly on a GitHub repo.
-
-Instead, rename the file *config/local_env.example.yml* to *config/local_env.yml*.
-
-Open *config/local_env.yml* and replace "Your_Stripe_API_Key" and "Your_Stripe_Public_Key" with the keys provided by Stripe.
-
-See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information. As an alternative to using the *config/local_env.yml* file, the article shows how to set environment variables in the Unix shell.
-
-Here's how to set Heroku environment variables to provide the same data:
-
-<pre>
-$ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
-</pre>
-
-You can't set Heroku environment variables now; you'll do that after you deploy. If you plan to use Heroku for hosting, make a note for yourself to set up the Heroku environment variables after deployment.
+You could hardcode the Stripe API key and public key in the *config/initializers/stripe.rb* file but instead, we advise to set the Stripe API key and public key in the *config/application.yml* file. Recording sensitive information in the *config/initializers/stripe.rb* file might expose it publicly on a GitHub repo. The Stripe API key should be kept secret; the Stripe public key can be revealed without consequence.
 
 h3. Prepare Your Stripe Account
 
@@ -343,13 +373,13 @@ For webhooks to work, you must visit your Stripe dashboard at "https://manage.st
 
 h3. Change your Application's Secret Token
 
-If you've cloned the application from GitHub, it is crucial that you change the application's secret token before deploying your application in production mode. Otherwise, people could change their session information, and potentially access your SaaS or membership site as a premium user or administrator! Ideally, your secret token should be at least 30 characters long and completely random. Edit your *config/initializers/secret_token.rb* file:
+If you've used the Rails Composer tool to generate the application, the application's secret token will be unique, just as with any Rails application generated with the @rails new@ command.
+
+However, if you've cloned the application from GitHub, it is crucial that you change the application's secret token before deploying your application in production mode. Otherwise, people could change their session information, and potentially access your SaaS or membership site as a premium user or administrator! Ideally, your secret token should be at least 30 characters long and completely random. Edit your *config/initializers/secret_token.rb* file:
 
 <pre>
 RailsStripeMembershipSaas::Application.config.secret_token = '...some really long, random string...'
 </pre>
-
-If you've used the Rails Composer tool to generate the application, the application's secret token will already be unique, just as with any Rails application generated with the @rails new@ command.
 
 h2. Test the App
 
@@ -359,7 +389,7 @@ You can check that your app runs properly by entering the command:
 
 To see your application in action, open a browser window and navigate to "http://localhost:3000/":http://localhost:3000.
 
-Sign in as the first user (the administrator) using: 
+If you are using the default values from the *config/application.yml* file, you can sign in as the first user (the administrator) using: 
 
 * email: user@example.com
 * password: please
@@ -387,47 +417,39 @@ For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.
 
 Be sure to set up SSL before you make your application available in production. See the "Heroku documentation on SSL":https://devcenter.heroku.com/articles/ssl.
 
-You'll need to set your Stripe API and public key as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information. Here's how to set Heroku environment variables for your Stripe API and public key:
+You'll need to set the configuration values from the *config/application.yml* file as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information. 
+
+With the figaro gem, just run:
+
+<pre>
+rake figaro:heroku
+</pre>
+
+Alternatively, you can set Heroku environment variables for your Stripe API and public key like this:
 
 <pre>
 $ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
 </pre>
 
-Prior to deployment, it's advisable to change your *db/seeds.rb* file. At a minimum, change the "example.com" address for the administrator and remove the "example.com" sample users. Optionally, you can change your own name, email and password or wait and change the values through the application "Edit account" interface later. You can also change list of roles that correspond to the subscription plans you will offer.
+Prior to deployment, it's advisable to change your *db/seeds.rb* file. At a minimum, remove the "example.com" sample users. Optionally, you can change the administrator name, email and password though it is better to wait and change the values through the application "Edit account" interface later.
 
 <pre>
 puts 'CREATING ROLES'
-Role.create([
-  { :name => 'admin' }, 
-  { :name => 'silver' }, 
-  { :name => 'gold' },
-  { :name => 'platinum' }
-], :without_protection => true)
+YAML.load(ENV['ROLES']).each do |role|
+  puts 'creating role: ' << role
+  Role.create({ :name => role }, :without_protection => true)
+end
 puts 'SETTING UP DEFAULT USER LOGIN'
-user = User.create! :name => 'My Name', :email => 'me@mydomain.com', :password => 'please', :password_confirmation => 'please'
+user = User.create! :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+puts 'New user created: ' << user.name
 user.add_role :admin
-puts 'admin created: ' << user.name
 </pre>
 
-You can change the roles and name, email, and password as you wish. See the advice below about using "example.com" email addresses.
-
-You'll need to special case your administrator's email address in the *app/models/user.rb* file. Change the statement in the @update_stripe@ method:
-
-<pre>
-return if email.include?('@example.com') and not Rails.env.production?
-</pre>
-
-to 
-
-<pre>
-return if email.include?('@mydomain.com')
-</pre>
-
-If you don't special case your email address, @rake db:seed@ will fail with errors if you attempt to run it on Heroku after deployment, since you are not supplying a credit card for Stripe for the administrator.
+If you don't remove the "example.com" sample users, @rake db:seed@ will fail with errors if you attempt to run it on Heroku after deployment, since you are not supplying a credit card for Stripe for these users.
 
 h2. Customizing
 
-This application provides a fully functional membership site that's ready to take credit card payments and serve access to restricted content.
+This application provides a fully functional membership site that is ready to take credit card payments and serve access to restricted content.
 
 It uses Stripe for payment processing, allows users to change credit cards or subscription plans, and uses Stripe webhooks to delete users who have expired or declined credit cards.
 
