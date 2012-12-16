@@ -1,5 +1,9 @@
 h1. CHANGELOG
 
+h2. 1.0.8 December 15, 2012
+
+* set roles and admin user credentials from 'application.yml' file
+
 h2. 1.0.7 December 14, 2012
 
 * use 'figaro' gem to set local environment variables for Stripe credentials
