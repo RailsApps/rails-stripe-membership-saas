@@ -1,7 +1,8 @@
 h1. CHANGELOG
 
-h2. 1.0.8 December 15, 2012
+h2. 1.0.8 December 16, 2012
 
+* use 'find_or_create_by_name' in the 'db/seeds.rb' file to avoid duplicate roles (fix issue #41)
 * set roles and admin user credentials from 'application.yml' file
 
 h2. 1.0.7 December 14, 2012
