@@ -7,19 +7,19 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 # Environment variables (ENV['...']) are set in the file config/application.yml.
 # See http://railsapps.github.com/rails-environment-variables.html
-puts 'CREATING ROLES'
+puts 'ROLES'
 YAML.load(ENV['ROLES']).each do |role|
-  puts 'creating role: ' << role
-  Role.create({ :name => role }, :without_protection => true)
+  Role.find_or_create_by_name({ :name => role }, :without_protection => true)
+  puts 'role: ' << role
 end
-puts 'SETTING UP DEFAULT USER LOGIN'
-user = User.create! :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
-puts 'New user created: ' << user.name
+puts 'DEFAULT USERS'
+user = User.find_or_create_by_name :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+puts 'user: ' << user.name
 user.add_role :admin
-user2 = User.create! :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
+user2 = User.find_or_create_by_name :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
 user2.add_role :silver
-user3 = User.create! :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
+user3 = User.find_or_create_by_name :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
 user3.add_role :gold
-user4 = User.create! :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
+user4 = User.find_or_create_by_name :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
 user4.add_role :platinum
-puts "added users: #{user2.name}, #{user3.name}, #{user4.name}"
+puts "users: #{user2.name}, #{user3.name}, #{user4.name}"
