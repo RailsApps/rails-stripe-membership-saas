@@ -133,4 +133,28 @@ describe User do
     end
   end
 
+
+  describe ".update_stripe" do
+
+
+    context "with a non-existing user" do
+
+      before do
+        successful_stripe_response = StripeHelper::Response.new("success")
+        Stripe::Customer.stub(:create).and_return(successful_stripe_response)
+        @user = User.new(email: "test@testign.com", stripe_token: 12345, name: 'tester', password: 'password')
+        @role = FactoryGirl.create(:role, name: "silver")
+        @user.add_role(@role.name)
+      end
+
+      it "creates a new user with a succesful stripe response" do
+        @user.save!
+        new_user = User.last
+        new_user.customer_id.should eq("youAreSuccessful")
+        new_user.last_4_digits.should eq("4242")
+        new_user.stripe_token.should be_nil
+      end
+
+    end
+  end
 end
