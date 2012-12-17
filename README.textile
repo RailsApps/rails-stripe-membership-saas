@@ -9,6 +9,8 @@ Rails 3.2 example application with recurring billing using Stripe. Use for a Rai
 
 Best of all, there's a "detailed tutorial":http://railsapps.github.com/tutorial-rails-stripe-membership-saas.html to show how it's built.
 
+You can build this application in only a few minutes using the "Rails Composer":http://railsapps.github.com/rails-composer/ tool.
+
 !http://railsapps.github.com/images/rails-stripe-membership-saas.png(Rails Application for a Membership, Subscription, or SaaS Site)!
 
 h2. !http://twitter-badges.s3.amazonaws.com/t_logo-a.png(Follow on Twitter)!:http://www.twitter.com/rails_apps Follow on Twitter
