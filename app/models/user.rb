@@ -33,22 +33,22 @@ class User < ActiveRecord::Base
       if !stripe_token.present?
         raise "Stripe token not present. Can't create account."
       end
-    if coupon.blank?
-      customer = Stripe::Customer.create(
-        :email => email,
-        :description => name,
-        :card => stripe_token,
-        :plan => roles.first.name
-      )
-    else
-      customer = Stripe::Customer.create(
-        :email => email,
-        :description => name,
-        :card => stripe_token,
-        :plan => roles.first.name,
-        :coupon => coupon
-      )
-    end
+      if coupon.blank?
+        customer = Stripe::Customer.create(
+          :email => email,
+          :description => name,
+          :card => stripe_token,
+          :plan => roles.first.name
+        )
+      else
+        customer = Stripe::Customer.create(
+          :email => email,
+          :description => name,
+          :card => stripe_token,
+          :plan => roles.first.name,
+          :coupon => coupon
+        )
+      end
     else
       customer = Stripe::Customer.retrieve(customer_id)
       if stripe_token.present?
