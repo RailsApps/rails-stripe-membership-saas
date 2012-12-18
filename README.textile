@@ -9,6 +9,8 @@ Rails 3.2 example application with recurring billing using Stripe. Use for a Rai
 
 Best of all, there's a "detailed tutorial":http://railsapps.github.com/tutorial-rails-stripe-membership-saas.html to show how it's built.
 
+You can build this application in only a few minutes using the "Rails Composer":http://railsapps.github.com/rails-composer/ tool.
+
 !http://railsapps.github.com/images/rails-stripe-membership-saas.png(Rails Application for a Membership, Subscription, or SaaS Site)!
 
 h2. !http://twitter-badges.s3.amazonaws.com/t_logo-a.png(Follow on Twitter)!:http://www.twitter.com/rails_apps Follow on Twitter
@@ -276,23 +278,23 @@ YAML.load(ENV['ROLES']).each do |role|
   puts 'role: ' << role
 end
 puts 'DEFAULT USERS'
-user = User.find_or_create_by_name :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
 puts 'user: ' << user.name
 user.add_role :admin
-user2 = User.find_or_create_by_name :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
+user2 = User.find_or_create_by_email :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
 user2.add_role :silver
-user3 = User.find_or_create_by_name :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
+user3 = User.find_or_create_by_email :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
 user3.add_role :gold
-user4 = User.find_or_create_by_name :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
+user4 = User.find_or_create_by_email :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
 user4.add_role :platinum
 puts "users: #{user2.name}, #{user3.name}, #{user4.name}"
 </pre>
 
+The *db/seeds.rb* file reads a list of roles from the *config/application.yml* file and adds the roles to the database. In fact, any new role can be added to the roles datatable with a statement such @user.add_role :superhero@. Setting the roles in the *db/seeds.rb* file simply makes sure each role is listed and available should a user wish to change roles.
+
 You can change the administrator name, email, and password in this file but it is better to make the changes in the *config/application.yml* file to keep the credentials private. If you decide to include your private password in the *db/seeds.rb* file, be sure to add the filename to your *.gitignore* file so that your password doesn't become available in your public GitHub repository.
 
 Note that it's not necessary to personalize the *db/seeds.rb* file before you deploy your app. You can deploy the app with an example user and then use the application's "Edit Account" feature to change name, email address, and password after you log in. Use this feature to log in as an administrator and change the user name and password to your own.
-
-The *db/seeds.rb* file reads a list of roles from the *config/application.yml* file and adds the roles to the database. In fact, any new role can be added to the roles datatable with a statement such @user.add_role :superhero@. Setting the roles in the *db/seeds.rb* file simply makes sure each role is listed and available should a user wish to change roles.
 
 h3. Using "example.com" Email Addresses
 
@@ -442,7 +444,7 @@ YAML.load(ENV['ROLES']).each do |role|
   puts 'role: ' << role
 end
 puts 'DEFAULT USERS'
-user = User.find_or_create_by_name :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
 puts 'user: ' << user.name
 user.add_role :admin
 </pre>

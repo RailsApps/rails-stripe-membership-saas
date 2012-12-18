@@ -13,13 +13,13 @@ YAML.load(ENV['ROLES']).each do |role|
   puts 'role: ' << role
 end
 puts 'DEFAULT USERS'
-user = User.find_or_create_by_name :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
 puts 'user: ' << user.name
 user.add_role :admin
-user2 = User.find_or_create_by_name :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
+user2 = User.find_or_create_by_email :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
 user2.add_role :silver
-user3 = User.find_or_create_by_name :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
+user3 = User.find_or_create_by_email :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
 user3.add_role :gold
-user4 = User.find_or_create_by_name :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
+user4 = User.find_or_create_by_email :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
 user4.add_role :platinum
 puts "users: #{user2.name}, #{user3.name}, #{user4.name}"
