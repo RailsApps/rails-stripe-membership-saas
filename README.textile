@@ -60,6 +60,8 @@ This is one in a series of Rails example apps and tutorials from the "RailsApps 
 
 This example application is based on the "rails3-bootstrap-devise-cancan":https://github.com/RailsApps/rails3-bootstrap-devise-cancan starter application. This example application uses ActiveRecord and a SQLite database with RSpec and Cucumber for testing.
 
+This application is similar to the "rails-recurly-subscription-saas":https://github.com/RailsApps/rails-recurly-subscription-saas application which provides recurring billing using the "Recurly":https://recurly.com/ billing service.
+
 You might also be interested in the "rails-prelaunch-signup":https://github.com/RailsApps/rails-prelaunch-signup example and tutorial from the RailsApps project.
 
 h4. Other Projects
