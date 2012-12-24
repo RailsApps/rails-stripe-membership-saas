@@ -431,6 +431,21 @@ For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.
 
 Be sure to set up SSL before you make your application available in production. See the "Heroku documentation on SSL":https://devcenter.heroku.com/articles/ssl.
 
+Add this configuration parameter to the *config/application.rb* file:
+
+<pre>
+# Heroku requires this to be false
+config.assets.initialize_on_precompile=false
+</pre>
+
+Then precompile assets, commit to git, and push to Heroku:
+
+<pre>
+$ rake assets:precompile
+$ git add -A
+$ git commit -m "assets compiled for Heroku"
+$ git push heroku master
+
 You'll need to set the configuration values from the *config/application.yml* file as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information.
 
 With the figaro gem, just run:
@@ -439,13 +454,20 @@ With the figaro gem, just run:
 rake figaro:heroku
 </pre>
 
-Alternatively, you can set Heroku environment variables for your Stripe API and public key like this:
+Alternatively, you can set Heroku environment variables directly.
+
+The figaro gem version 0.5.0 has a bug and can't run @rake figaro:heroku@.
+
+Set environment variables directly on Heroku with @heroku config:add@.
 
 <pre>
+$ heroku config:add GMAIL_USERNAME='myname@gmail.com' GMAIL_PASSWORD='secret'
+$ heroku config:add 'ROLES=[admin, silver, gold, platinum]'
+$ heroku config:add ADMIN_NAME='First User' ADMIN_EMAIL='user@example.com' ADMIN_PASSWORD='please'
 $ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
 </pre>
 
-Prior to deployment, it's advisable to change your *db/seeds.rb* file. At a minimum, remove the "example.com" sample users. Optionally, you can change the administrator name, email and password though it is better to wait and change the values through the application "Edit account" interface later.
+Prior to deployment, change your *db/seeds.rb* file. Remove the "example.com" sample users.
 
 <pre>
 puts 'ROLES'
@@ -460,6 +482,15 @@ user.add_role :admin
 </pre>
 
 If you don't remove the "example.com" sample users, @rake db:seed@ will fail with errors if you attempt to run it on Heroku after deployment, since you are not supplying a credit card for Stripe for these users.
+
+Complete Heroku deployment with:
+
+<pre>
+$ heroku run rake db:migrate
+$ heroku run rake db:seed
+</pre>
+
+See the "Tutorial for Rails on Heroku":http://railsapps.github.com/rails-heroku-tutorial.html for details.
 
 h2. Customizing
 
