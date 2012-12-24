@@ -60,6 +60,8 @@ This is one in a series of Rails example apps and tutorials from the "RailsApps 
 
 This example application is based on the "rails3-bootstrap-devise-cancan":https://github.com/RailsApps/rails3-bootstrap-devise-cancan starter application. This example application uses ActiveRecord and a SQLite database with RSpec and Cucumber for testing.
 
+This application is similar to the "rails-recurly-subscription-saas":https://github.com/RailsApps/rails-recurly-subscription-saas application which provides recurring billing using the "Recurly":https://recurly.com/ billing service.
+
 You might also be interested in the "rails-prelaunch-signup":https://github.com/RailsApps/rails-prelaunch-signup example and tutorial from the RailsApps project.
 
 h4. Other Projects
@@ -92,7 +94,7 @@ If you want to copy and customize the app with changes that are only useful for 
 <pre>
 $ git clone git://github.com/RailsApps/rails-stripe-membership-saas.git
 </pre>
-  
+
 You'll need "git":http://git-scm.com/ on your machine. See "Rails and Git":http://railsapps.github.com/rails-git.html.
 
 h3. Generate
@@ -116,7 +118,7 @@ You'll see a prompt:
 <pre>
 question  Install an example application?
       1)  I want to build my own application
-      2)  rails-stripe-membership-saas
+      2)  membership/subscription/saas
       3)  rails-prelaunch-signup
       4)  rails3-bootstrap-devise-cancan
       5)  rails3-devise-rspec-cucumber
@@ -125,9 +127,17 @@ question  Install an example application?
       8)  rails3-subdomains
 </pre>
 
-Choose *rails-stripe-membership-saas*. The Rails Composer tool may give you other options (other choices may have been added since these notes were written).
+Choose *membership/subscription/saas*.
 
-The application generator template will ask you for additional preferences: 
+Then choose *Stripe*:
+
+<pre>
+question  Billing with Stripe or Recurly?
+      1)  Stripe
+      2)  Recurly
+</pre>
+
+The application generator template will ask you for additional preferences:
 
 <pre>
  question  Web server for development?
@@ -177,7 +187,7 @@ If you get an error like this:
 Your bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.
     composer  Running 'after bundler' callbacks.
 The template [...] could not be loaded.
-Error: You have already activated ..., but your Gemfile requires .... 
+Error: You have already activated ..., but your Gemfile requires ....
 Using bundle exec may solve this.
 </pre>
 
@@ -298,7 +308,7 @@ Note that it's not necessary to personalize the *db/seeds.rb* file before you de
 
 h3. Using "example.com" Email Addresses
 
-The application handles the administrator's account and any "example.com" email addresses as a special case. Users with an "example.com" domain will not be added to Stripe as subscribers; they will only be added to the application database. This makes it possible to run @rake db:seed@ to add administrator and set up sample users for development and testing.
+The application handles the administrator's account and any "example.com" email addresses as a special case. Users with an "example.com" domain will not be added to Stripe as subscribers; they will only be added to the application database. This makes it possible to run @rake db:seed@ to add the administrator and set up sample users for development and testing.
 
 If you want to see Stripe's response when subscribing a new user (using a fake credit card number such as _4242424242424242_), don't use an "example.com" email address.
 
@@ -393,7 +403,7 @@ You can check that your app runs properly by entering the command:
 
 To see your application in action, open a browser window and navigate to "http://localhost:3000/":http://localhost:3000.
 
-If you are using the default values from the *config/application.yml* file, you can sign in as the administrator using: 
+If you are using the default values from the *config/application.yml* file, you can sign in as the administrator using:
 
 * email: user@example.com
 * password: please
@@ -421,7 +431,7 @@ For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.
 
 Be sure to set up SSL before you make your application available in production. See the "Heroku documentation on SSL":https://devcenter.heroku.com/articles/ssl.
 
-You'll need to set the configuration values from the *config/application.yml* file as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information. 
+You'll need to set the configuration values from the *config/application.yml* file as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information.
 
 With the figaro gem, just run:
 
