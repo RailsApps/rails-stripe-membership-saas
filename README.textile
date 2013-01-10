@@ -66,7 +66,7 @@ You might also be interested in the "rails-prelaunch-signup":https://github.com/
 
 h4. Other Projects
 
-* Andrew Culver's "koudoku":https://github.com/andrewculver/koudoku Rails generator to create a subscription application with Strope
+* Andrew Culver's "koudoku":https://github.com/andrewculver/koudoku Rails generator to create a subscription application with Stripe
 * Bruno Bornsztein's "striped_rails":https://github.com/bborn/striped_rails subscription site as a Rails engine
 * Alex Peachey's "striped_rails":https://github.com/alexpeachey/striped_rails starter app for a subscription site
 * Stripe's "monospace-rails":https://github.com/stripe/monospace-rails sample application
