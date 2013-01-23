@@ -515,9 +515,9 @@ The application provides a suite of RSpec unit tests and Cucumber scenarios and 
 
 After installing the application, run @rake -T@ to check that rake tasks for RSpec and Cucumber are available.
 
-Run @rake spec@ to run all RSpec tests.
+Run @rake spec@ to run RSpec tests.
 
-Run @rake cucumber@ (or more simply, @cucumber@) to run all Cucumber scenarios.
+Run @rake cucumber@ (or more simply, @cucumber@) to run Cucumber scenarios.
 
 Please send the author a message, create an issue, or submit a pull request if you can contribute improved RSpec or Cucumber files.
 
