@@ -260,7 +260,7 @@ GMAIL_USERNAME: Your_Username
 GMAIL_PASSWORD: Your_Password
 ADMIN_NAME: First User
 ADMIN_EMAIL: user@example.com
-ADMIN_PASSWORD: please
+ADMIN_PASSWORD: changeme
 ROLES: [admin, silver, gold, platinum]
 STRIPE_API_KEY: Your_Stripe_API_key
 STRIPE_PUBLIC_KEY: Your_Stripe_Public_Key
@@ -292,11 +292,11 @@ puts 'DEFAULT USERS'
 user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
 puts 'user: ' << user.name
 user.add_role :admin
-user2 = User.find_or_create_by_email :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
+user2 = User.find_or_create_by_email :name => 'Silver User', :email => 'user2@example.com', :password => 'changeme', :password_confirmation => 'changeme'
 user2.add_role :silver
-user3 = User.find_or_create_by_email :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
+user3 = User.find_or_create_by_email :name => 'Gold User', :email => 'user3@example.com', :password => 'changeme', :password_confirmation => 'changeme'
 user3.add_role :gold
-user4 = User.find_or_create_by_email :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
+user4 = User.find_or_create_by_email :name => 'Platinum User', :email => 'user4@example.com', :password => 'changeme', :password_confirmation => 'changeme'
 user4.add_role :platinum
 puts "users: #{user2.name}, #{user3.name}, #{user4.name}"
 </pre>
@@ -407,7 +407,7 @@ To see your application in action, open a browser window and navigate to "http:/
 If you are using the default values from the *config/application.yml* file, you can sign in as the administrator using:
 
 * email: user@example.com
-* password: please
+* password: changeme
 
 You'll see a navigation link for Admin. Clicking the link will display a page with a list of users at
 "http://localhost:3000/users":http://localhost:3000/users.
@@ -415,7 +415,7 @@ You'll see a navigation link for Admin. Clicking the link will display a page wi
 To sign in as the second user, use
 
 * email: user2@example.com
-* password: please
+* password: changeme
 
 The second user will not see the Admin navigation link and will not be able to access the page at
 "http://localhost:3000/users":http://localhost:3000/users.
@@ -464,7 +464,7 @@ Set environment variables directly on Heroku with @heroku config:add@.
 <pre>
 $ heroku config:add GMAIL_USERNAME='myname@gmail.com' GMAIL_PASSWORD='secret'
 $ heroku config:add 'ROLES=[admin, silver, gold, platinum]'
-$ heroku config:add ADMIN_NAME='First User' ADMIN_EMAIL='user@example.com' ADMIN_PASSWORD='please'
+$ heroku config:add ADMIN_NAME='First User' ADMIN_EMAIL='user@example.com' ADMIN_PASSWORD='changeme'
 $ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
 </pre>
 
