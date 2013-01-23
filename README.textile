@@ -440,20 +440,19 @@ For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.
 
 Be sure to set up SSL before you make your application available in production. See the "Heroku documentation on SSL":https://devcenter.heroku.com/articles/ssl.
 
-Add this configuration parameter to the *config/application.rb* file:
+Prior to deployment, change your *db/seeds.rb* file. Remove the "example.com" sample users.
 
 <pre>
-# Heroku requires this to be false
-config.assets.initialize_on_precompile=false
+puts 'ROLES'
+YAML.load(ENV['ROLES']).each do |role|
+  Role.find_or_create_by_name({ :name => role }, :without_protection => true)
+  puts 'role: ' << role
+end
+puts 'DEFAULT USERS'
+user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+puts 'user: ' << user.name
+user.add_role :admin
 </pre>
-
-Then precompile assets, commit to git, and push to Heroku:
-
-<pre>
-$ rake assets:precompile
-$ git add -A
-$ git commit -m "assets compiled for Heroku"
-$ git push heroku master
 
 You'll need to set the configuration values from the *config/application.yml* file as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information.
 
@@ -472,21 +471,24 @@ $ heroku config:add ADMIN_NAME='First User' ADMIN_EMAIL='user@example.com' ADMIN
 $ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
 </pre>
 
-Prior to deployment, change your *db/seeds.rb* file. Remove the "example.com" sample users.
+If you don't remove the "example.com" sample users, @rake db:seed@ will fail with errors if you attempt to run it on Heroku after deployment, since you are not supplying a credit card for Stripe for these users.
+
+Prepare your application assets for Heroku.
+
+Add this configuration parameter to the *config/application.rb* file:
 
 <pre>
-puts 'ROLES'
-YAML.load(ENV['ROLES']).each do |role|
-  Role.find_or_create_by_name({ :name => role }, :without_protection => true)
-  puts 'role: ' << role
-end
-puts 'DEFAULT USERS'
-user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
-puts 'user: ' << user.name
-user.add_role :admin
+# Heroku requires this to be false
+config.assets.initialize_on_precompile=false
 </pre>
 
-If you don't remove the "example.com" sample users, @rake db:seed@ will fail with errors if you attempt to run it on Heroku after deployment, since you are not supplying a credit card for Stripe for these users.
+Then precompile assets, commit to git, and push to Heroku:
+
+<pre>
+$ rake assets:precompile
+$ git add -A
+$ git commit -m "assets compiled for Heroku"
+$ git push heroku master
 
 Complete Heroku deployment with:
 
