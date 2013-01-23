@@ -390,10 +390,18 @@ h3. Change your Application's Secret Token
 
 If you've used the Rails Composer tool to generate the application, the application's secret token will be unique, just as with any Rails application generated with the @rails new@ command.
 
-However, if you've cloned the application directly from GitHub, it is crucial that you change the application's secret token before deploying your application in production mode. Otherwise, people could change their session information, and potentially access your SaaS or membership site as a premium user or administrator. Your secret token should be at least 30 characters long and completely random. Edit your *config/initializers/secret_token.rb* file:
+However, if you've cloned the application directly from GitHub, it is crucial that you change the application's secret token before deploying your application in production mode. Otherwise, people could change their session information, and potentially access your SaaS or membership site as a premium user or administrator. Your secret token should be at least 30 characters long and completely random.
+
+Get a unique secret token:
 
 <pre>
-RailsStripeMembershipSaas::Application.config.secret_token = '...some really long, random string...'
+rake secret
+</pre>
+
+Edit your *config/initializers/secret_token.rb* file to add the secret token:
+
+<pre>
+Rails3BootstrapDeviseCancan::Application.config.secret_token = '...some really long, random string...'
 </pre>
 
 h2. Test the App
