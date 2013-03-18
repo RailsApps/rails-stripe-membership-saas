@@ -1,5 +1,14 @@
 h1. CHANGELOG
 
+h2. 1.0.10 January 30, 2013
+
+* accommodate change from 'factory_girl_rails' 4.1.0 to 4.2.0 (fix issue #52)
+
+h2. 1.0.9 January 22, 2013
+
+* Devise default minimum password length changed from six to eight
+* fix issue #49, prevent creation of new roles by users
+
 h2. 1.0.8 December 16, 2012
 
 * add option to use a coupon when subscribing (fix issue #36)

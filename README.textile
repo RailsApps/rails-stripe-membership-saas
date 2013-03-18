@@ -260,7 +260,7 @@ GMAIL_USERNAME: Your_Username
 GMAIL_PASSWORD: Your_Password
 ADMIN_NAME: First User
 ADMIN_EMAIL: user@example.com
-ADMIN_PASSWORD: please
+ADMIN_PASSWORD: changeme
 ROLES: [admin, silver, gold, platinum]
 STRIPE_API_KEY: Your_Stripe_API_key
 STRIPE_PUBLIC_KEY: Your_Stripe_Public_Key
@@ -292,11 +292,11 @@ puts 'DEFAULT USERS'
 user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
 puts 'user: ' << user.name
 user.add_role :admin
-user2 = User.find_or_create_by_email :name => 'Silver User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
+user2 = User.find_or_create_by_email :name => 'Silver User', :email => 'user2@example.com', :password => 'changeme', :password_confirmation => 'changeme'
 user2.add_role :silver
-user3 = User.find_or_create_by_email :name => 'Gold User', :email => 'user3@example.com', :password => 'please', :password_confirmation => 'please'
+user3 = User.find_or_create_by_email :name => 'Gold User', :email => 'user3@example.com', :password => 'changeme', :password_confirmation => 'changeme'
 user3.add_role :gold
-user4 = User.find_or_create_by_email :name => 'Platinum User', :email => 'user4@example.com', :password => 'please', :password_confirmation => 'please'
+user4 = User.find_or_create_by_email :name => 'Platinum User', :email => 'user4@example.com', :password => 'changeme', :password_confirmation => 'changeme'
 user4.add_role :platinum
 puts "users: #{user2.name}, #{user3.name}, #{user4.name}"
 </pre>
@@ -390,7 +390,15 @@ h3. Change your Application's Secret Token
 
 If you've used the Rails Composer tool to generate the application, the application's secret token will be unique, just as with any Rails application generated with the @rails new@ command.
 
-However, if you've cloned the application directly from GitHub, it is crucial that you change the application's secret token before deploying your application in production mode. Otherwise, people could change their session information, and potentially access your SaaS or membership site as a premium user or administrator. Your secret token should be at least 30 characters long and completely random. Edit your *config/initializers/secret_token.rb* file:
+However, if you've cloned the application directly from GitHub, it is crucial that you change the application's secret token before deploying your application in production mode. Otherwise, people could change their session information, and potentially access your SaaS or membership site as a premium user or administrator. Your secret token should be at least 30 characters long and completely random.
+
+Get a unique secret token:
+
+<pre>
+rake secret
+</pre>
+
+Edit your *config/initializers/secret_token.rb* file to add the secret token:
 
 <pre>
 RailsStripeMembershipSaas::Application.config.secret_token = '...some really long, random string...'
@@ -407,7 +415,7 @@ To see your application in action, open a browser window and navigate to "http:/
 If you are using the default values from the *config/application.yml* file, you can sign in as the administrator using:
 
 * email: user@example.com
-* password: please
+* password: changeme
 
 You'll see a navigation link for Admin. Clicking the link will display a page with a list of users at
 "http://localhost:3000/users":http://localhost:3000/users.
@@ -415,7 +423,7 @@ You'll see a navigation link for Admin. Clicking the link will display a page wi
 To sign in as the second user, use
 
 * email: user2@example.com
-* password: please
+* password: changeme
 
 The second user will not see the Admin navigation link and will not be able to access the page at
 "http://localhost:3000/users":http://localhost:3000/users.
@@ -432,42 +440,6 @@ For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.
 
 Be sure to set up SSL before you make your application available in production. See the "Heroku documentation on SSL":https://devcenter.heroku.com/articles/ssl.
 
-Add this configuration parameter to the *config/application.rb* file:
-
-<pre>
-# Heroku requires this to be false
-config.assets.initialize_on_precompile=false
-</pre>
-
-Then precompile assets, commit to git, and push to Heroku:
-
-<pre>
-$ rake assets:precompile
-$ git add -A
-$ git commit -m "assets compiled for Heroku"
-$ git push heroku master
-
-You'll need to set the configuration values from the *config/application.yml* file as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information.
-
-With the figaro gem, just run:
-
-<pre>
-rake figaro:heroku
-</pre>
-
-Alternatively, you can set Heroku environment variables directly.
-
-The figaro gem version 0.5.0 has a bug and can't run @rake figaro:heroku@.
-
-Set environment variables directly on Heroku with @heroku config:add@.
-
-<pre>
-$ heroku config:add GMAIL_USERNAME='myname@gmail.com' GMAIL_PASSWORD='secret'
-$ heroku config:add 'ROLES=[admin, silver, gold, platinum]'
-$ heroku config:add ADMIN_NAME='First User' ADMIN_EMAIL='user@example.com' ADMIN_PASSWORD='please'
-$ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
-</pre>
-
 Prior to deployment, change your *db/seeds.rb* file. Remove the "example.com" sample users.
 
 <pre>
@@ -482,7 +454,41 @@ puts 'user: ' << user.name
 user.add_role :admin
 </pre>
 
+You'll need to set the configuration values from the *config/application.yml* file as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information.
+
+With the figaro gem, just run:
+
+<pre>
+rake figaro:heroku
+</pre>
+
+Alternatively, you can set Heroku environment variables directly with @heroku config:add@.
+
+<pre>
+$ heroku config:add GMAIL_USERNAME='myname@gmail.com' GMAIL_PASSWORD='secret'
+$ heroku config:add 'ROLES=[admin, silver, gold, platinum]'
+$ heroku config:add ADMIN_NAME='First User' ADMIN_EMAIL='user@example.com' ADMIN_PASSWORD='changeme'
+$ heroku config:add STRIPE_API_KEY=secret STRIPE_PUBLIC_KEY=secret
+</pre>
+
 If you don't remove the "example.com" sample users, @rake db:seed@ will fail with errors if you attempt to run it on Heroku after deployment, since you are not supplying a credit card for Stripe for these users.
+
+Prepare your application assets for Heroku.
+
+Add this configuration parameter to the *config/application.rb* file:
+
+<pre>
+# Heroku requires this to be false
+config.assets.initialize_on_precompile=false
+</pre>
+
+Then precompile assets, commit to git, and push to Heroku:
+
+<pre>
+$ rake assets:precompile
+$ git add -A
+$ git commit -m "assets compiled for Heroku"
+$ git push heroku master
 
 Complete Heroku deployment with:
 
@@ -509,9 +515,9 @@ The application provides a suite of RSpec unit tests and Cucumber scenarios and 
 
 After installing the application, run @rake -T@ to check that rake tasks for RSpec and Cucumber are available.
 
-Run @rake spec@ to run all RSpec tests.
+Run @rake spec@ to run RSpec tests.
 
-Run @rake cucumber@ (or more simply, @cucumber@) to run all Cucumber scenarios.
+Run @rake cucumber@ (or more simply, @cucumber@) to run Cucumber scenarios.
 
 Please send the author a message, create an issue, or submit a pull request if you can contribute improved RSpec or Cucumber files.
 
@@ -555,5 +561,20 @@ h2. MIT License
 "MIT License":http://www.opensource.org/licenses/mit-license
 
 Copyright © 2012 Daniel Kehoe
+
+h2. Useful Links
+
+|_. Getting Started |_. Articles |_. Tutorials |
+| "Rails Tutorial":https://tutorials.railsapps.org/rails-tutorial (recommendations) | "Heroku and Rails":http://railsapps.github.com/rails-heroku-tutorial.html | "Devise with CanCan and Twitter Bootstrap":https://tutorials.railsapps.org/rails3-bootstrap-devise-cancan |
+| "Rails":http://railsapps.github.com/rails.html (resources)| "Twitter Bootstrap and Rails":http://railsapps.github.com/twitter-bootstrap-rails.html | "Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas |
+| "Installing Rails":http://railsapps.github.com/installing-rails.html | "JavaScript and Rails":http://railsapps.github.com/rails-javascript-include-external.html | "Rails Subscription Site with Recurly":https://tutorials.railsapps.org/rails-recurly-subscription-saas |
+| "Updating Rails":http://railsapps.github.com/updating-rails.html | "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html | "Startup Prelaunch Signup Application":http://railsapps.github.com/tutorial-rails-prelaunch-signup.html |
+| "Rails Composer":http://railsapps.github.com/rails-composer/ | "Git and GitHub with Rails":http://railsapps.github.com/rails-git.html | "Devise with RSpec and Cucumber":http://railsapps.github.com/tutorial-rails-devise-rspec-cucumber.html |
+| "Rails Examples":http://railsapps.github.com/ | "Send Email with Rails":http://railsapps.github.com/rails-send-email.html | "Devise with Mongoid":http://railsapps.github.com/tutorial-rails-mongoid-devise.html |
+| "Rails Starter Apps":http://railsapps.github.com/rails-examples-tutorials.html | "Haml and Rails":http://railsapps.github.com/rails-haml.html | "OmniAuth with Mongoid":http://railsapps.github.com/tutorial-rails-mongoid-omniauth.html |
+| | "Rails Application Layout":http://railsapps.github.com/rails-default-application-layout.html | "Subdomains with Devise":http://railsapps.github.com/tutorial-rails-subdomains.html |
+| | "HTML5 Boilerplate for Rails":http://railsapps.github.com/rails-html5-boilerplate.html | |
+| | "Example Gemfiles for Rails":http://railsapps.github.com/rails-3-2-example-gemfile.html | |
+| | "Rails Application Templates":http://railsapps.github.com/rails-application-templates.html | |
 
 !https://cruel-carlota.pagodabox.com/bd71696145d79ee78f3884f875bc5d8c(githalytics.com alpha)!
