@@ -156,7 +156,7 @@ The application generator template will ask you for additional preferences:
        2)  Haml
        3)  Slim
    extras  Set a robots.txt file to ban spiders? (y/n)
-   extras  Create a project-specific rvm gemset and .rvmrc? (y/n)
+   extras  Use or create a project-specific rvm gemset? (y/n)
    extras  Create a GitHub repository? (y/n)
 </pre>
 
@@ -174,7 +174,7 @@ h4. Other Choices
 
 Set a robots.txt file to ban spiders if you want to keep your new site out of Google search results.
 
-It is a good idea to use "rvm":https://rvm.io/, the Ruby Version Manager, and create a project-specific rvm gemset and .rvmrc file (not available on Windows). See "Installing Rails":http://railsapps.github.com/installing-rails.html.
+It is a good idea to use "rvm":https://rvm.io/, the Ruby Version Manager, and create a project-specific rvm gemset (not available on Windows). See "Installing Rails":http://railsapps.github.com/installing-rails.html.
 
 If you choose to create a GitHub repository, the generator will prompt you for a GitHub username and password.
 
