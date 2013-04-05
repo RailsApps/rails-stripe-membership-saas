@@ -75,8 +75,8 @@ h2. Dependencies
 
 Before generating your application, you will need:
 
-* The Ruby language (version 1.9.3)
-* Rails 3.2
+* The Ruby language (version 1.9.3 or 2.0.0)
+* The Rails gem (version 3.2)
 
 See the article "Installing Rails":http://railsapps.github.com/installing-rails.html for advice about updating Rails and your development environment.
 
