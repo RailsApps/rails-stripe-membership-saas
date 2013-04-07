@@ -1,4 +1,4 @@
-Feature: Edit User
+Feature: Delete User
   As a registered user of the website
   I want to delete my user profile
   so I can close my account
