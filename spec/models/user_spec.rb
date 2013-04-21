@@ -115,6 +115,7 @@ describe User do
 
   describe "#update_plan" do
     before do
+      @number_of_initial_roles = Role.all.count
       @user = FactoryGirl.create(:user, email: "test@example.com")
       @role1 = FactoryGirl.create(:role, name: "silver")
       @role2 = FactoryGirl.create(:role, name: "gold")
@@ -129,7 +130,7 @@ describe User do
 
     it "wont remove original role from database" do
       @user.update_plan(@role2)
-      Role.all.count.should == 2
+      Role.all.count.should == @number_of_initial_roles + 2
     end
   end
 
