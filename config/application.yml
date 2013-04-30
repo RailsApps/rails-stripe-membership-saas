@@ -1,5 +1,5 @@
 # Add account credentials and API keys here.
-# See http://railsapps.github.com/rails-environment-variables.html
+# See http://railsapps.github.io/rails-environment-variables.html
 # This file should be listed in .gitignore to keep your settings secret!
 # Each entry sets a local environment variable and overrides ENV variables in the Unix shell.
 # For example, setting:
