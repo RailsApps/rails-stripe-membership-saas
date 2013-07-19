@@ -19,9 +19,9 @@ Follow the project on Twitter: "@rails_apps":http://twitter.com/rails_apps. Plea
 
 h2. Tutorial
 
-A tutorial is available (subscription required). Subscriptions provide financial support for the RailsApps project.
+An in-depth tutorial is available (subscription required). Subscriptions provide financial support for the RailsApps project.
 
-You can use the starter app without getting the tutorial. The tutorial goes beyond the basic starter application to provide an in-depth explanation of the code:
+You can use the starter app without getting the tutorial. The tutorial provides a detailed explanation of the code:
 
 h4. "Get the Tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas
 
