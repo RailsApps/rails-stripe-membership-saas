@@ -19,9 +19,11 @@ Follow the project on Twitter: "@rails_apps":http://twitter.com/rails_apps. Plea
 
 h2. Tutorial
 
-A complete tutorial is available:
+A tutorial is available (subscription required). Subscriptions provide financial support for the RailsApps project.
 
-h4. "View the Tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas
+You can use the starter app without getting the tutorial. The tutorial goes beyond the basic starter application to provide an in-depth explanation of the code:
+
+h4. "Get the Tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas
 
 The tutorial documents each step to follow to create the application. Every step is documented concisely, so a complete beginner can create this application without any additional knowledge. However, no explanation is offered for any of the steps, so if you are a beginner, you’re advised to look for an introduction to Rails elsewhere. See a list of recommended resources for "Rails":http://railsapps.github.io/rails.html.
 
