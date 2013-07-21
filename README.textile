@@ -1,4 +1,4 @@
-h1. !http://railsapps.github.com/images/rails-36x36.jpg(Rails Application for a Membership, Subscription, or SaaS Site)! Rails App for a Membership, Subscription, or SaaS Site
+h1. !http://railsapps.github.io/images/rails-36x36.jpg(Rails Application for a Membership, Subscription, or SaaS Site)! Rails App for a Membership, Subscription, or SaaS Site
 
 Rails 3.2 example application with recurring billing using Stripe. Use for a Rails membership site, subscription site, or SaaS site (software-as-a-service). Using:
 
@@ -9,9 +9,9 @@ Rails 3.2 example application with recurring billing using Stripe. Use for a Rai
 
 Best of all, there's a "detailed tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas to show how it's built.
 
-You can build this application in only a few minutes using the "Rails Composer":http://railsapps.github.com/rails-composer/ tool.
+You can build this application in only a few minutes using the "Rails Composer":http://railsapps.github.io/rails-composer/ tool.
 
-!http://railsapps.github.com/images/rails-stripe-membership-saas.png(Rails Application for a Membership, Subscription, or SaaS Site)!
+!http://railsapps.github.io/images/rails-stripe-membership-saas.png(Rails Application for a Membership, Subscription, or SaaS Site)!
 
 h2. !http://twitter-badges.s3.amazonaws.com/t_logo-a.png(Follow on Twitter)!:http://www.twitter.com/rails_apps Follow on Twitter
 
@@ -19,11 +19,13 @@ Follow the project on Twitter: "@rails_apps":http://twitter.com/rails_apps. Plea
 
 h2. Tutorial
 
-A complete tutorial is available:
+An in-depth tutorial is available (subscription required). Subscriptions provide financial support for the RailsApps project.
 
-h4. "View the Tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas
+You can use the starter app without getting the tutorial. The tutorial provides a detailed explanation of the code:
 
-The tutorial documents each step to follow to create the application. Every step is documented concisely, so a complete beginner can create this application without any additional knowledge. However, no explanation is offered for any of the steps, so if you are a beginner, you’re advised to look for an introduction to Rails elsewhere. See a list of recommended resources for "Rails":http://railsapps.github.com/rails.html.
+h4. "Get the Tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas
+
+The tutorial documents each step to follow to create the application. Every step is documented concisely, so a complete beginner can create this application without any additional knowledge. However, no explanation is offered for any of the steps, so if you are a beginner, you’re advised to look for an introduction to Rails elsewhere. See a list of recommended resources for "Rails":http://railsapps.github.io/rails.html.
 
 h2. What Is Implemented -- and What Is Not
 
@@ -56,7 +58,7 @@ h2. Similar Examples and Tutorials
 
 h4. RailsApps
 
-This is one in a series of Rails example apps and tutorials from the "RailsApps Project":http://railsapps.github.com/. See a list of additional "Rails examples, tutorials, and starter apps":http://railsapps.github.com/rails-examples-tutorials.html.
+This is one in a series of Rails example apps and tutorials from the "RailsApps Project":http://railsapps.github.io/. See a list of additional "Rails examples, tutorials, and starter apps":http://railsapps.github.io/rails-examples-tutorials.html.
 
 This example application is based on the "rails3-bootstrap-devise-cancan":https://github.com/RailsApps/rails3-bootstrap-devise-cancan starter application. This example application uses ActiveRecord and a SQLite database with RSpec and Cucumber for testing.
 
@@ -76,9 +78,9 @@ h2. Dependencies
 Before generating your application, you will need:
 
 * The Ruby language (version 1.9.3 or 2.0.0)
-* The Rails gem (version 3.2)
+* The Rails gem (version 3.2.13)
 
-See the article "Installing Rails":http://railsapps.github.com/installing-rails.html for advice about updating Rails and your development environment.
+See the article "Installing Rails":http://railsapps.github.io/installing-rails.html for advice about updating Rails and your development environment.
 
 h2. Getting the Application
 
@@ -96,11 +98,11 @@ If you want to copy and customize the app with changes that are only useful for 
 $ git clone git://github.com/RailsApps/rails-stripe-membership-saas.git
 </pre>
 
-You'll need "git":http://git-scm.com/ on your machine. See "Rails and Git":http://railsapps.github.com/rails-git.html.
+You'll need "git":http://git-scm.com/ on your machine. See "Rails and Git":http://railsapps.github.io/rails-git.html.
 
 h3. Generate
 
-If you want to use the project as a starter app, use the "Rails Composer":http://railsapps.github.com/rails-composer/ tool to generate a new version of the example app. You'll be able to give it your own project name when you generate the app. Generating the application gives you additional options.
+If you want to use the project as a starter app, use the "Rails Composer":http://railsapps.github.io/rails-composer/ tool to generate a new version of the example app. You'll be able to give it your own project name when you generate the app. Generating the application gives you additional options.
 
 To build the example application, run the command:
 
@@ -168,19 +170,19 @@ If you plan to deploy to Heroku, select Thin as your production webserver.
 
 h4. Template Engine
 
-The example application uses the default "ERB" Rails template engine. Optionally, you can use another template engine, such as Haml or Slim. See instructions for "Haml and Rails":http://railsapps.github.com/rails-haml.html.
+The example application uses the default "ERB" Rails template engine. Optionally, you can use another template engine, such as Haml or Slim. See instructions for "Haml and Rails":http://railsapps.github.io/rails-haml.html.
 
 h4. Other Choices
 
 Set a robots.txt file to ban spiders if you want to keep your new site out of Google search results.
 
-It is a good idea to use "rvm":https://rvm.io/, the Ruby Version Manager, and create a project-specific rvm gemset (not available on Windows). See "Installing Rails":http://railsapps.github.com/installing-rails.html.
+It is a good idea to use "rvm":https://rvm.io/, the Ruby Version Manager, and create a project-specific rvm gemset (not available on Windows). See "Installing Rails":http://railsapps.github.io/installing-rails.html.
 
 If you choose to create a GitHub repository, the generator will prompt you for a GitHub username and password.
 
 h4. Troubleshooting
 
-If you get an error "OpenSSL certificate verify failed" or "Gem::RemoteFetcher::FetchError: SSL_connect" see the article "OpenSSL errors and Rails":http://railsapps.github.com/openssl-certificate-verify-failed.html.
+If you get an error "OpenSSL certificate verify failed" or "Gem::RemoteFetcher::FetchError: SSL_connect" see the article "OpenSSL errors and Rails":http://railsapps.github.io/openssl-certificate-verify-failed.html.
 
 If you get an error like this:
 
@@ -192,7 +194,7 @@ Error: You have already activated ..., but your Gemfile requires ....
 Using bundle exec may solve this.
 </pre>
 
-It's due to conflicting gem versions. See the article "Rails Error: “You have already activated (…)”":http://railsapps.github.com/rails-error-you-have-already-activated.html.
+It's due to conflicting gem versions. See the article "Rails Error: “You have already activated (…)”":http://railsapps.github.io/rails-error-you-have-already-activated.html.
 
 h3. Edit the README
 
@@ -200,7 +202,7 @@ If you're storing the app in a GitHub repository, please edit the README files t
 
 h2. Getting Started
 
-See the article "Installing Rails":http://railsapps.github.com/installing-rails.html to make sure your development environment is prepared properly.
+See the article "Installing Rails":http://railsapps.github.io/installing-rails.html to make sure your development environment is prepared properly.
 
 h3. Stripe Account
 
@@ -232,7 +234,7 @@ Keep in mind that you have installed these gems locally. When you deploy the app
 
 h3. Configure Email
 
-You must configure the application for your email account. See the article "Send Email with Rails":http://railsapps.github.com/rails-send-email.html.
+You must configure the application for your email account. See the article "Send Email with Rails":http://railsapps.github.io/rails-send-email.html.
 
 h3. Configure Devise
 
@@ -242,13 +244,13 @@ You can modify the configuration file for Devise if you want to use something ot
 
 h3. Configuration File
 
-The application uses the "figaro gem":https://github.com/laserlemon/figaro to set environment variables. Credentials for your administrator account and Stripe API keys are set in the *config/application.yml* file. The *.gitignore* file prevents the *config/application.yml* file from being saved in the git repository so your credentials are kept private. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information.
+The application uses the "figaro gem":https://github.com/laserlemon/figaro to set environment variables. Credentials for your administrator account and Stripe API keys are set in the *config/application.yml* file. The *.gitignore* file prevents the *config/application.yml* file from being saved in the git repository so your credentials are kept private. See the article "Rails Environment Variables":http://railsapps.github.io/rails-environment-variables.html for more information.
 
 Modify the file *config/application.yml*:
 
 <pre>
 # Add account credentials and API keys here.
-# See http://railsapps.github.com/rails-environment-variables.html
+# See http://railsapps.github.io/rails-environment-variables.html
 # This file should be listed in .gitignore to keep your settings secret!
 # Each entry sets a local environment variable and overrides ENV variables in the Unix shell.
 # For example, setting:
@@ -436,7 +438,7 @@ If you test the app by starting the web server and then leave the server running
 
 h2. Deploy to Heroku
 
-For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.github.com/rails-heroku-tutorial.html. Heroku provides low cost, easily configured Rails application hosting.
+For your convenience, here is a "Tutorial for Rails on Heroku":http://railsapps.github.io/rails-heroku-tutorial.html. Heroku provides low cost, easily configured Rails application hosting.
 
 Be sure to set up SSL before you make your application available in production. See the "Heroku documentation on SSL":https://devcenter.heroku.com/articles/ssl.
 
@@ -454,7 +456,7 @@ puts 'user: ' << user.name
 user.add_role :admin
 </pre>
 
-You'll need to set the configuration values from the *config/application.yml* file as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html for more information.
+You'll need to set the configuration values from the *config/application.yml* file as Heroku environment variables. See the article "Rails Environment Variables":http://railsapps.github.io/rails-environment-variables.html for more information.
 
 With the figaro gem, just run:
 
@@ -497,7 +499,7 @@ $ heroku run rake db:migrate
 $ heroku run rake db:seed
 </pre>
 
-See the "Tutorial for Rails on Heroku":http://railsapps.github.com/rails-heroku-tutorial.html for details.
+See the "Tutorial for Rails on Heroku":http://railsapps.github.io/rails-heroku-tutorial.html for details.
 
 h2. Customizing
 
@@ -565,16 +567,17 @@ Copyright © 2012 Daniel Kehoe
 h2. Useful Links
 
 |_. Getting Started |_. Articles |_. Tutorials |
-| "Rails Tutorial":https://tutorials.railsapps.org/rails-tutorial (recommendations) | "Heroku and Rails":http://railsapps.github.com/rails-heroku-tutorial.html | "Devise with CanCan and Twitter Bootstrap":https://tutorials.railsapps.org/rails3-bootstrap-devise-cancan |
-| "Rails":http://railsapps.github.com/rails.html (resources)| "Twitter Bootstrap and Rails":http://railsapps.github.com/twitter-bootstrap-rails.html | "Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas |
-| "Installing Rails":http://railsapps.github.com/installing-rails.html | "JavaScript and Rails":http://railsapps.github.com/rails-javascript-include-external.html | "Rails Subscription Site with Recurly":https://tutorials.railsapps.org/rails-recurly-subscription-saas |
-| "Updating Rails":http://railsapps.github.com/updating-rails.html | "Rails Environment Variables":http://railsapps.github.com/rails-environment-variables.html | "Startup Prelaunch Signup Application":http://railsapps.github.com/tutorial-rails-prelaunch-signup.html |
-| "Rails Composer":http://railsapps.github.com/rails-composer/ | "Git and GitHub with Rails":http://railsapps.github.com/rails-git.html | "Devise with RSpec and Cucumber":http://railsapps.github.com/tutorial-rails-devise-rspec-cucumber.html |
-| "Rails Examples":http://railsapps.github.com/ | "Send Email with Rails":http://railsapps.github.com/rails-send-email.html | "Devise with Mongoid":http://railsapps.github.com/tutorial-rails-mongoid-devise.html |
-| "Rails Starter Apps":http://railsapps.github.com/rails-examples-tutorials.html | "Haml and Rails":http://railsapps.github.com/rails-haml.html | "OmniAuth with Mongoid":http://railsapps.github.com/tutorial-rails-mongoid-omniauth.html |
-| | "Rails Application Layout":http://railsapps.github.com/rails-default-application-layout.html | "Subdomains with Devise":http://railsapps.github.com/tutorial-rails-subdomains.html |
-| | "HTML5 Boilerplate for Rails":http://railsapps.github.com/rails-html5-boilerplate.html | |
-| | "Example Gemfiles for Rails":http://railsapps.github.com/rails-3-2-example-gemfile.html | |
-| | "Rails Application Templates":http://railsapps.github.com/rails-application-templates.html | |
+| "Learn Rails":http://learn-rails.com/ | "Twitter Bootstrap and Rails":http://railsapps.github.io/twitter-bootstrap-rails.html | "Rails and Bootstrap":http://railsapps.github.io/rails-bootstrap/ |
+| "Ruby and Rails":http://railsapps.github.io/ruby-and-rails.html | "Analytics for Rails":http://railsapps.github.io/rails-google-analytics.html | |
+| "What is Ruby on Rails?":http://railsapps.github.io/what-is-ruby-rails.html | "Heroku and Rails":http://railsapps.github.io/rails-heroku-tutorial.html | "Devise with CanCan and Twitter Bootstrap":https://tutorials.railsapps.org/rails3-bootstrap-devise-cancan |
+| "Rails Tutorial":https://tutorials.railsapps.org/rails-tutorial | "JavaScript and Rails":http://railsapps.github.io/rails-javascript-include-external.html | "Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas |
+| "Installing Rails":http://railsapps.github.io/installing-rails.html | "Rails Environment Variables":http://railsapps.github.io/rails-environment-variables.html | "Rails Subscription Site with Recurly":https://tutorials.railsapps.org/rails-recurly-subscription-saas |
+| "Updating Rails":http://railsapps.github.io/updating-rails.html | "Git and Rails":http://railsapps.github.io/rails-git.html | "Startup Prelaunch Signup Application":http://railsapps.github.io/tutorial-rails-prelaunch-signup.html |
+| "Rails Composer":http://railsapps.github.io/rails-composer/ | "Email and Rails":http://railsapps.github.io/rails-send-email.html | "Devise with RSpec and Cucumber":http://railsapps.github.io/tutorial-rails-devise-rspec-cucumber.html |
+| "Rails Examples":http://railsapps.github.io/ | "Haml and Rails":http://railsapps.github.io/rails-haml.html | "Devise with Mongoid":http://railsapps.github.io/tutorial-rails-mongoid-devise.html |
+| "Rails Starter Apps":http://railsapps.github.io/rails-examples-tutorials.html | "Rails Application Layout":http://railsapps.github.io/rails-default-application-layout.html | "OmniAuth with Mongoid":http://railsapps.github.io/tutorial-rails-mongoid-omniauth.html |
+| | "HTML5 Boilerplate for Rails":http://railsapps.github.io/rails-html5-boilerplate.html | "Subdomains with Devise":http://railsapps.github.io/tutorial-rails-subdomains.html |
+| | "Example Gemfiles for Rails":http://railsapps.github.io/rails-3-2-example-gemfile.html | |
+| | "Rails Application Templates":http://railsapps.github.io/rails-application-templates.html | |
 
 !https://cruel-carlota.pagodabox.com/bd71696145d79ee78f3884f875bc5d8c(githalytics.com alpha)!
