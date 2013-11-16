@@ -83,9 +83,15 @@ class User < ActiveRecord::Base
     false
   end
   
+  # customer.subscription.deleted webhook
   def expire
-    UserMailer.expire_email(self).deliver
-    destroy
+      UserMailer.expire_email(self).deliver
+      destroy
   end
   
+  # customer.charge.succeeded webhook
+  def thanks
+      UserMailer.thanks_email(self).deliver
+  end
+
 end
