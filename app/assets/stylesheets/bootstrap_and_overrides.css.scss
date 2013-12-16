@@ -1,3 +1,4 @@
 @import "bootstrap";
 body { padding-top: 60px; }
-@import "bootstrap-responsive";
+/* @import "bootstrap-responsive"; */
+/* commenting this out fixed the problem with not finding fields for fill_in and other Cucumber/Rspec tests where the testing would fail due to not finding the field, even though it existed.*/
