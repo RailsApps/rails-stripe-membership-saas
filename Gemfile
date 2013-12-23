@@ -27,3 +27,4 @@ gem "figaro"
 gem "better_errors", :group => :development
 gem "binding_of_caller", :group => :development, :platforms => [:mri_19, :rbx]
 gem 'headless'
+gem 'selenium-webdriver'
