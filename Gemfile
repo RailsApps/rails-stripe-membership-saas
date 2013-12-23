@@ -37,6 +37,11 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'quiet_assets'
   gem 'rails_layout'
+  gem 'guard'
+  gem "guard-rspec"
+  gem "guard-livereload"
+  gem "guard-cucumber"
+  gem "guard-spork"
 end
 
 group :test do
