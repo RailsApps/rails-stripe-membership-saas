@@ -7,6 +7,7 @@
 # makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
 # Add application configuration variables here, as shown below.
 #
+NAME: Rails Stripe Membership Saas
 GMAIL_USERNAME: Your_Username
 GMAIL_PASSWORD: Your_Password
 ADMIN_NAME: First User
