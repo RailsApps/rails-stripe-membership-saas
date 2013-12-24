@@ -2,8 +2,8 @@
   <h1>Membership Site</h1>
   <h3>Learn to build a successful subscription site.</h3>
 </div>
-<div class="row span8 plans">
-  <div class="span2 well">
+<div class="row">
+  <div class="col-md-4 well">
     <div class="plan"><h2>Silver</h2></div>
     <ul class="unstyled">
       <li>One lesson a month</li>
@@ -11,7 +11,7 @@
     <h3>$9/month</h3>
     <%= link_to 'Subscribe', new_user_registration_path(:plan => 'silver'), :class => 'btn btn-primary' %> 
   </div>
-  <div class="span2 well featured">
+  <div class="col-md-4 well featured">
     <div class="plan featured-plan"><h2>Gold</h2></div>
     <ul class="unstyled">
       <li>Ten lessons a month</li>
@@ -19,7 +19,7 @@
     <h3>$19/month</h3>
     <%= link_to 'Subscribe', new_user_registration_path(:plan => 'gold'), :class => 'btn btn-primary' %> 
   </div>
-  <div class="span2 well">
+  <div class="col-md-4 well">
     <div class="plan"><h2>Platinum</h2></div>
     <ul class="unstyled">
       <li>Thirty lessons a month</li>
