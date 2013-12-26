@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
          :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, 
+  attr_accessible :first_name, 
+                  :last_name, 
                   :email, 
                   :password, 
                   :password_confirmation, 
@@ -27,6 +28,10 @@ class User < ActiveRecord::Base
   
   def follow_now(item)
     self.follow(item)
+  end
+
+  def name
+    "#{self.first_name} #{self.last_name}"
   end
 
   def update_plan(role)
@@ -89,7 +94,7 @@ class User < ActiveRecord::Base
     unless customer_id.nil?
       customer = Stripe::Customer.retrieve(customer_id)
       unless customer.nil? or customer.respond_to?('deleted')
-        if customer.subscription.status == 'active'
+        if ['active', 'trialing'].include? customer.subscription.status
           customer.cancel_subscription
         end
       end

@@ -9,7 +9,8 @@
   <%= hidden_field_tag 'plan', params[:plan] %>
   <%= f.error_notification %>
   <%= display_base_errors resource %>
-  <%= f.input :name, :autofocus => true %> 
+  <%= f.input :first_name, :autofocus => true %> 
+  <%= f.input :last_name %> 
   <%= f.input :email, :required => true %>
   <%= f.input :password, :required => true %>
   <%= f.input :password_confirmation, :required => true %>

@@ -4,7 +4,8 @@ describe User do
 
   before(:each) do
     @attr = {
-      :name => "Example User",
+      :first_name => "Example",
+      :last_name => "User",
       :email => "user@example.com",
       :password => "changeme",
       :password_confirmation => "changeme"
@@ -142,7 +143,7 @@ describe User do
       before do
         successful_stripe_response = StripeHelper::Response.new("success")
         Stripe::Customer.stub(:create).and_return(successful_stripe_response)
-        @user = User.new(email: "test@testign.com", stripe_token: 12345, name: 'tester', password: 'password')
+        @user = User.new(email: "test@testign.com", stripe_token: 12345, first_name: 'beta', last_name: 'tester', password: 'password')
         @role = FactoryGirl.create(:role, name: "silver")
         @user.add_role(@role.name)
       end

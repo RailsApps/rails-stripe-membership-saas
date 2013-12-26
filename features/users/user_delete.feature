@@ -15,7 +15,8 @@ Feature: Delete User
       When I follow the subscribe for silver path
       Then I should see "Silver Subscription Plan"
       Given I fill in the following:
-        | Name                       | Testy ShortLived  |
+        | user_first_name            | Testy             |
+        | user_last_name             | Shortlived        |
         | Email                      | short@testing.com |
         | user_password              | secret_password   |
         | user_password_confirmation | secret_password   |

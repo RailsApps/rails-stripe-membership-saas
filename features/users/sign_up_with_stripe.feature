@@ -10,7 +10,8 @@ Feature: User signs up with stripe
   @javascript
   Scenario: With valid card data
     Given I fill in the following:
-      | Name                       | Testy McUserson   |
+      | user_first_name            | Testy             |
+      | user_last_name             | McUserson         |
       | Email                      | testy@testing.com |
       | user_password              | secret_password   |
       | user_password_confirmation | secret_password   |
@@ -25,7 +26,8 @@ Feature: User signs up with stripe
   @javascript
   Scenario: With invalid card number
     Given I fill in the following:
-      | Name                       | Testy McBadCard   |
+      | user_first_name            | Testy             |
+      | user_last_name             | McBadcard         |
       | Email                      | testy@testing.com |
       | user_password              | secret_password   |
       | user_password_confirmation | secret_password   |
@@ -40,7 +42,8 @@ Feature: User signs up with stripe
   @javascript
   Scenario: With invalid card security code
     Given I fill in the following:
-      | Name                       | Testy McBadCode   |
+      | user_first_name            | Testy             |
+      | user_last_name             | McBadcode         |
       | Email                      | testy@testing.com |
       | user_password              | secret_password   |
       | user_password_confirmation | secret_password   |
@@ -55,7 +58,8 @@ Feature: User signs up with stripe
     @javascript
     Scenario: With declined card
       Given I fill in the following:
-        | Name                       | Testy McDecline   |
+        | user_first_name            | Testy             |
+        | user_last_name             | McDecline         |
         | Email                      | testy@testing.com |
         | user_password              | secret_password   |
         | user_password_confirmation | secret_password   |
