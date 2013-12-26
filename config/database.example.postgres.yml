@@ -52,3 +52,6 @@ production:
   pool: 5
   username: postgres
   password: password
+
+# cucumber:
+#   <<: *test

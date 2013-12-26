@@ -17,6 +17,7 @@ gem 'simple_form'
 gem 'therubyracer'
 gem "stripe", ">= 1.7.11"
 gem "stripe_event", ">= 0.4.0"
+gem "activerecord-postgres-hstore"
 gem "awesome_print" #For using in Rails Console
 # gem 'protected_attributes' #For upgrading to Rails 4
 
@@ -56,4 +57,5 @@ end
 
 group :production do
   gem 'unicorn'
+  gem 'pg'
 end
