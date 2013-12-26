@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :first_name, 
                   :last_name, 
+                  :name,
                   :email, 
                   :password, 
                   :password_confirmation, 
@@ -22,8 +23,16 @@ class User < ActiveRecord::Base
                   :fields
   attr_accessor :stripe_token, 
                 :coupon
+  before_create :create_name
   before_save :update_stripe
   before_destroy :cancel_subscription
+  validates :first_name, 
+            :last_name, 
+            :email, 
+            :password, 
+            :password_confirmation, 
+            :presence => true
+  
   acts_as_follower
   acts_as_followable
   
@@ -31,8 +40,8 @@ class User < ActiveRecord::Base
     self.follow(item)
   end
 
-  def name
-    "#{self.first_name} #{self.last_name}"
+  def create_name
+    name = "#{self.first_name} #{self.last_name}"
   end
 
   def update_plan(role)
