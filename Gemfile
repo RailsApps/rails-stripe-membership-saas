@@ -53,3 +53,7 @@ group :test do
   gem "capybara"
   gem 'headless'
 end
+
+group :production do
+  gem 'unicorn'
+end

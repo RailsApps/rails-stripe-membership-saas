@@ -8,11 +8,18 @@
 # Add application configuration variables here, as shown below.
 #
 NAME: Rails Stripe Membership Saas
+TYPE: Item
+SLOGAN: Welcome to Ruby Software As A Service
+DESC: Follow your favorite Items
 GMAIL_USERNAME: Your_Username
 GMAIL_PASSWORD: Your_Password
-ADMIN_NAME: First User
+ADMIN_NAME: Admin User
+ADMIN_FIRST_NAME: Admin
+ADMIN_LAST_NAME: User
 ADMIN_EMAIL: user@example.com
 ADMIN_PASSWORD: changeme
 ROLES: [admin, silver, gold, platinum]
+RAILS_SECRET_KEY: '256 bit key'
+DEVISE_SECRET_KEY: '256 bit key'
 STRIPE_API_KEY: Your_Stripe_API_key
 STRIPE_PUBLIC_KEY: Your_Stripe_Public_Key

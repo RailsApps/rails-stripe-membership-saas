@@ -12,5 +12,11 @@ RailsStripeMembershipSaas::Application.routes.draw do
     put 'update_plan', :to => 'registrations#update_plan'
     put 'update_card', :to => 'registrations#update_card'
   end
+
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+    end
+  end
+
   resources :users
 end
