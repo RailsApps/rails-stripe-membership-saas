@@ -11,7 +11,104 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017180539) do
+ActiveRecord::Schema.define(:version => 20131022032846) do
+
+  create_table "api_keys", :force => true do |t|
+    t.string   "access_token"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "follows", :force => true do |t|
+    t.integer  "followable_id",                      :null => false
+    t.string   "followable_type",                    :null => false
+    t.integer  "follower_id",                        :null => false
+    t.string   "follower_type",                      :null => false
+    t.boolean  "blocked",         :default => false, :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "follows", ["followable_id", "followable_type"], :name => "fk_followables"
+  add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
+
+  create_table "intangibles", :force => true do |t|
+    t.integer  "organization_id"
+    t.string   "name"
+    t.string   "desc"
+    t.string   "url"
+    t.string   "image"
+    t.string   "type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "items", :force => true do |t|
+    t.string   "item_id",         :limit => 32
+    t.integer  "organization_id"
+    t.string   "name"
+    t.string   "desc"
+    t.string   "url"
+    t.string   "image"
+    t.string   "type"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "items", ["item_id"], :name => "index_items_on_item_id", :unique => true
+
+  create_table "items_taxonomies", :id => false, :force => true do |t|
+    t.integer  "item_id",     :null => false
+    t.integer  "taxonomy_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "items_taxonomies", ["item_id", "taxonomy_id"], :name => "index_items_taxonomies_on_item_id_and_taxonomy_id", :unique => true
+
+  create_table "listings", :force => true do |t|
+    t.string   "listing_id",      :limit => 32, :null => false
+    t.integer  "organization_id"
+    t.integer  "item_id"
+    t.string   "name"
+    t.string   "desc"
+    t.string   "url"
+    t.string   "image"
+    t.string   "type"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "listings", ["listing_id"], :name => "index_listings_on_listing_id", :unique => true
+
+  create_table "listings_taxonomies", :id => false, :force => true do |t|
+    t.integer  "listing_id",  :null => false
+    t.integer  "taxonomy_id", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "listings_taxonomies", ["listing_id", "taxonomy_id"], :name => "index_listings_taxonomies_on_listing_id_and_taxonomy_id", :unique => true
+
+  create_table "organization_connections", :id => false, :force => true do |t|
+    t.integer  "org_a_id",   :null => false
+    t.integer  "org_b_id",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "organization_connections", ["org_a_id", "org_b_id"], :name => "index_organization_connections_on_org_a_id_and_org_b_id", :unique => true
+
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.string   "desc"
+    t.string   "url"
+    t.string   "image"
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -23,6 +120,17 @@ ActiveRecord::Schema.define(:version => 20121017180539) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "taxonomies", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.string   "desc"
+    t.string   "image"
+    t.string   "url"
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

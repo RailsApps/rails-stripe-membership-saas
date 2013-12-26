@@ -1,0 +1,11 @@
+<h1>Categories</h1>
+<div class="span8">
+<% @categories.each do |category| %>
+  <p><%= category.name %></p>
+  <ul>
+  	<% category.subcategories.each do |subcategory| %>
+  		<li><%= subcategory.name %></li>
+	<% end %>
+  </ul>
+<% end %>
+</div>

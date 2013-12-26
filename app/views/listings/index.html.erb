@@ -1,0 +1,6 @@
+<h1>Listings</h1>
+<div class="span8">
+<% @listings.each do |listing| %>
+  <p><a href="<%= listing.url %>" target="_blank"><%= listing.name %></a></p>
+<% end %>
+</div>

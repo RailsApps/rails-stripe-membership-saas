@@ -135,6 +135,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
+    kgio (2.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
     libv8 (3.16.14.3)
@@ -185,6 +186,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
+    raindrops (0.12.0)
     rake (10.1.1)
     rb-fsevent (0.9.3)
     rb-inotify (0.9.3)
@@ -259,6 +261,10 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unicorn (4.7.0)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -308,3 +314,4 @@ DEPENDENCIES
   therubyracer
   turbolinks
   uglifier
+  unicorn
