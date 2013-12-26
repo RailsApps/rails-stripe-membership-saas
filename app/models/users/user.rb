@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
                   :remember_me, 
                   :stripe_token, 
                   :coupon
+                  :fields
   attr_accessor :stripe_token, 
                 :coupon
   before_save :update_stripe
