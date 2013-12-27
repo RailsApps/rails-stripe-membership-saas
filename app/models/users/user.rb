@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
                   :fields
   attr_accessor :stripe_token, 
                 :coupon
+                
   before_save :update_stripe
   before_destroy :cancel_subscription
   validates :first_name, 
