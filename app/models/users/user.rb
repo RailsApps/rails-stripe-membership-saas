@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
          :rememberable, 
          :trackable, 
          :validatable
-
+         
+  serialize :fields, ActiveRecord::Coders::Hstore
   # Setup accessible (or protected) attributes for your model
   attr_accessible :first_name, 
                   :last_name, 
@@ -29,8 +30,8 @@ class User < ActiveRecord::Base
   validates :first_name, 
             :last_name, 
             :email, 
-            :password, 
-            :password_confirmation, 
+            # :password, 
+            # :password_confirmation, 
             :presence => true
   
   acts_as_follower
