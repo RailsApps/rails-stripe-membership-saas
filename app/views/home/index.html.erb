@@ -7,7 +7,7 @@
     <ul class="unstyled">
       <li>Follow 20 <%= content_for?(:h1) ? yield(:h1) : ENV['TYPE'] %>s a month</li>
     </ul>
-    <h3>$9/month</h3>
+    <h3>$2.99/month</h3>
     <%= link_to 'Subscribe', new_user_registration_path(:plan => 'silver'), :class => 'btn btn-primary' %> 
   </div>
   <div class="col-md-4 well featured">
@@ -15,7 +15,7 @@
     <ul class="unstyled">
       <li>Follow 1 Category a month</li>
     </ul>
-    <h3>$19/month</h3>
+    <h3>$29.99/month</h3>
     <%= link_to 'Subscribe', new_user_registration_path(:plan => 'gold'), :class => 'btn btn-primary' %> 
   </div>
   <div class="col-md-4 well">
@@ -23,7 +23,7 @@
     <ul class="unstyled">
       <li>Follow multiple Categories a month</li>
     </ul>
-    <h3>$29/month</h3>
+    <h3>$299.99/month</h3>
     <%= link_to 'Subscribe', new_user_registration_path(:plan => 'platinum'), :class => 'btn btn-primary' %> 
   </div>
 </div>

@@ -9,12 +9,11 @@ class User < ActiveRecord::Base
          :rememberable, 
          :trackable, 
          :validatable
-         
+
   serialize :fields, ActiveRecord::Coders::Hstore
   # Setup accessible (or protected) attributes for your model
   attr_accessible :first_name, 
-                  :last_name, 
-                  :name,
+                  :last_name,
                   :email, 
                   :password, 
                   :password_confirmation, 
@@ -24,7 +23,6 @@ class User < ActiveRecord::Base
                   :fields
   attr_accessor :stripe_token, 
                 :coupon
-  before_create :create_name
   before_save :update_stripe
   before_destroy :cancel_subscription
   validates :first_name, 
@@ -41,8 +39,8 @@ class User < ActiveRecord::Base
     self.follow(item)
   end
 
-  def create_name
-    name = "#{self.first_name} #{self.last_name}"
+  def user_name
+    "#{self.first_name} #{self.last_name}"
   end
 
   def update_plan(role)
