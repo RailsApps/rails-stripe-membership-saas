@@ -1,6 +1,8 @@
 <div id="welcome" class="page-header">
   <h1><%= content_for?(:h1) ? yield(:h1) : ENV['SLOGAN'] %> <small> <%= content_for?(:h3) ? yield(:h3) : ENV['DESC'] %></small></h1>
 </div>
+
+<% if !user_signed_in? %>
 <div class="row">
   <div class="col-md-4 well">
     <div class="plan"><h2>Silver</h2></div>
@@ -27,3 +29,4 @@
     <%= link_to 'Subscribe', new_user_registration_path(:plan => 'platinum'), :class => 'btn btn-primary' %> 
   </div>
 </div>
+<% end %>
