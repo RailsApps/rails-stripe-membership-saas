@@ -10,7 +10,7 @@ describe UserMailer do
     end
 
     it "has the correct senders email" do
-      mail.from.should == ["notifications@example.com"]
+      mail.from.should == [ENV['ADMIN_EMAIL']]
     end
 
     it "has the correct subject" do

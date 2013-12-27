@@ -23,3 +23,5 @@ RAILS_SECRET_KEY: '256 bit key'
 DEVISE_SECRET_KEY: '256 bit key'
 STRIPE_API_KEY: Your_Stripe_API_key
 STRIPE_PUBLIC_KEY: Your_Stripe_Public_Key
+AMAZON_ACCESS_KEY: Your_Amazon_Access_Key
+AMAZON_SECRET_KEY: Your_Amazon_Secret_Key
