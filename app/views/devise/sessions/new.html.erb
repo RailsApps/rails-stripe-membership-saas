@@ -1,4 +1,6 @@
-<h2>Sign in</h2>
+<div class="page-header">
+	<h2>Sign in</h2>
+</div>
 <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
   <%= f.input :email, :autofocus => true %>
   <%= f.input :password %>

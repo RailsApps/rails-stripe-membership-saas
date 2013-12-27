@@ -19,4 +19,10 @@ RailsStripeMembershipSaas::Application.routes.draw do
   end
 
   resources :users
+  resources :taxonomies, :only => [:index]
+  resources :categories, :only => [:index]
+  resources :tags, :only => [:index]
+  resources :organizations, :only => [:index]
+  resources :items, :only => [:index]
+  resources :listings, :only => [:index]
 end

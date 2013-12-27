@@ -1,7 +1,9 @@
 <% content_for :head do %>
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
 <% end %>
-<h2>Sign up</h2>
+<div class="page-header">
+  <h2>Sign up</h2>
+</div>
 <div id="stripe_error" class="alert alert-error" style="display:none" >
 </div>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'card_form form-vertical' }) do |f| %>

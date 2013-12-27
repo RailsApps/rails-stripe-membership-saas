@@ -13,20 +13,10 @@
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-          <% if current_user.has_role? :admin %>
-            <li>
-            <%= link_to 'Admin', users_path %>
-            </li>
-          <% end %>
-          <li>
-          <%= link_to 'Edit account', edit_user_registration_path %>
-          </li>
-          <li>
-          <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>        
-          </li>
+          <%= render 'layouts/navigation_links' %>
         <% else %>
           <li>
-          <%= link_to 'Login', new_user_session_path %>  
+            <%= link_to 'Login', new_user_session_path %>
           </li>
         <% end %>
       </ul>
