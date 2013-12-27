@@ -12,6 +12,6 @@ class CreateItems < ActiveRecord::Migration
       t.timestamps
     end
 
-  add_index :items, :item_id, :unique => true
+  add_index 'items', ["item_id", "url"], :unique => true
   end
 end

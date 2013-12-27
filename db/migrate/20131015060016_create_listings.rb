@@ -13,6 +13,6 @@ class CreateListings < ActiveRecord::Migration
       t.timestamps
     end
 
-  add_index :listings, :listing_id, :unique => true
+  add_index 'listings', ["listing_id", "url"], :unique => true
   end
 end

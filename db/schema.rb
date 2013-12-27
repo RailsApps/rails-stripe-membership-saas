@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131226214655) do
+ActiveRecord::Schema.define(:version => 20131227145851) do
 
   create_table "api_keys", :force => true do |t|
     t.string   "access_token"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(:version => 20131226214655) do
   end
 
   add_index "items", ["fields"], :name => "index_items_on_fields"
-  add_index "items", ["item_id"], :name => "index_items_on_item_id", :unique => true
+  add_index "items", ["item_id", "url"], :name => "index_items_on_item_id_and_url", :unique => true
 
   create_table "items_taxonomies", :id => false, :force => true do |t|
     t.integer  "item_id",     :null => false
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(:version => 20131226214655) do
   end
 
   add_index "listings", ["fields"], :name => "index_listings_on_fields"
-  add_index "listings", ["listing_id"], :name => "index_listings_on_listing_id", :unique => true
+  add_index "listings", ["listing_id", "url"], :name => "index_listings_on_listing_id_and_url", :unique => true
 
   create_table "listings_taxonomies", :id => false, :force => true do |t|
     t.integer  "listing_id",  :null => false
@@ -147,6 +147,23 @@ ActiveRecord::Schema.define(:version => 20131226214655) do
   end
 
   add_index "taxonomies", ["fields"], :name => "index_taxonomies_on_fields"
+
+  create_table "unknowns", :force => true do |t|
+    t.string   "listing_id",      :limit => 32, :null => false
+    t.integer  "organization_id"
+    t.integer  "item_id"
+    t.string   "name"
+    t.string   "desc"
+    t.string   "url"
+    t.string   "image"
+    t.string   "type"
+    t.hstore   "fields"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "unknowns", ["fields"], :name => "index_unknowns_on_fields"
+  add_index "unknowns", ["listing_id", "url"], :name => "index_unknowns_on_listing_id_and_url", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

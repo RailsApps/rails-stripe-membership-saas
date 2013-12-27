@@ -1,5 +1,5 @@
 class CreateUnknowns < ActiveRecord::Migration
-    def change
+  def change
     create_table :unknowns do |t|
       t.string :listing_id, :limit => 32, :null => false, :primary => true
       t.belongs_to :organization
@@ -14,7 +14,7 @@ class CreateUnknowns < ActiveRecord::Migration
       t.timestamps
     end
 
-  add_index :unknowns, :listing_id, :unique => true
+  add_index 'unknowns', ["listing_id", "url"], :unique => true
   add_hstore_index :unknowns, :fields
   end
 end
