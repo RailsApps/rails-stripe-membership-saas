@@ -15,6 +15,8 @@ RailsStripeMembershipSaas::Application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
+      resources :items
+      resources :listings
     end
   end
 
@@ -25,4 +27,5 @@ RailsStripeMembershipSaas::Application.routes.draw do
   resources :organizations, :only => [:index]
   resources :items, :only => [:index]
   resources :listings, :only => [:index]
+  resources :unknowns, :only => [:index]
 end
