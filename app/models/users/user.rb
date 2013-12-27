@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   
   acts_as_follower
   acts_as_followable
+
+  has_one :api_key, :dependent => :destroy
   
   def follow_now(item)
     self.follow(item)
@@ -92,6 +94,7 @@ class User < ActiveRecord::Base
         UserMailer.verify_email(self).deliver 
       end
     end
+    self.api_key = ApiKey.create
     self.last_4_digits = customer.cards.data.first["last4"]
     self.customer_id = customer.id
     self.stripe_token = nil
