@@ -14,6 +14,7 @@ development:
   database: ruby-saas_development
   host: localhost
   pool: 5
+  timeout: 5000
   username: postgres
   password: password
  
@@ -41,6 +42,7 @@ test:
   database: ruby-saas_test
   host: localhost
   pool: 5
+  timeout: 5000
   username: postgres
   password: password
  
@@ -50,6 +52,7 @@ production:
   database: ruby-saas_production
   host: localhost
   pool: 5
+  timeout: 5000
   username: postgres
   password: password
 

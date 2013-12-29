@@ -17,6 +17,7 @@ RailsStripeMembershipSaas::Application.routes.draw do
     namespace :v1 do
       resources :items
       resources :listings
+      resources :follows
     end
   end
 
