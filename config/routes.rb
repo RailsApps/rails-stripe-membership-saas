@@ -18,6 +18,7 @@ RailsStripeMembershipSaas::Application.routes.draw do
       resources :items
       resources :listings
       resources :follows
+      get 'get_urls' => 'follows#get_urls'
     end
   end
 
