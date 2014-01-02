@@ -3,7 +3,7 @@ class ListingWorker
 
   def perform(params)
     ap params
-	listing = Listing.find_or_initialize_by_listing_id(:listing_id => params[:id],
+	  listing = Listing.find_or_initialize_by_listing_id(:listing_id => params[:id],
                                                              :url => params[:url],
                                                              :name => params[:name],
                                                              :image => params[:image],
@@ -14,8 +14,8 @@ class ListingWorker
           params.delete(:image)
           params.delete(:description)
           
-          # listing.organization = Organization.find_by_name(params[:site_name])
-          # params.delete(:site_name)
+          listing.organization = Organization.find_by_name(params[:site_name])
+          params.delete(:site_name)
           
           # categories = params[:categories].split(',')
           # categories.each_with_index do |category, index|
@@ -25,7 +25,7 @@ class ListingWorker
           #   listing.taxonomies << c rescue nil
           #   c.save
           # end
-          # params.delete(:categories)
+          params.delete(:categories)
 
           # tags = params[:tags].split(',')
           # tags.each do |tag|
@@ -33,9 +33,9 @@ class ListingWorker
           #   listing.taxonomies << t rescue nil
           #   t.save
           # end
-          # params.delete(:tags)
+          params.delete(:tags)
           
-          # listing.fields.merge!(params)
+          listing.fields.merge!(params)
 
           listing.save    
   end
