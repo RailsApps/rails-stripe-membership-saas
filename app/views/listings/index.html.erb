@@ -8,7 +8,12 @@
         <img src="<%= listing.image %>" alt="<%= listing.name %>">
         <div class="caption">
 	        <p><%= listing.name[0..40] %>...</p>
-	        <p><a href="#" class="btn btn-primary" role="button">Follow</a></p>
+          <% if current_user.following?(listing) %>
+          <%= link_to "Unfollow", unfollow_listing_path(listing), :class => "btn btn-success" %>
+          <% else %>
+          <%= link_to "Follow", follow_listing_path(listing), :class => "btn btn-primary" %>
+          <% end %>
+          </p>
         </div>
       </div>
     </div>

@@ -9,4 +9,5 @@ class Unknown < Intangible
 
   belongs_to :item
   belongs_to :organization
+  acts_as_followable
 end

@@ -33,4 +33,11 @@ RailsStripeMembershipSaas::Application.routes.draw do
   resources :items, :only => [:index]
   resources :listings, :only => [:index]
   resources :unknowns, :only => [:index]
+
+  resources :listings do
+      member do
+        get :follow
+        get :unfollow
+      end
+    end
 end
