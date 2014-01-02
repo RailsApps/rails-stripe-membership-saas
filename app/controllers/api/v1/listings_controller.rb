@@ -54,7 +54,9 @@ module Api
           listing.fields.merge!(params)
 
           listing.save
+          # ListingWorker.perform_async(params)
         else
+          # UnkownWorker.perform_async(params)
           unknown = Unknown.find_or_initialize_by_unknown_id(:unknown_id => params[:id],
                                                              :url => params[:url],
                                                              :name => params[:name],
@@ -91,7 +93,7 @@ module Api
 
           unknown.save
         end
-        
+
         respond_to do |format|
           msg = { :status => "ok", :message => "Success!", :html => "" }
           format.json  { render :json => msg }

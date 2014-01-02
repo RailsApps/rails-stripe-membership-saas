@@ -1,5 +1,8 @@
+require 'sidekiq/web'
+
 RailsStripeMembershipSaas::Application.routes.draw do
   mount StripeEvent::Engine => '/stripe'
+  mount Sidekiq::Web, at: '/sidekiq'
   get "content/gold"
   get "content/silver"
   get "content/platinum"
