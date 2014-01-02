@@ -25,6 +25,7 @@ module Api
                                                              :name => params[:name],
                                                              :image => params[:image],
                                                              :desc => params[:description])
+          Unknown.find_by_listing_id(:listing_id => params[:id]).delete rescue nil
           params.delete(:id)
           params.delete(:url)
           params.delete(:name)

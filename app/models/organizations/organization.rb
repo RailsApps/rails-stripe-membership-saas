@@ -6,5 +6,6 @@ class Organization < Thing
       :foreign_key => :org_b_id, :dependent => :destroy)
   has_many :organizations, :through => :organization_connections, :source => :org_b
   has_many :listings, dependent: :destroy
+  has_many :unknowns, dependent: :destroy
   acts_as_followable
 end

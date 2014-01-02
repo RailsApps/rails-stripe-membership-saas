@@ -4,7 +4,7 @@ class Listing < Intangible
   has_and_belongs_to_many :taxonomies
 	
   attr_accessible :listing_id,
-				  :product_id,
+				  :item_id,
 				  :fields
 
   belongs_to :item
