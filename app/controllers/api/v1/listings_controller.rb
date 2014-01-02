@@ -59,6 +59,7 @@ module Api
           # ListingWorker.perform_async(params)
         else
           # UnkownWorker.perform_async(params)
+          ap params
           unknown = Unknown.find_or_initialize_by_listing_id(:listing_id => params[:id],
                                                              :url => params[:url],
                                                              :name => params[:name],
