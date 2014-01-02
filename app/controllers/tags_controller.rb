@@ -1,10 +1,10 @@
 class TagsController < ApplicationController
   before_filter :authenticate_user!
   def index
+  	authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @tags = Tag.all
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @tags.to_json }
+      format.html
     end
   end
 end

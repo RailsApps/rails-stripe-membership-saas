@@ -6,5 +6,6 @@ class Thing < ActiveRecord::Base
   				  :url, 
   				  :image,
   				  :sameAs
+  validates_presence_of :name
   self.abstract_class = true
 end

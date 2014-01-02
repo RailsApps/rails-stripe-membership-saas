@@ -1,13 +1,17 @@
 <div class="page-header">
-	<h1>Categories</h1>
+	<h1><%= @category.nil? ? 'Categories' : @category.name %></h1>
 </div>
-<div class="span8">
+<div class="row">
 <% @categories.each do |category| %>
-  <p><%= category.name %></p>
+<div class="col-md-3 well">
+  <p><%= link_to category.name, category_path(category) %></p>
   <ul>
   	<% category.subcategories.each do |subcategory| %>
-  		<li><%= subcategory.name %></li>
+  		<li><%= link_to subcategory.name, category_path(subcategory) %></li>
 	<% end %>
   </ul>
+  </div>
 <% end %>
 </div>
+
+<%= link_to 'Back', @category.parent_id.nil? ? categories_path : category_path(@category.parent_id) unless @category.nil? %> 

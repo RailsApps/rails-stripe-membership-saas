@@ -21,6 +21,7 @@ gem "aws-ses", require: 'aws/ses'
 gem "sidekiq"
 gem 'sinatra', require: false
 gem 'slim'
+gem 'will_paginate'
 gem "awesome_print" #For using in Rails Console
 # gem 'protected_attributes' #For upgrading to Rails 4
 

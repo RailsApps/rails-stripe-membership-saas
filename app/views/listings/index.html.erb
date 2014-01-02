@@ -1,18 +1,17 @@
 <div class="page-header">
 	<h1>Listings</h1>
 </div>
-
+<div class="row">
 <% @listings.each_with_index do |listing, index| %>
-  
-  <% if index % 4 == 0 %><div class="row"><% end %>
-    <div class="col-sm-6 col-md-3">
+    <div class="col-sm-6 col-md-2">
       <div class="thumbnail">
         <img src="<%= listing.image %>" alt="<%= listing.name %>">
         <div class="caption">
 	        <p><%= listing.name[0..40] %>...</p>
-	        <p><a href="#" class="btn btn-primary" role="button">Follow</a>
+	        <p><a href="#" class="btn btn-primary" role="button">Follow</a></p>
         </div>
       </div>
     </div>
-  <% if index-3 % 4 == 0 %></div><hr><% end %>
 <% end %>
+</div>
+<%= will_paginate @listings %>
