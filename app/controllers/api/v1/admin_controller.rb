@@ -65,10 +65,9 @@ module Api
           # ListingWorker.perform_async(params)
           listing = Listing.find_or_initialize_by_listing_id(:listing_id => params[:id],
                                                              :url => params[:url],
-                                                             :name => params[:name],
-                                                             :image => params[:image],
-                                                             :desc => params[:description])
-
+                                                             :image => params[:image])
+          listing.name = params[:name][0..250]+"..." rescue nil
+          listing.desc = params[:description][0..250]+"..." rescue nil
           # u = Unknown.find_by_listing_id(:listing_id => params[:id])
           # u.delete rescue nil
           uri = URI.parse(params[:url])
@@ -86,15 +85,15 @@ module Api
           categories = params[:categories].split(',') rescue []
           categories.each_with_index do |category, index|
             next_element = categories[index+1]
-            if t = Tag.find_by_name(category)
-              t.make_category
-            end
             c = Category.find_or_initialize_by_name(category)
-            if index == 0 then c.parent = nil; c.save end
+            # if t = Tag.find_by_name(category)
+            #   t.make_category
+            # end
             if next_element
-              c.subcategories << Category.find_or_creat41VZlVs8agLe_by_name(next_element) rescue nil
+              c.subcategories << Category.find_or_create_by_name(next_element) rescue nil
             end
             listing.taxonomies << c rescue nil
+            if index == 0 then c.parent_id = nil end
             c.save
           end
           params.delete(:categories)
@@ -106,7 +105,10 @@ module Api
           end
           params.delete(:tags)
           
-          
+          # if params[:sameAs]
+          #   # item = Item.
+          # end
+          # params.delete(:sameAs)
 
           listing.fields.merge!(params)
 
@@ -117,10 +119,9 @@ module Api
           # UnkownWorker.perform_async(params)
           unknown = Unknown.find_or_initialize_by_listing_id(:listing_id => params[:id],
                                                              :url => params[:url],
-                                                             :name => params[:name],
-                                                             :image => params[:image],
-                                                             :desc => params[:description])
-
+                                                             :image => params[:image])
+          unknown.name = params[:name][0..250]+"..." rescue nil
+          unkonwn.desc = params[:description][0..250]+"..." rescue nil
           params.delete(:id)
           params.delete(:url)
           params.delete(:name)

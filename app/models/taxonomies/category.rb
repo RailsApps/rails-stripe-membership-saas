@@ -4,6 +4,7 @@ class Category < Taxonomy
   belongs_to :parent_category, :class_name => "Category"
   has_and_belongs_to_many :items
   has_and_belongs_to_many :listings
+  validates_uniqueness_of :name
   acts_as_followable
   def make_tag
     self.type = "Tag"
