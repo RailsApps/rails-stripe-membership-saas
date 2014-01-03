@@ -27,3 +27,9 @@
 </div>
 
 <%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>
+
+<% @listing.taxonomies.each do |categories| %>
+  <% if categories.type == "Category" %>
+    <%= link_to_function categories.name, "#", :class => "btn btn-primary" %>
+  <% end %>
+<% end %>

@@ -66,8 +66,8 @@ module Api
           listing = Listing.find_or_initialize_by_listing_id(:listing_id => params[:id],
                                                              :url => params[:url],
                                                              :image => params[:image])
-          listing.name = params[:name][0..250]+"..." rescue nil
-          listing.desc = params[:description][0..250]+"..." rescue nil
+          listing.name = params[:name][0..254] rescue nil
+          listing.desc = params[:description][0..254] rescue nil
           # u = Unknown.find_by_listing_id(:listing_id => params[:id])
           # u.delete rescue nil
           uri = URI.parse(params[:url])

@@ -17,7 +17,6 @@ class CategoriesController < ApplicationController
     Listing.all.each do |l|
       if l.taxonomies.find_by_id(params[:id]) then @listings << l end
     end
-
     # Find the category belonging to the given id
 	  @category = Category.find(params[:id])
 	  # Grab all sub-categories
