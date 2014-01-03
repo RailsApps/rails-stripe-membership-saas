@@ -7,9 +7,9 @@
       <div class="thumbnail">
       	<img src="<%= @listing.image %>" alt="<%= @listing.name %>">
       	<p align="center"><% if current_user.following?(@listing) %>
-          <%= link_to "Unfollow Listing", unfollow_listing_path(@listing), :class => "btn btn-success" %>
+          <%= link_to "Unfollow Listing", unfollow_listing_path(@listing), :class => "btn btn-danger" %>
         <% else %>
-          <%= link_to "Follow Listing", follow_listing_path(@listing), :class => "btn btn-primary" %>
+          <%= link_to "Follow Listing", follow_listing_path(@listing), :class => "btn btn-success" %>
         <% end %></p>
       </div>
     </div>
@@ -21,3 +21,5 @@
     	<% end %>
     </div>
 </div>
+
+<%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>

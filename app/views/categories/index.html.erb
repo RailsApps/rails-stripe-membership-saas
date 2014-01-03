@@ -2,21 +2,35 @@
 	<h1><%= @category.nil? ? 'Categories' : @category.name %></h1>
 </div>
 
-<% @listings.each do |listing| %>
-	<p><%= link_to listing.name, listing_path(listing) %></p>
-<% end rescue nil%>
-
-<div class="row">
 <% @categories.each do |category| %>
-<div class="col-md-3 well">
-  <p><%= link_to category.name, category_path(category) %></p>
-  <ul>
+<ul class="nav nav-pills">
+  <li class="active"><%= link_to category.name, category_path(category)%></li>
   	<% category.subcategories.each do |subcategory| %>
-  		<li><%= link_to subcategory.name, category_path(subcategory) %></li>
+  		<li><%= link_to subcategory.name, category_path(subcategory)%></li>
 	<% end %>
-  </ul>
-  </div>
+</ul>
+<hr>
 <% end %>
+
+<% if @category.parent_id.nil? %>
+	<p align="center"><%= link_to 'View Parent Category', categories_path, :class => "btn btn-default" %></p>
+<% else %>
+	<p align="center">
+	<%= link_to 'View Parent Category', category_path(@category.parent_id), :class => "btn btn-default" %> 
+	<% if current_user.following?(@category) %>
+    	<%= link_to "Unfollow #{@category.name}", unfollow_category_path(@category), :class => "btn btn-danger" %>
+    <% else %>
+        <%= link_to "Follow #{@category.name}", follow_category_path(@category), :class => "btn btn-success" %>
+    <% end %>
+	</p>
+<% end unless @category.nil?%>
+
+
+<div class="list-group">
+<% @listings.each do |listing| %>
+	<%= link_to listing.name, listing_path(listing), :class => "list-group-item" %>
+<% end rescue nil%> 
 </div>
 
-<%= link_to 'Back', @category.parent_id.nil? ? categories_path : category_path(@category.parent_id) unless @category.nil? %> 
+
+<%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>
