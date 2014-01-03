@@ -13,18 +13,19 @@ module Api
       end
       
       def create
-        respond_with Item.create(params[:item])
+        # respond_with Item.create(params[:item_id])
       end
       
       def update
-        respond_with Item.update(params[:id], params[:item])
+        # respond_with Item.update(params[:id], params[:item_id])
       end
       
       def destroy
-        respond_with Item.destroy(params[:id])
+        # respond_with Item.destroy(params[:id])
       end
 
       private
+      
       def restrict_access
         if params[:access_token]
           if params[:access_token] == ENV['RAILS_SECRET_KEY'] then return true end

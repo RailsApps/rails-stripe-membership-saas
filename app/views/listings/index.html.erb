@@ -5,13 +5,13 @@
 <% @listings.each_with_index do |listing, index| %>
     <div class="col-sm-6 col-md-2">
       <div class="thumbnail">
-        <img src="<%= listing.image %>" alt="<%= listing.name %>">
+        <a href="<%= listing_path(listing) %>"><img src="<%= listing.image %>" alt="<%= listing.name %>"></a>
         <div class="caption">
-	        <p><%= listing.name[0..40] %>...</p>
+	        <p><%= link_to listing.name[0..40]+"...", listing_path(listing) %></p>
           <% if current_user.following?(listing) %>
-          <%= link_to "Unfollow", unfollow_listing_path(listing), :class => "btn btn-success" %>
+          <%= link_to "Unfollow Listing", unfollow_listing_path(listing), :class => "btn btn-success" %>
           <% else %>
-          <%= link_to "Follow", follow_listing_path(listing), :class => "btn btn-primary" %>
+          <%= link_to "Follow Listing", follow_listing_path(listing), :class => "btn btn-primary" %>
           <% end %>
           </p>
         </div>

@@ -1,6 +1,11 @@
 <div class="page-header">
 	<h1><%= @category.nil? ? 'Categories' : @category.name %></h1>
 </div>
+
+<% @listings.each do |listing| %>
+	<p><%= link_to listing.name, listing_path(listing) %></p>
+<% end rescue nil%>
+
 <div class="row">
 <% @categories.each do |category| %>
 <div class="col-md-3 well">

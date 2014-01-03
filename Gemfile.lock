@@ -313,7 +313,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-postgres-hstore
-  acts_as_follower
+  acts_as_follower (= 0.1.1)
   awesome_print
   aws-ses
   better_errors

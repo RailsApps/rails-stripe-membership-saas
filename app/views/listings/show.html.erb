@@ -1,0 +1,23 @@
+<div class="page-header">
+	<h1><%= @listing.name %></h1>
+</div>
+
+<div class="row">
+	<div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+      	<img src="<%= @listing.image %>" alt="<%= @listing.name %>">
+      	<p align="center"><% if current_user.following?(@listing) %>
+          <%= link_to "Unfollow Listing", unfollow_listing_path(@listing), :class => "btn btn-success" %>
+        <% else %>
+          <%= link_to "Follow Listing", follow_listing_path(@listing), :class => "btn btn-primary" %>
+        <% end %></p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-8">
+    	<p><%= @listing.desc %></p>
+    	<p>Last Updated On: <strong><%= @listing.updated_at.strftime("%A, %B %d, %Y at %l%p") %></strong></p>
+    	<% @listing.fields.each do |key, value| %>
+    		<li><%= key.upcase %> = <strong><%= value %></strong></li>
+    	<% end %>
+    </div>
+</div>
