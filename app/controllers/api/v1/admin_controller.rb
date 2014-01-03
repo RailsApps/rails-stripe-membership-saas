@@ -12,15 +12,15 @@ module Api
           end
 
           Follow.all.each do |f|
-            if f.followable_type == "Item" 
-              Item.find(f.followable_id).listings.each do |p|
-                @follow_urls.push(p.url)
-              end
+            if f.followable_type == "Category"
+
             elsif f.followable_type == "Intangible"
               listing = Listing.find(f.followable_id)
               @follow_urls.push(listing.url)
-            elsif f.followable_type == "Category"
-
+            elsif f.followable_type == "Item" 
+              Item.find(f.followable_id).listings.each do |p|
+                @follow_urls.push(p.url)
+              end
             end
           end
 
@@ -82,22 +82,29 @@ module Api
                                                                      :url => "#{uri.scheme}://#{uri.host}")
           params.delete(:site_name)
 
-          tags = params[:tags].split(',')
-          tags.each do |tag|
-            t = Tag.find_or_create_by_name(tag)
-            listing.taxonomies << t rescue nil
-          end
-          params.delete(:tags)
-          
           categories = params[:categories].split(',')
           categories.each_with_index do |category, index|
-            ap index
+            next_element = categories[index+1]
             c = Category.find_or_initialize_by_name(category)
-            c.subcategories << Category.find_or_create_by_name(categories[index+1]) rescue nil
+            if next_element
+              c.subcategories << Category.find_or_create_by_name(next_element) rescue nil
+            end
             listing.taxonomies << c rescue nil
             c.save
           end
           params.delete(:categories)
+
+          tags = params[:tags].split(',')
+          # tags = tags - categories
+          tags.each do |tag|
+              # if !Category.find_by_name(tag)
+                t = Tag.find_or_create_by_name(tag)
+                listing.taxonomies << t rescue nil
+              # end
+          end
+          params.delete(:tags)
+          
+          
 
           listing.fields.merge!(params)
 
@@ -106,7 +113,6 @@ module Api
 
         def create_unknown params
           # UnkownWorker.perform_async(params)
-          ap params
           unknown = Unknown.find_or_initialize_by_listing_id(:listing_id => params[:id],
                                                              :url => params[:url],
                                                              :name => params[:name],
