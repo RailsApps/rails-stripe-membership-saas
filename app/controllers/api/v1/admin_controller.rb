@@ -85,7 +85,11 @@ module Api
           categories = params[:categories].split(',')
           categories.each_with_index do |category, index|
             next_element = categories[index+1]
+            if t = Tag.find_by_name(category)
+              t.make_category
+            end
             c = Category.find_or_initialize_by_name(category)
+            if index == 0 then c.parent = nil; c.save end
             if next_element
               c.subcategories << Category.find_or_create_by_name(next_element) rescue nil
             end
