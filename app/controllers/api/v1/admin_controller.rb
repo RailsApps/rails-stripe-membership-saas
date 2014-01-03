@@ -69,7 +69,8 @@ module Api
                                                              :image => params[:image],
                                                              :desc => params[:description])
 
-          Unknown.find_by_listing_id(:listing_id => params[:id]).delete rescue nil
+          # u = Unknown.find_by_listing_id(:listing_id => params[:id])
+          # u.delete rescue nil
           uri = URI.parse(params[:url])
 
           params.delete(:id)
@@ -82,7 +83,7 @@ module Api
                                                                      :url => "#{uri.scheme}://#{uri.host}")
           params.delete(:site_name)
 
-          categories = params[:categories].split(',')
+          categories = params[:categories].split(',') rescue []
           categories.each_with_index do |category, index|
             next_element = categories[index+1]
             if t = Tag.find_by_name(category)
@@ -91,20 +92,17 @@ module Api
             c = Category.find_or_initialize_by_name(category)
             if index == 0 then c.parent = nil; c.save end
             if next_element
-              c.subcategories << Category.find_or_create_by_name(next_element) rescue nil
+              c.subcategories << Category.find_or_creat41VZlVs8agLe_by_name(next_element) rescue nil
             end
             listing.taxonomies << c rescue nil
             c.save
           end
           params.delete(:categories)
 
-          tags = params[:tags].split(',')
-          # tags = tags - categories
+          tags = params[:tags].split(',') rescue []
           tags.each do |tag|
-              # if !Category.find_by_name(tag)
                 t = Tag.find_or_create_by_name(tag)
                 listing.taxonomies << t rescue nil
-              # end
           end
           params.delete(:tags)
           
