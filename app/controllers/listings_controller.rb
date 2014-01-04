@@ -1,14 +1,14 @@
 class ListingsController < ApplicationController
   before_filter :authenticate_user!
   def index
-    @listings = Listing.paginate(:page => params[:page], :per_page => 12).order('updated_at DESC')
+    @listings ||= Listing.paginate(:page => params[:page], :per_page => 12).order('updated_at DESC')
     respond_to do |format|
       format.html
     end
   end
 
   def show
-    @listing = Listing.find(params[:id])
+    @listing ||= Listing.find(params[:id])
 
     respond_to do |format|
       format.html

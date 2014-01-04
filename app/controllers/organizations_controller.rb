@@ -2,7 +2,7 @@ class OrganizationsController < ApplicationController
     before_filter :authenticate_user!
   def index
     authorize! :index, @user, :message => 'Not authorized as an administrator.'
-    @organizations = Organization.all
+    @organizations ||= Organization.all
 
     respond_to do |format|
       format.html # index.html.erb

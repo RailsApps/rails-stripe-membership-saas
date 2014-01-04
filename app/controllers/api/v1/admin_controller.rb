@@ -4,7 +4,7 @@ module Api
       before_filter :restrict_access
       respond_to :json
 
-      def get_urls
+      def get_follow_urls
           @follow_urls = []
 
           Organization.where("url IS NOT NULL").each do |r|
@@ -26,6 +26,18 @@ module Api
 
         respond_to do |format|
           format.json { render json: @follow_urls.uniq.to_json }
+        end
+      end
+
+      def get_all_urls
+          @all_urls = []
+
+          Listing.all.each do |l|
+            @all_urls.push(l.url)
+          end
+
+        respond_to do |format|
+          format.json { render json: @all_urls.uniq.to_json }
         end
       end
 

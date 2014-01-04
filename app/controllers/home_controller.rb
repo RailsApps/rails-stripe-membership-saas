@@ -2,6 +2,7 @@ class HomeController < ApplicationController
 
 	def index
 		find_top
+		@organizations ||= Organization.all
 	end
 
 	private
@@ -22,6 +23,6 @@ class HomeController < ApplicationController
 		count = Hash.new(0)
 		list.each {|element| count[element] += 1}
 		list = list.uniq.sort {|x,y| count[y] <=> count[x]}
-		list[0...6]
+		list[0...5]
 	end
 end

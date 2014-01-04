@@ -4,7 +4,14 @@
 <div class="row">
 <% @organizations.each do |organization| %>
   <div class="col-md-4 well">
-  <p align="center"><%= link_to organization.name, organization.url, :target => "_blank" %></p>
+  <h3><%= link_to organization.name, organization.url, :target => "_blank" %></h3>
+
+  <ul class="list-group">
+  <li class="list-group-item">
+    <span class="badge"><%= organization.listings.count %></span>
+	    Total Listings
+	  </li>
+	</ul>
   </div>
 <% end %>
 </div>

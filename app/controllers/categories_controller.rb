@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   def index
     # authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @category = nil
-    @categories = Category.where(:parent_id => nil).includes(:subcategories)
+    @categories ||= Category.where(:parent_id => nil).includes(:subcategories)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,9 +18,9 @@ class CategoriesController < ApplicationController
       if l.taxonomies.find_by_id(params[:id]) then @listings << l end
     end
     # Find the category belonging to the given id
-	  @category = Category.find(params[:id])
+	  @category ||= Category.find(params[:id])
 	  # Grab all sub-categories
-	  @categories = @category.subcategories
+	  @categories ||= @category.subcategories
 	  # We want to reuse the index renderer:
 	  render :action => :index
 	end
