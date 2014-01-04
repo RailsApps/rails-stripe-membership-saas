@@ -31,3 +31,5 @@
 	<a class="list-group-item" href="<%= listing_path(listing) %>"><%= listing.name %><span class="badge"><%= listing.organization.name %></span></a>
 <% end rescue nil%> 
 </div>
+
+<%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>

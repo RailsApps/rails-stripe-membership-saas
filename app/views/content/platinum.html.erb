@@ -1,4 +1,26 @@
 <div class="page-header">
 	<h1>Welcome <%= current_user.first_name %> to your <b>Platinum</b> Membership</h1>
 </div>
-<p>Find me in app/views/content/platinum.html.erb</p>
+<% @listings.each_with_index do |listing, index| %>
+  <% if index % 6 == 0 %> 
+    <div class="row">
+  <% end %>
+
+      <div class="col-sm-6 col-md-2">
+        <div class="thumbnail">
+          <a href="<%= listing_path(listing) %>"><img src="<%= listing.image %>" alt="<%= listing.name %>"></a>
+          <div class="caption">
+  	        <p><%= link_to listing.name[0..25]+"...", listing_path(listing) %> <small><strong><%= listing.organization.name %></strong></small></p>
+            <p align="center"><% if current_user.following?(listing) %>
+            <%= link_to "Unfollow Listing", unfollow_listing_path(listing), :class => "btn btn-danger" %>
+            <% else %>
+            <%= link_to "Follow Listing", follow_listing_path(listing), :class => "btn btn-success" %>
+            <% end %></p>
+          </div>
+        </div>
+      </div>
+
+  <% if index-5 % 6 == 0 && index != 0 %> 
+    </div>
+  <% end %>
+<% end %>

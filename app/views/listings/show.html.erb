@@ -25,13 +25,14 @@
     	  <li class="list-group-item"><span class="badge"><%= key.upcase %></span><%= value %></li>
     	<% end %>
       </ul>
-
-      <% @listing.taxonomies.each do |categories| %>
-        <% if categories.type == "Category" %>
-          <%= link_to_function categories.name, "#", :class => "btn btn-primary" %>
-        <% end %>
-      <% end %>
     </div>
 </div>
-
+<ol class="breadcrumb">
+  <% @listing.taxonomies.each do |categories| %>
+    <% if categories.type == "Category" %>
+      <li><a href="<%= category_path(categories) %>"><%= categories.name %></a></li>
+    <% end %>
+  <% end %>
+</ol>
 <hr>
+<%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>

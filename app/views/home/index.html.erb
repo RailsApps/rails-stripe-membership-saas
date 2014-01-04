@@ -1,6 +1,26 @@
 <div id="welcome" class="page-header">
   <h1><%= content_for?(:h1) ? yield(:h1) : ENV['SLOGAN'] %> <small> <%= content_for?(:h3) ? yield(:h3) : ENV['DESC'] %></small></h1>
 </div>
+<h3 align="right">Top 6 Most Followed Listings</h3>
+<div class="row">
+<% @listings.each_with_index do |listing, index| %>
+      <div class="col-sm-6 col-md-2">
+        <div class="thumbnail">
+          <a href="<%= listing_path(listing) %>"><img src="<%= listing.image %>" alt="<%= listing.name %>"></a>
+          <div class="caption">
+            <p><%= link_to listing.name[0..25]+"...", listing_path(listing) %> <small><strong><%= listing.organization.name %></strong></small></p>
+            <% if user_signed_in? %>
+            <p align="center"><% if current_user.following?(listing) %>
+            <%= link_to "Unfollow Listing", unfollow_listing_path(listing), :class => "btn btn-danger" %>
+            <% else %>
+            <%= link_to "Follow Listing", follow_listing_path(listing), :class => "btn btn-success" %>
+            <% end %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+<% end %>
+</div>
 
 <% if !user_signed_in? %>
 <div class="row">
