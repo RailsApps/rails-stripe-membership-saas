@@ -1,6 +1,36 @@
 <div id="welcome" class="page-header">
   <h1><%= content_for?(:h1) ? yield(:h1) : ENV['SLOGAN'] %> <small> <%= content_for?(:h3) ? yield(:h3) : ENV['DESC'] %></small></h1>
 </div>
+
+<% if !user_signed_in? %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="thumbnail">
+    <div class="well" align="center"><h2>Silver</h2></div>
+    <p align="center">Follow 20 <%= content_for?(:h1) ? yield(:h1) : ENV['TYPE'] %>s a month</p>
+    <h3 align="center">$5.99/month</h3>
+    <p align="center"><%= link_to 'Subscribe', new_user_registration_path(:plan => 'silver'), :class => 'btn btn-primary' %></p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail">
+    <div class="well" align="center"><h2>Gold</h2></div>
+    <p align="center">Follow 1 Category a month</p>
+    <h3 align="center">$59.99/month</h3>
+    <p align="center"><%= link_to 'Subscribe', new_user_registration_path(:plan => 'gold'), :class => 'btn btn-primary' %> </p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="thumbnail">
+    <div class="well" align="center"><h2>Platinum</h2></div>
+    <p align="center">Follow Multiple Categories a month</p>
+    <h3 align="center">$599.99/month</h3>
+    <p align="center"><%= link_to 'Subscribe', new_user_registration_path(:plan => 'platinum'), :class => 'btn btn-primary' %> </p>
+    </div>
+  </div>
+</div>
+<% end %>
+
 <h3 align="right">Top 5 Most Followed Listings</h3>
 <div class="row">
 
@@ -33,32 +63,3 @@
       </div>
 <% end %>
 </div>
-
-<% if !user_signed_in? %>
-<div class="row">
-  <div class="col-md-4">
-    <div class="thumbnail">
-    <div class="well" align="center"><h2>Silver</h2></div>
-    <p align="center">Follow 20 <%= content_for?(:h1) ? yield(:h1) : ENV['TYPE'] %>s a month</p>
-    <h3 align="center">$5.99/month</h3>
-    <p align="center"><%= link_to 'Subscribe', new_user_registration_path(:plan => 'silver'), :class => 'btn btn-primary' %></p>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="thumbnail">
-    <div class="well" align="center"><h2>Gold</h2></div>
-    <p align="center">Follow 1 Category a month</p>
-    <h3 align="center">$59.99/month</h3>
-    <p align="center"><%= link_to 'Subscribe', new_user_registration_path(:plan => 'gold'), :class => 'btn btn-primary' %> </p>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="thumbnail">
-    <div class="well" align="center"><h2>Platinum</h2></div>
-    <p align="center">Follow Multiple Categories a month</p>
-    <h3 align="center">$599.99/month</h3>
-    <p align="center"><%= link_to 'Subscribe', new_user_registration_path(:plan => 'platinum'), :class => 'btn btn-primary' %> </p>
-    </div>
-  </div>
-</div>
-<% end %>
