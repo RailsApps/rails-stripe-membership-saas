@@ -13,7 +13,7 @@ development:
   encoding: unicode
   database: ruby-saas_development
   host: localhost
-  pool: 5
+  pool: 25
   timeout: 5000
   username: postgres
   password: password
@@ -41,7 +41,7 @@ test:
   encoding: unicode
   database: ruby-saas_test
   host: localhost
-  pool: 5
+  pool: 25
   timeout: 5000
   username: postgres
   password: password
@@ -51,7 +51,7 @@ production:
   encoding: unicode
   database: ruby-saas_production
   host: localhost
-  pool: 5
+  pool: 25
   timeout: 5000
   username: postgres
   password: password

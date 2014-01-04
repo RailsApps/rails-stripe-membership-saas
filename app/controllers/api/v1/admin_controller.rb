@@ -29,16 +29,20 @@ module Api
         end
       end
 
-      def create
+      def create 
+        require 'uri'
         params.delete(:format)
         params.delete(:action)
         params.delete(:controller)
         params.delete(:access_token)
-
+        uri = URI.parse(params[:url])
+        params[:site_url] = "#{uri.scheme}://#{uri.host}"
 
         if params[:url] && params[:name] && params[:image]
+          # ListingWorker.perform_async(params)
           create_listing params
         else
+          # UnkownWorker.perform_async(params)
           create_unknown params
         end
 
@@ -62,7 +66,6 @@ module Api
       end
 
       def create_listing params
-          # ListingWorker.perform_async(params)
           listing = Listing.find_or_initialize_by_listing_id(:listing_id => params[:id],
                                                              :url => params[:url],
                                                              :image => params[:image])
@@ -70,7 +73,6 @@ module Api
           listing.desc = params[:description][0..254] rescue nil
           # u = Unknown.find_by_listing_id(:listing_id => params[:id])
           # u.delete rescue nil
-          uri = URI.parse(params[:url])
 
           params.delete(:id)
           params.delete(:url)
@@ -79,8 +81,9 @@ module Api
           params.delete(:description)
           
           listing.organization = Organization.find_or_create_by_name(:name => params[:site_name],
-                                                                     :url => "#{uri.scheme}://#{uri.host}")
+                                                                     :url => params[:site_url])
           params.delete(:site_name)
+          params.delete(:site_url)
 
           categories = params[:categories].split(',') rescue []
           categories.each_with_index do |category, index|
@@ -112,24 +115,25 @@ module Api
 
           listing.fields.merge!(params)
 
-          listing.save
+          listing.save   
         end
 
         def create_unknown params
-          # UnkownWorker.perform_async(params)
           unknown = Unknown.find_or_initialize_by_listing_id(:listing_id => params[:id],
                                                              :url => params[:url],
                                                              :image => params[:image])
-          unknown.name = params[:name][0..250]+"..." rescue nil
-          unkonwn.desc = params[:description][0..250]+"..." rescue nil
+          unknown.name = params[:name][0..254] rescue nil
+          unkonwn.desc = params[:description][0..254] rescue nil
           params.delete(:id)
           params.delete(:url)
           params.delete(:name)
           params.delete(:image)
           params.delete(:description)
           
-          unknown.organization = Organization.find_by_name(params[:site_name])
+          listing.organization = Organization.find_or_create_by_name(:name => params[:site_name],
+                                                                     :url => params[:site_url])
           params.delete(:site_name)
+          params.delete(:site_url)
           
           unknown.fields.merge!(params)
 
