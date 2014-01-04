@@ -2,7 +2,7 @@
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
 <% end %>
 <div class="page-header">
-  <h2>Account</h2>
+  <h2>Edit <%= current_user.roles.first.name.capitalize %> Membership Account <small> (Your API Acess Token: <strong><%= current_user.api_key.access_token rescue nil %></strong>)</small></h2>
 </div>
 <div id="stripe_error" class="alert alert-error" style="display:none" ></div>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
