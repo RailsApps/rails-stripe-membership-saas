@@ -108,6 +108,10 @@ module Api
           end
           params.delete(:tags)
           
+          params.each do |key, value|
+            if value.blank? then params.delete(key) end
+          end
+
           # if params[:sameAs]
           #   # item = Item.
           # end

@@ -11,13 +11,12 @@
         <div class="thumbnail">
           <a href="<%= listing_path(listing) %>"><img src="<%= listing.image %>" alt="<%= listing.name %>"></a>
           <div class="caption">
-  	        <p><%= link_to listing.name[0..40]+"...", listing_path(listing) %></p>
-            <% if current_user.following?(listing) %>
+  	        <p><%= link_to listing.name[0..25]+"...", listing_path(listing) %> <small><strong><%= listing.organization.name %></strong></small></p>
+            <p align="center"><% if current_user.following?(listing) %>
             <%= link_to "Unfollow Listing", unfollow_listing_path(listing), :class => "btn btn-danger" %>
             <% else %>
             <%= link_to "Follow Listing", follow_listing_path(listing), :class => "btn btn-success" %>
-            <% end %>
-            </p>
+            <% end %></p>
           </div>
         </div>
       </div>

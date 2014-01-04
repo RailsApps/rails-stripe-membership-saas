@@ -28,6 +28,6 @@
 
 <div class="list-group">
 <% @listings.each do |listing| %>
-	<%= link_to listing.name, listing_path(listing), :class => "list-group-item" %>
+	<a class="list-group-item" href="<%= listing_path(listing) %>"><%= listing.name %><span class="badge"><%= listing.organization.name %></span></a>
 <% end rescue nil%> 
 </div>
