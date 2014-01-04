@@ -20,18 +20,18 @@
     <div class="col-sm-6 col-md-8">
     	<p><%= @listing.desc %></p>
     	<p>Last Updated On: <strong><%= @listing.updated_at.strftime("%A, %B %d, %Y at %l%p") %></strong></p>
-    	<% @listing.fields.each do |key, value| %>
-    		<li><%= key.upcase %> = <strong><%= value %></strong></li>
+    	<ul class="list-group">
+      <% @listing.fields.each do |key, value| %>
+    	  <li class="list-group-item"><span class="badge"><%= key.upcase %></span><%= value %></li>
     	<% end %>
+      </ul>
+
+      <% @listing.taxonomies.each do |categories| %>
+        <% if categories.type == "Category" %>
+          <%= link_to_function categories.name, "#", :class => "btn btn-primary" %>
+        <% end %>
+      <% end %>
     </div>
 </div>
 
 <hr>
-
-<%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>
-
-<% @listing.taxonomies.each do |categories| %>
-  <% if categories.type == "Category" %>
-    <%= link_to_function categories.name, "#", :class => "btn btn-primary" %>
-  <% end %>
-<% end %>

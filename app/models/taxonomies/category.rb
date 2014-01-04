@@ -6,6 +6,7 @@ class Category < Taxonomy
   has_and_belongs_to_many :listings
   validates_uniqueness_of :name
   acts_as_followable
+  default_scope order('name ASC')
   def make_tag
     self.type = "Tag"
     self.save!

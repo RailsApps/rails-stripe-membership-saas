@@ -17,6 +17,8 @@
               <%= render 'layouts/messages' %>
               <%= yield %>
           <footer>
+          <%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>
+          <p align="right">Copyright &copy; <%= ENV['NAME'] %></p>
           </footer>
       </div> <!--! end of .container -->
   </body>

@@ -1,8 +1,10 @@
 <div class="page-header">
 	<h1>Organizations</h1>
 </div>
-<div class="span8">
+<div class="row">
 <% @organizations.each do |organization| %>
-  <p><%= organization.name %></p>
+  <div class="col-md-4 well">
+  <p align="center"><%= link_to organization.name, organization.url, :target => "_blank" %></p>
+  </div>
 <% end %>
 </div>
