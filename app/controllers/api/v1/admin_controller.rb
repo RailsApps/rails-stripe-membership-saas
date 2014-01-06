@@ -125,22 +125,23 @@ module Api
           end
 
           params.each do |key, value|
-            new_hash = {"#{Time.now.utc}" => value}
             if listing.fields[key]
               original_hash = eval(listing.fields[key])
-
+              new_hash = {}
               original_hash.each do |k, v|
+                if Time.parse(k) < Time.now.utc && v != value
+                new_hash["#{Time.now.utc}"] = value
                 ap k
                 ap v
-
-                
+                end
               end
-              ap new_hash
+              # original_hash.merge!(new_hash)
+              # ap original_hash
               # list = JSON.parse()
               # list.merge!(hash)
               # ap list
             else
-              listing.fields[key] = new_hash
+              listing.fields[key] = {"#{Time.now.utc}" => value}
             end
           end
 
