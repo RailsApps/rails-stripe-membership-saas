@@ -124,12 +124,33 @@ module Api
             if value.blank? then params.delete(key) end
           end
 
+          params.each do |key, value|
+            if listing.fields[key]
+              original_hash = eval(listing.fields[key])
+              new_hash = {}
+              original_hash.each do |k, v|
+                if Time.parse(k) < Time.now.utc && v != value
+                new_hash["#{Time.now.utc}"] = value
+                ap k
+                ap v
+                end
+              end
+              # original_hash.merge!(new_hash)
+              # ap original_hash
+              # list = JSON.parse()
+              # list.merge!(hash)
+              # ap list
+            else
+              listing.fields[key] = {"#{Time.now.utc}" => value}
+            end
+          end
+
           # if params[:sameAs]
           #   # item = Item.
           # end
           # params.delete(:sameAs)
 
-          listing.fields.merge!(params)
+          # listing.fields.merge!(new_params)
 
           listing.save   
         end
@@ -150,8 +171,8 @@ module Api
                                                                      :url => params[:site_url])
           params.delete(:site_name)
           params.delete(:site_url)
-          
-          unknown.fields.merge!(params)
+
+          # unknown.fields.merge!(params)
 
           unknown.save
         end
