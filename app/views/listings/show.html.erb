@@ -24,7 +24,7 @@
       <% @fields.each do |key, value| %>
 
     	  <li class="list-group-item"><span class="badge"><%= key.upcase %></span><%= value %></li>
-    	<% end %>
+    	<% end rescue nil%>
       </ul>
     </div>
 </div>
@@ -35,5 +35,22 @@
     <% end %>
   <% end %>
 </ol>
-<hr>
+
+<div class="row">
+<% @fields_history.each do |key, value| %>
+  <div class="col-md-6 well">
+    <strong><%= key.capitalize %> History</strong>
+    <div class="row thumbnail">
+    <% value.each do |k, v| %>
+      <div class="col-md-4">
+        <%= Time.parse(k).strftime("%m/%d/%y at %l%p") %>
+      </div>
+      <div class="col-md-6">
+        <strong><%= v %></strong>
+      </div>
+    <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
 <%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>

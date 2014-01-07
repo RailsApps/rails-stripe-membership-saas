@@ -9,7 +9,11 @@ class ListingsController < ApplicationController
 
   def show
     @listing ||= Listing.find(params[:id])
-    @fields ||= parse_latest_fields @listing.fields
+    @fields ||= parse_latest_fields
+    @fields_history = {} #parse_fields_history
+    @listing.fields.each do |key, value|
+      if eval(value).size > 1 then @fields_history[key] = eval(value) end
+    end
     respond_to do |format|
       format.html
     end
@@ -42,9 +46,16 @@ class ListingsController < ApplicationController
   private
 
   def parse_latest_fields fields={}
-    fields.each do |key, value|
+    @listing.fields.each do |key, value|
       value = eval(value)
       fields[key] = value.values.last
+    end
+    return fields
+  end
+
+  def parse_fields_history fields={}
+    @listing.fields.each do |key, value|
+      if eval(value).size > 1 then @fields_history[key] = eval(value) end
     end
     return fields
   end

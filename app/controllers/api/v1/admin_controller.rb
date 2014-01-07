@@ -101,9 +101,6 @@ module Api
           categories.each_with_index do |category, index|
             next_element = categories[index+1]
             c = Category.find_or_initialize_by_name(category)
-            # if t = Tag.find_by_name(category)
-            #   t.make_category
-            # end
             if next_element
               c.subcategories << Category.find_or_create_by_name(next_element) rescue nil
             end
@@ -133,29 +130,12 @@ module Api
                 if k == last_key && v != value
                   new_hash["#{Time.now.utc}"] = value
                 end
-                # if Time.parse(k) < Time.now.utc && v != value
-                # new_hash["#{Time.now.utc}"] = value
-                # ap k
-                # ap v
-                # end
               end
-              original_hash.merge!(new_hash)
-              ap original_hash
-              # list = JSON.parse()
-              # list.merge!(hash)
-              # ap list
+              listing.fields[key] = original_hash.merge!(new_hash)
             else
               listing.fields[key] = {"#{Time.now.utc}" => value}
             end
           end
-
-          # if params[:sameAs]
-          #   # item = Item.
-          # end
-          # params.delete(:sameAs)
-
-          # listing.fields.merge!(new_params)
-
           listing.save   
         end
 
@@ -176,7 +156,7 @@ module Api
           params.delete(:site_name)
           params.delete(:site_url)
 
-          # unknown.fields.merge!(params)
+          unknown.fields.merge!(params)
 
           unknown.save
         end
