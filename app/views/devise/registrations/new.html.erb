@@ -58,8 +58,10 @@
     </div>
     <br>
 
-    <div class="field">
-      <%= f.input :coupon, :label => 'Promotional Coupon (if any)' %>
+    <div class="input-group input-group-lg field">
+      <span class="input-group-addon">Promotional Coupon (if any)</span>
+  <input class="form-control string optional" id="user_coupon" name="user[coupon]" size="50" type="text" />
+
     </div>
     <br>
   <% end %>
