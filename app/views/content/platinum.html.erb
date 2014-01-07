@@ -1,6 +1,8 @@
 <div class="page-header">
 	<h1>Welcome <%= current_user.first_name %> to your <b>Platinum</b> Membership</h1>
 </div>
+
+<h3 align="left">Your Followed Listings <small>Visit <a href="/listings">Our Available Listings</a> to follow Products. When we start automated matching, your listings will be upgraded.</small></h3>
 <% @listings.each_with_index do |listing, index| %>
   <% if index % 6 == 0 %> 
     <div class="row">
@@ -24,3 +26,16 @@
     </div>
   <% end %>
 <% end %>
+
+<hr>
+
+<h3 align="right"><small>We are constantly developing and working on new features, please feel free to <a target='_blank' href="<%= ENV['CONTACT_PAGE'] %>">Submit a New Feature Request</a>.</small> New List of Features Coming</h3>
+
+<ul class="list-group">
+<% @features.each do |f| %>
+  <li class="list-group-item">
+    <span class="badge">Pending</span>
+    <%= f %>
+  </li>
+<% end %>
+</ul>

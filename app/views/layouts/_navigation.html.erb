@@ -12,6 +12,9 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to 'About Us', ENV['ABOUT_PAGE'], :target => "_blank" %>
+          </li>
         <% if user_signed_in? %>
           <%= render 'layouts/navigation_links' %>
         <% else %>

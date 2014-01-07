@@ -11,6 +11,9 @@ NAME: Rails Stripe Membership Saas
 TYPE: Item
 SLOGAN: Welcome to Ruby Software As A Service
 DESC: Follow your favorite Items
+ABOUT_PAGE: Url for an About Page
+CONTACT_PAGE: Url for a Contact Page
+FEATURES: []
 GMAIL_USERNAME: Your_Username
 GMAIL_PASSWORD: Your_Password
 ADMIN_NAME: Admin User

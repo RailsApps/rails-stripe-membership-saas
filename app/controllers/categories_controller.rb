@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
 
   def show
 	  # @listings = Listing.paginate(:page => params[:page], :per_page => 12).order('updated_at DESC')
-    @listings = []
+    @listings = []# Listing.where("taxonomies LIKE #{params[:id]}").paginate(:page => params[:page], :per_page => 48)
     Listing.all.each do |l|
       if l.taxonomies.find_by_id(params[:id]) then @listings << l end
     end

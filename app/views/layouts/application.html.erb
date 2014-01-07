@@ -16,9 +16,11 @@
       <div class="container">
               <%= render 'layouts/messages' %>
               <%= yield %>
-          <footer>
+          <div class="row">
           <br>
-          </footer>
+          <p align="center"><a target="_blank" class = "btn btn-danger" href="<%= ENV['CONTACT_PAGE'] %>">Report a Problem</a></p>
+          <small>Copyright &copy; <%= ENV['NAME'] %></small>
+          </div>
       </div> <!--! end of .container -->
   </body>
 </html>

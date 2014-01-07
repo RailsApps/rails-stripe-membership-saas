@@ -17,10 +17,15 @@
 <% else %>
 	<p align="center">
 	<%= link_to 'View Parent Category', category_path(@category.parent_id), :class => "btn btn-default" %> 
-	<% if current_user.following?(@category) %>
-    	<%= link_to "Unfollow #{@category.name}", unfollow_category_path(@category), :class => "btn btn-danger" %>
-    <% else %>
-        <%= link_to "Follow #{@category.name}", follow_category_path(@category), :class => "btn btn-success" %>
+
+	<% if current_user.roles.first.name == "silver" %>
+		<%= link_to "To Follow #{@category.name} (Upgrade Now)", '/users/edit', :class => "btn btn-danger" %>
+	<% else %>
+		<% if current_user.following?(@category) %>
+	    	<%= link_to "Unfollow #{@category.name}", unfollow_category_path(@category), :class => "btn btn-danger" %>
+	    <% else %>
+	        <%= link_to "Follow #{@category.name}", follow_category_path(@category), :class => "btn btn-success" %>
+	    <% end %>
     <% end %>
 	</p>
 <% end unless @category.nil?%>

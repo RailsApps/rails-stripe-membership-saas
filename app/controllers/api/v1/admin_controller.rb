@@ -120,22 +120,31 @@ module Api
           params.each do |key, value|
             if value.blank? then params.delete(key) end
           end
-
+          # changes = []
           params.each do |key, value|
             if listing.fields[key]
               original_hash = eval(listing.fields[key])
+              
               new_hash = {}
+              
               last_key = original_hash.keys.last
+              
               original_hash.each do |k, v|
+              
                 if k == last_key && v != value
                   new_hash["#{Time.now.utc}"] = value
+                  # changes << key
                 end
+              
               end
+              
               listing.fields[key] = original_hash.merge!(new_hash)
             else
               listing.fields[key] = {"#{Time.now.utc}" => value}
             end
           end
+          # ap changes
+          # listing.fields[:last_changed] = changes
           listing.save   
         end
 

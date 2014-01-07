@@ -48,7 +48,7 @@ class ListingsController < ApplicationController
   def parse_latest_fields fields={}
     @listing.fields.each do |key, value|
       value = eval(value)
-      fields[key] = value.values.last
+      fields[key] = value.values.last rescue value
     end
     return fields
   end
