@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140107052418) do
+ActiveRecord::Schema.define(:version => 20131227145851) do
 
   create_table "api_keys", :force => true do |t|
     t.string   "access_token"
@@ -122,14 +122,6 @@ ActiveRecord::Schema.define(:version => 20140107052418) do
   end
 
   add_index "organizations", ["fields"], :name => "index_organizations_on_fields"
-
-  create_table "pg_search_documents", :force => true do |t|
-    t.text     "content"
-    t.integer  "searchable_id"
-    t.string   "searchable_type"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"

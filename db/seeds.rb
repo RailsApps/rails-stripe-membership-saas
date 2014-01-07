@@ -34,6 +34,6 @@ if !Rails.env.production?
 	puts "users: #{user2.first_name}, #{user3.first_name}, #{user4.first_name}"
 end
 
-if Dir.exists?('db/sites')
-	require File.expand_path(File.dirname(__FILE__) + "/sites/seed.rb")
-end
+# if Dir.exists?('db/sites')
+# 	require File.expand_path(File.dirname(__FILE__) + "/sites/seed.rb")
+# end
