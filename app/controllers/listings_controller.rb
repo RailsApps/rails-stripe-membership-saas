@@ -9,7 +9,7 @@ class ListingsController < ApplicationController
 
   def show
     @listing ||= Listing.find(params[:id])
-
+    @fields ||= parse_latest_fields @listing.fields
     respond_to do |format|
       format.html
     end
@@ -37,5 +37,15 @@ class ListingsController < ApplicationController
   	end
   	session[:return_to] ||= request.referer
   	redirect_to session.delete(:return_to)
+  end
+
+  private
+
+  def parse_latest_fields fields={}
+    fields.each do |key, value|
+      value = eval(value)
+      fields[key] = value.values.last
+    end
+    return fields
   end
 end

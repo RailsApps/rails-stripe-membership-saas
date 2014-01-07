@@ -128,15 +128,19 @@ module Api
             if listing.fields[key]
               original_hash = eval(listing.fields[key])
               new_hash = {}
+              last_key = original_hash.keys.last
               original_hash.each do |k, v|
-                if Time.parse(k) < Time.now.utc && v != value
-                new_hash["#{Time.now.utc}"] = value
-                ap k
-                ap v
+                if k == last_key && v != value
+                  new_hash["#{Time.now.utc}"] = value
                 end
+                # if Time.parse(k) < Time.now.utc && v != value
+                # new_hash["#{Time.now.utc}"] = value
+                # ap k
+                # ap v
+                # end
               end
-              # original_hash.merge!(new_hash)
-              # ap original_hash
+              original_hash.merge!(new_hash)
+              ap original_hash
               # list = JSON.parse()
               # list.merge!(hash)
               # ap list

@@ -21,7 +21,8 @@
     	<p><%= @listing.desc %></p>
     	<p>Last Updated On: <strong><%= @listing.updated_at.strftime("%A, %B %d, %Y at %l%p") %> UTC</strong></p>
     	<ul class="list-group">
-      <% @listing.fields.each do |key, value| %>
+      <% @fields.each do |key, value| %>
+
     	  <li class="list-group-item"><span class="badge"><%= key.upcase %></span><%= value %></li>
     	<% end %>
       </ul>
