@@ -37,7 +37,7 @@ module Api
       def get_all_urls
           @all_urls = []
 
-          listings = Listing.where("updated_at < ?", Time.zone.now.beginning_of_day)
+          listings = Listing.where("updated_at < ?", Time.zone.now.beginning_of_day).sort_by {|obj| obj.organization}
           listings.each do |l|
             @all_urls.push(l.url)
           end
