@@ -70,6 +70,20 @@ module Api
         end
       end
 
+      def remove_fields
+        params[:fields].split(',').each do |field|
+          Listing.all.each do |l|
+            l.fields.delete(field)
+            l.save
+          end
+        end
+
+        respond_to do |format|
+          msg = { :status => "ok", :message => "Success!", :html => "" }
+          format.json  { render :json => msg }
+        end
+      end
+
       private
       
       def restrict_access
