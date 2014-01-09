@@ -1,7 +1,7 @@
 module Api
   module V1
     class AdminController < ApplicationController
-     #before_filter :restrict_access
+     before_filter :restrict_access
       respond_to :json
 
       def get_follow_urls
