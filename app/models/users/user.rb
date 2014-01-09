@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
       customer.description = name
       customer.save
       if Rails.env.production?
-        UserMailer.verify_email(self).deliver 
+        #UserMailer.verify_email(self).deliver 
       end
     end
     self.api_key = ApiKey.create
