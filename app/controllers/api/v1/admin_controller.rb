@@ -5,6 +5,7 @@ module Api
       respond_to :json
 
       def get_follow_urls
+          time ||= Time.zone.now.beginning_of_day
           @follow_urls = []
 
           Organization.where("url IS NOT NULL").each do |r|
@@ -16,10 +17,14 @@ module Api
 
             elsif f.followable_type == "Intangible"
               listing = Listing.find(f.followable_id)
-              @follow_urls.push(listing.url)
+              if listing.updated_at < time
+                @follow_urls.push(listing.url)
+              end
             elsif f.followable_type == "Item" 
               Item.find(f.followable_id).listings.each do |p|
-                @follow_urls.push(p.url)
+                if listing.updated_at < time
+                  @follow_urls.push(p.url)
+                end
               end
             end
           end
@@ -32,7 +37,8 @@ module Api
       def get_all_urls
           @all_urls = []
 
-          Listing.all.each do |l|
+          listings = Listing.where("updated_at < ?", Time.zone.now.beginning_of_day)
+          listings.each do |l|
             @all_urls.push(l.url)
           end
 
