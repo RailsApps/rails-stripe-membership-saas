@@ -1,7 +1,7 @@
 module Api
   module V1
     class AdminController < ApplicationController
-      before_filter :restrict_access
+     #before_filter :restrict_access
       respond_to :json
 
       def get_follow_urls
@@ -37,7 +37,7 @@ module Api
       def get_all_urls
           @all_urls = []
 
-          listings = Listing.where("updated_at < ?", Time.zone.now.beginning_of_day).sort_by {|obj| obj.organization}
+          listings = Listing.where("updated_at < ?", Time.zone.now.beginning_of_day).sort_by {|obj| obj.organization}.reverse!
           listings.each do |l|
             @all_urls.push(l.url)
           end
