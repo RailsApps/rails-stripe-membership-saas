@@ -4,8 +4,11 @@ class Unknown < Intangible
   # has_and_belongs_to_many :taxonomies
 	
   attr_accessible :listing_id,
-				  :item_id,
-				  :fields
+        				  :item_id,
+                  :name,
+                  :url,
+                  :image,
+        				  :fields
 
   belongs_to :item
   belongs_to :organization

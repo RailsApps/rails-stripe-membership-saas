@@ -1,7 +1,7 @@
 module Api
   module V1
     class AdminController < ApplicationController
-     before_filter :restrict_access
+     # before_filter :restrict_access
       respond_to :json
 
       def get_follow_urls
@@ -70,17 +70,55 @@ module Api
         end
       end
 
-      def remove_fields
-        params[:fields].split(',').each do |field|
-          Listing.all.each do |l|
-            l.fields.delete(field)
+      def remove_listing_fields
+        @listings ||= Listing.all
+        params[:fields].split(',').each do |key|
+          @listings.each do |l|
+            l.fields.delete(key)
             l.save
           end
-        end
+        end rescue nil
 
         respond_to do |format|
           msg = { :status => "ok", :message => "Success!", :html => "" }
           format.json  { render :json => msg }
+        end
+      end
+
+      def match_listings
+        @listings ||= Listing.all
+        # @items = []
+        params[:fields].split(',').each do |key|
+
+          @listings.each do |l1|
+            next if l1.fields[key] == nil 
+            first_listing = eval(l1.fields[key]).values.last
+            @listings.each do |l2| 
+              next if l2.fields[key] == nil
+              next if l2.id == l1.id
+              second_listing = eval(l2.fields[key]).values.last
+              if first_listing == second_listing
+                l1.taxonomies << l2.taxonomies
+                l2.taxonomies << l1.taxonomies
+                # ap "#{first_listing} == #{second_listing}"
+                # item = Item.find_or_create_by_item_id(:item_id => first_listing,
+                #                                       :name => l1.name,
+                #                                       :url => l1.url,
+                #                                       :desc => l1.desc,
+                #                                       :image => l1.image)
+                # item.listings << l1
+                # item.listings << l2
+                # item.taxonomies << l1.taxonomies
+                # item.taxonomies << l2.taxonomies
+                # item.save
+                # @items << item
+              else next end
+            end
+          end
+        end rescue nil
+
+        respond_to do |format|
+          format.json  { render :json => @items }
         end
       end
 

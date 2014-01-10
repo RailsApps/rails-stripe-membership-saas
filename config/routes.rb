@@ -24,7 +24,8 @@ RailsStripeMembershipSaas::Application.routes.draw do
       resources :admin
       get 'get_follow_urls' => 'admin#get_follow_urls'
       get 'get_all_urls' => 'admin#get_all_urls'
-      get 'remove_fields' => 'admin#remove_fields'
+      get 'remove_listing_fields' => 'admin#remove_listing_fields'
+      get 'match_listings' => 'admin#match_listings'
     end
   end
 

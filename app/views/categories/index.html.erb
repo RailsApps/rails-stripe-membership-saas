@@ -13,23 +13,24 @@
 <% end %>
 
 <% if @category.parent_id.nil? %>
+	<p align="center"><a class="btn btn-default" href="/listings?category=<%= @category.id %>">Browse <%= @category.name %></a></p>
 	<p align="center"><%= link_to 'View Parent Category', categories_path, :class => "btn btn-default" %></p>
+	<hr>
 <% else %>
-	<p align="center">
-	<%= link_to 'View Parent Category', category_path(@category.parent_id), :class => "btn btn-default" %> 
+	<p align="center"><%= link_to 'View Parent Category', category_path(@category.parent_id), :class => "btn btn-default" %></p>
+	<p align="center"><a class="btn btn-default" href="/listings?category=<%= @category.id %>">Browse <%= @category.name %></a><p> 
 
 	<% if current_user.roles.first.name == "silver" %>
-		<%= link_to "To Follow #{@category.name} (Upgrade Now)", '/users/edit', :class => "btn btn-danger" %>
+		<p align="center"><%= link_to "To Follow #{@category.name} (Upgrade Now)", '/users/edit', :class => "btn btn-danger" %></p>
 	<% else %>
 		<% if current_user.following?(@category) %>
-	    	<%= link_to "Unfollow #{@category.name}", unfollow_category_path(@category), :class => "btn btn-danger" %>
+	    	<p align="center"><%= link_to "Unfollow #{@category.name}", unfollow_category_path(@category), :class => "btn btn-danger" %></p>
 	    <% else %>
-	        <%= link_to "Follow #{@category.name}", follow_category_path(@category), :class => "btn btn-success" %>
+	        <p align="center"><%= link_to "Follow #{@category.name}", follow_category_path(@category), :class => "btn btn-success" %></p>
 	    <% end %>
     <% end %>
-	</p>
+    <hr>
 <% end unless @category.nil?%>
-
 
 <div class="list-group">
 <% @listings.each do |listing| %>

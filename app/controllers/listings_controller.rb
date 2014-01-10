@@ -1,7 +1,13 @@
 class ListingsController < ApplicationController
   before_filter :authenticate_user!
   def index
-    @listings ||= Listing.paginate(:page => params[:page], :per_page => 12).order('updated_at DESC')
+    # @categories ||= Category.where(parent_id: nil)
+    if params[:category]
+      @category ||= Category.find(params[:category])
+      @listings ||= Listing.includes(:taxonomies).where('taxonomies.id' => params[:category]).paginate(:page => params[:page], :per_page => 12)
+    else
+      @listings ||= Listing.paginate(:page => params[:page], :per_page => 12).order('updated_at DESC')
+    end
     respond_to do |format|
       format.html
     end
