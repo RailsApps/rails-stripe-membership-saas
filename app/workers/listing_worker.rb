@@ -1,8 +1,7 @@
 class ListingWorker
-  include Sidekiq::Worker
-  # sidekiq_options queue: "listing"
+  @queue = :listing_queue
 
-  def perform(params)
+  def self.perform(params)
     listing = Listing.find_or_initialize_by_listing_id(:listing_id => params[:id],
                                                              :url => params[:url],
                                                              :image => params[:image])
@@ -26,9 +25,6 @@ class ListingWorker
           categories.each_with_index do |category, index|
             next_element = categories[index+1]
             c = Category.find_or_initialize_by_name(category)
-            # if t = Tag.find_by_name(category)
-            #   t.make_category
-            # end
             if next_element
               c.subcategories << Category.find_or_create_by_name(next_element) rescue nil
             end
@@ -45,19 +41,34 @@ class ListingWorker
           end
           params.delete(:tags)
           
-          # # if params[:sameAs]
-          # #   # item = Item.
-          # # end
-          # # params.delete(:sameAs)
-
-          listing.fields.merge!(params)
-
+          params.each do |key, value|
+            if value.blank? then params.delete(key) end
+          end
+          # changes = []
+          params.each do |key, value|
+            if listing.fields[key]
+              original_hash = eval(listing.fields[key])
+              
+              new_hash = {}
+              
+              last_key = original_hash.keys.last
+              
+              original_hash.each do |k, v|
+              
+                if k == last_key && v != value
+                  new_hash["#{Time.now.utc}"] = value
+                  # changes << key
+                end
+              
+              end
+              
+              listing.fields[key] = original_hash.merge!(new_hash)
+            else
+              listing.fields[key] = {"#{Time.now.utc}" => value}
+            end
+          end
+          # ap changes
+          # listing.fields[:last_changed] = changes
           listing.save   
-  end
-
-  private
-
-  def setup_db_connection dataload
-    @connection = ActiveRecord::RdsDb.get_connection(dataload)
   end
 end

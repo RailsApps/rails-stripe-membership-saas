@@ -22,6 +22,7 @@ gem "sidekiq"
 gem 'sinatra', require: false
 gem 'slim'
 gem 'will_paginate-bootstrap'
+gem 'resque', :require => "resque/server"
 # gem 'pg_search'
 gem 'party_foul'
 gem "awesome_print" #For using in Rails Console

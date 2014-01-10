@@ -14,34 +14,26 @@
     <b class="caret"></b>
   </a>
   <ul class="dropdown-menu">
-
-    <li>
-      <%= link_to 'Users', users_path %>
-    </li>
-
+    <li><a href="/resque" target="_blank">Resque</a></li>
     <li class="divider"></li>
-
-      <li><a href="/content/silver">Silver</a></li>
-      <li><a href="/content/gold">Gold</a></li>
-      <li><a href="/content/platinum">Platinum</a></li>
-
+    
+    <li><%= link_to 'Users', users_path %></li>
     <li class="divider"></li>
-
+    
     <li><%= link_to "#{ENV['TYPE']}s", items_path %></li>
-
     <li><%= link_to 'Unknowns', unknowns_path %></li>
-
-      <li class="divider"></li>
-
+    <li class="divider"></li>
 
     <li><%= link_to 'Taxonomies', taxonomies_path %></li>
-    
     <li><%= link_to 'Tags', tags_path %></li>
+    <li class="divider"></li>
 
-      <li class="divider"></li>
+    <li><%= link_to 'Organizations', organizations_path %></li>
+    <li class="divider"></li>
 
-      <li><%= link_to 'Organizations', organizations_path %></li>
-
+    <li><a href="/content/silver">Silver</a></li>
+    <li><a href="/content/gold">Gold</a></li>
+    <li><a href="/content/platinum">Platinum</a></li>
   </ul>
 </li>
 

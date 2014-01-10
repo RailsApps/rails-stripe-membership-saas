@@ -1,5 +1,5 @@
 class UnknownWorker
-  include Sidekiq::Worker
+  @queue = :listing_queue
 
   def perform(params)
     unknown = Unknown.find_or_initialize_by_listing_id(:listing_id => params[:id],
@@ -17,7 +17,7 @@ class UnknownWorker
                                                                      :url => params[:site_url])
           params.delete(:site_name)
           params.delete(:site_url)
-          
+
           unknown.fields.merge!(params)
 
           unknown.save

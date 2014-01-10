@@ -1,13 +1,14 @@
-require 'sidekiq/web'
+# require 'sidekiq/web'
 
 RailsStripeMembershipSaas::Application.routes.draw do
-  mount StripeEvent::Engine => '/stripe'
-  mount Sidekiq::Web, at: '/sidekiq'
   get "content/gold"
   get "content/silver"
   get "content/platinum"
   authenticated :user do
     root :to => 'home#index'
+    mount Resque::Server.new, :at => "/resque"
+    # mount StripeEvent::Engine => '/stripe'
+    # mount Sidekiq::Web, at: '/sidekiq'
   end
   root :to => "home#index"
   devise_for :users, :controllers => { :registrations => 'registrations' }

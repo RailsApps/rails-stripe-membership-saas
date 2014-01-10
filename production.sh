@@ -2,7 +2,7 @@
 
 if [ $# -eq 0 ]
 then
-	echo "production.sh [options] start|stop|restart|permissions|rebuild|migrate"
+	echo "production.sh [options] start|stop|restart|permissions|rebuild|migrate|resque"
 elif [ $1 == 'start' ]; then
 	echo "Starting..."
 	bundle exec unicorn -c ./config/unicorn.rb -E production -D
@@ -41,4 +41,6 @@ elif [ $1 == 'migrate' ]; then
         export RAILS_ENV=production
         rake db:migrate
         echo "Done."
+elif [ $1 == 'resque' ]; then
+	screen -dmS insert bundle exec rake resque:workers COUNT=1 QUEUE='*' RAILS_ENV=production VERBOSE=1 PIDFILE=./tmp/resque.pid INTERVAL=5
 fi
