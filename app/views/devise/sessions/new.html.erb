@@ -1,8 +1,21 @@
-<h2>Sign in</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
-  <%= f.input :email, :autofocus => true %>
-  <%= f.input :password %>
-  <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
+<div class="page-header">
+	<h2>Sign in</h2>
+</div>
+<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-horizontal' }) do |f| %>
+
+<div class="input-group input-group-lg email required user_email">
+  <span class="input-group-addon">@</span>
+  <input type="text" class="form-control" placeholder="Email" autofocus="autofocus" class="string email required" id="user_email" name="user[email]" size="50" type="email" value="" />
+</div>          
+<br>
+<div class="input-group input-group-lg password optional user_password">
+  <span class="input-group-addon">***</span>
+  <input class="form-control password optional" placeholder="Password" id="user_password" name="user[password]" size="50" type="password" />
+</div>
+<br>
+<input name="user[remember_me]" type="hidden" value="0" /><input class="boolean optional" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1" /> <label class="boolean optional control-label" for="user_remember_me">Remember me</label> <br> <br>
+  
   <%= f.button :submit, "Sign in", :class => 'btn-primary' %>
 <% end %>
+<hr>
 <%= render "devise/shared/links" %>

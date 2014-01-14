@@ -1,0 +1,48 @@
+<% if !current_user.has_role? :admin %>
+  <li><a href="/content/<%= current_user.roles.first.name %>">Dashboard</a></li>
+<% end %>
+
+<li><%= link_to 'Categories', categories_path %></li>
+      
+<li><%= link_to 'Listings', listings_path %></li>
+
+<% if current_user.has_role? :admin %>
+
+<li class="dropdown" id="menu2">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#menu2"> 
+    Admin
+    <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="/resque" target="_blank">Resque</a></li>
+    <li class="divider"></li>
+    
+    <li><%= link_to 'Users', users_path %></li>
+    <li class="divider"></li>
+    
+    <li><%= link_to "#{ENV['TYPE']}s", items_path %></li>
+    <li><%= link_to 'Unknowns', unknowns_path %></li>
+    <li class="divider"></li>
+
+    <li><%= link_to 'Taxonomies', taxonomies_path %></li>
+    <li><%= link_to 'Tags', tags_path %></li>
+    <li class="divider"></li>
+
+    <li><%= link_to 'Organizations', organizations_path %></li>
+    <li class="divider"></li>
+
+    <li><a href="/content/silver">Silver</a></li>
+    <li><a href="/content/gold">Gold</a></li>
+    <li><a href="/content/platinum">Platinum</a></li>
+  </ul>
+</li>
+
+<% end %>
+
+<li>
+  <%= link_to 'Edit account', edit_user_registration_path %>
+</li>
+
+<li>
+  <%= link_to 'Logout', destroy_user_session_path, :method =>'delete' %>        
+</li>

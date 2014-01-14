@@ -3,14 +3,48 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, 
+         :registerable,
+         :recoverable, 
+         :rememberable, 
+         :trackable, 
+         :validatable
 
+  serialize :fields, ActiveRecord::Coders::Hstore
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :stripe_token, :coupon
-  attr_accessor :stripe_token, :coupon
+  attr_accessible :first_name, 
+                  :last_name,
+                  :email, 
+                  :password, 
+                  :password_confirmation, 
+                  :remember_me, 
+                  :stripe_token, 
+                  :coupon
+                  :fields
+  attr_accessor :stripe_token, 
+                :coupon
+                
   before_save :update_stripe
   before_destroy :cancel_subscription
+  validates :first_name, 
+            :last_name, 
+            :email, 
+            # :password, 
+            # :password_confirmation, 
+            :presence => true
+  
+  acts_as_follower
+  acts_as_followable
+
+  has_one :api_key, :dependent => :destroy
+  
+  def follow_now(item)
+    self.follow(item)
+  end
+
+  def user_name
+    "#{self.first_name} #{self.last_name}"
+  end
 
   def update_plan(role)
     self.role_ids = []
@@ -57,7 +91,11 @@ class User < ActiveRecord::Base
       customer.email = email
       customer.description = name
       customer.save
+      if Rails.env.production?
+        #UserMailer.verify_email(self).deliver 
+      end
     end
+    self.api_key = ApiKey.create
     self.last_4_digits = customer.cards.data.first["last4"]
     self.customer_id = customer.id
     self.stripe_token = nil
@@ -72,7 +110,7 @@ class User < ActiveRecord::Base
     unless customer_id.nil?
       customer = Stripe::Customer.retrieve(customer_id)
       unless customer.nil? or customer.respond_to?('deleted')
-        if customer.subscription.status == 'active'
+        if ['active', 'trialing'].include? customer.subscription.status
           customer.cancel_subscription
         end
       end

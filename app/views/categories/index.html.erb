@@ -1,0 +1,41 @@
+<div class="page-header">
+	<h1><%= @category.nil? ? 'Available Categories' : @category.name %></h1>
+</div>
+
+<% @categories.each do |category| %>
+<ul class="nav nav-pills">
+  <li class="active"><%= link_to category.name, category_path(category)%></li>
+  	<% category.subcategories.each do |subcategory| %>
+  		<li><%= link_to subcategory.name, category_path(subcategory)%></li>
+	<% end %>
+</ul>
+<hr>
+<% end %>
+
+<% if @category.parent_id.nil? %>
+	<p align="center"><a class="btn btn-default" href="/listings?category=<%= @category.id %>">Browse <%= @category.name %></a></p>
+	<p align="center"><%= link_to 'View Parent Category', categories_path, :class => "btn btn-default" %></p>
+	<hr>
+<% else %>
+	<p align="center"><%= link_to 'View Parent Category', category_path(@category.parent_id), :class => "btn btn-default" %></p>
+	<p align="center"><a class="btn btn-default" href="/listings?category=<%= @category.id %>">Browse <%= @category.name %></a><p> 
+
+	<% if current_user.roles.first.name == "silver" %>
+		<p align="center"><%= link_to "To Follow #{@category.name} (Upgrade Now)", '/users/edit', :class => "btn btn-danger" %></p>
+	<% else %>
+		<% if current_user.following?(@category) %>
+	    	<p align="center"><%= link_to "Unfollow #{@category.name}", unfollow_category_path(@category), :class => "btn btn-danger" %></p>
+	    <% else %>
+	        <p align="center"><%= link_to "Follow #{@category.name}", follow_category_path(@category), :class => "btn btn-success" %></p>
+	    <% end %>
+    <% end %>
+    <hr>
+<% end unless @category.nil?%>
+
+<div class="list-group">
+<% @listings.each do |listing| %>
+	<a class="list-group-item" href="<%= listing_path(listing) %>"><%= listing.name %><span class="badge"><%= listing.organization.name %></span></a>
+<% end rescue nil%> 
+</div>
+
+<%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>

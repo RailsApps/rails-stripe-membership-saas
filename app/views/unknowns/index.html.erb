@@ -1,0 +1,8 @@
+<div class="page-header">
+	<h1>Unknowns</h1>
+</div>
+<div class="span8">
+<% @unknowns.each do |unknown| %>
+  <p><a href="<%= unknown.url %>" target="_blank"><%= unknown.name %></a></p>
+<% end %>
+</div>

@@ -1,0 +1,9 @@
+<div class="page-header">
+	<h1>Taxonomies</h1>
+</div>
+<div class="row">
+<% @taxonomies.each do |taxonomy| %>
+  <div class="col-md-3 well" align="center"><strong><%= taxonomy.name %></strong> - <%= taxonomy.type %></div>
+<% end %>
+</div>
+

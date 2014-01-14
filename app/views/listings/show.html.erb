@@ -1,0 +1,56 @@
+<div class="page-header">
+	<h1><%= @listing.name %> <small><%= @listing.organization.name %></small></h1>
+</div>
+
+<div class="row">
+	<div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+      	<img src="<%= @listing.image %>" alt="<%= @listing.name %>">
+        <br>
+      	<p align="center"><% if current_user.following?(@listing) %>
+          <%= link_to "Unfollow Listing", unfollow_listing_path(@listing), :class => "btn btn-danger" %>
+        <% else %>
+          <%= link_to 'Follow Listing', follow_listing_path(@listing), :class => "btn btn-success" %>
+        <% end %> 
+
+        <%= link_to "Visit Full Listing", @listing.url, :class => "btn btn-default", :target => "_blank" %></p>
+
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-8">
+    	<p><%= @listing.desc %></p>
+    	<p>Last Updated On: <strong><%= @listing.updated_at.strftime("%A, %B %d, %Y at %l%p") %> UTC</strong></p>
+    	<ul class="list-group">
+      <% @fields.each do |key, value| %>
+
+    	  <li class="list-group-item"><span class="badge"><%= key.upcase %></span><%= value %></li>
+    	<% end rescue nil%>
+      </ul>
+    </div>
+</div>
+<ol class="breadcrumb">
+  <% @listing.taxonomies.each do |categories| %>
+    <% if categories.type == "Category" %>
+      <li><a href="<%= category_path(categories) %>"><%= categories.name %></a></li>
+    <% end %>
+  <% end %>
+</ol>
+
+<div class="row">
+<% @fields_history.each do |key, value| %>
+  <div class="col-md-6 well">
+    <strong><%= key.capitalize %> History</strong>
+    <div class="row thumbnail">
+    <% value.each do |k, v| %>
+      <div class="col-md-4">
+        <%= Time.parse(k).strftime("%m/%d/%y at %l%p") %>
+      </div>
+      <div class="col-md-6">
+        <strong><%= v %></strong>
+      </div>
+    <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
+<%= link_to_function "Back", "history.back()", :class => "btn btn-default" %>

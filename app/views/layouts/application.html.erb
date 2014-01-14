@@ -2,34 +2,25 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Rails Stripe Membership Saas" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Rails Stripe Membership Saas" %>">
+    <title><%= content_for?(:title) ? yield(:title) : ENV['NAME'] %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : ENV['NAME'] %>">
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= yield(:head) %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
-    <div class="navbar navbar-fixed-top">
-      <nav class="navbar-inner">
-        <div class="container">
+    <header>
           <%= render 'layouts/navigation' %>
-        </div>
-      </nav>
-    </div>
-    <div id="main" role="main">
+    </header>
       <div class="container">
-        <div class="content">
-           <div class="row">
-            <div class="span12">
               <%= render 'layouts/messages' %>
               <%= yield %>
-            </div>
+          <div class="row">
+          <br>
+          <p align="center"><a target="_blank" class = "btn btn-danger" href="<%= ENV['CONTACT_PAGE'] %>">Report a Problem</a></p>
+          <p align="center"><small>Copyright &copy; <%= ENV['NAME'] %></small></p>
           </div>
-          <footer>
-          </footer>
-        </div>
       </div> <!--! end of .container -->
-    </div> <!--! end of #main -->
   </body>
 </html>

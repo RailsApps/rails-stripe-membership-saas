@@ -1,7 +1,7 @@
 ### UTILITY METHODS ###
 
 def create_visitor
-  @visitor ||= { :name => "Testy McUserton", :email => "example@example.com",
+  @visitor ||= { :first_name => "Testy", :last_name => "McUserton", :email => "example@example.com",
     :password => "changeme", :password_confirmation => "changeme", :role => "silver" }
 end
 
@@ -28,10 +28,11 @@ def delete_user
   @user.destroy unless @user.nil?
 end
 
-def sign_up
+def sign_up plan
   delete_user
-  visit '/users/sign_up/?plan=silver'
-  fill_in "Name", :with => @visitor[:name]
+  visit "/users/sign_up/?plan=#{plan}"
+  fill_in "user_first_name", :with => @visitor[:first_name]
+  fill_in "user_last_name", :with => @visitor[:last_name]
   fill_in "Email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
   fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
@@ -81,25 +82,25 @@ end
 
 When /^I sign up with valid user data$/ do
   create_visitor
-  sign_up
+  sign_up 'silver'
 end
 
 When /^I sign up with an invalid email$/ do
   create_visitor
   @visitor = @visitor.merge(:email => "notanemail")
-  sign_up
+  sign_up 'gold'
 end
 
 When /^I sign up without a password confirmation$/ do
   create_visitor
   @visitor = @visitor.merge(:password_confirmation => "")
-  sign_up
+  sign_up 'gold'
 end
 
 When /^I sign up without a password$/ do
   create_visitor
   @visitor = @visitor.merge(:password => "")
-  sign_up
+  sign_up 'gold'
 end
 
 When /^I sign up without a subscription plan$/ do
@@ -109,7 +110,7 @@ end
 When /^I sign up with a mismatched password confirmation$/ do
   create_visitor
   @visitor = @visitor.merge(:password_confirmation => "changeme123")
-  sign_up
+  sign_up 'gold'
 end
 
 When /^I return to the site$/ do

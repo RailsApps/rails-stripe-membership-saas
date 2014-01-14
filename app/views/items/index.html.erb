@@ -1,0 +1,13 @@
+<div class="page-header">
+	<h1>Our Latest <%= "#{ENV['TYPE']}s" %></h1>
+</div>
+<div class="span8">
+<% @items.each do |item| %>
+  <p><%= item.name %></p>
+  <ul>
+  	<% item.listings.each do |listing| %>
+  		  	<li><a href="<%= listing.url %>" target="_blank"><%= listing.name %></a></li>
+  	<% end %>
+  </ul>
+<% end %>
+</div>

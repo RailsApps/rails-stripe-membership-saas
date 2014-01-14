@@ -1,18 +1,41 @@
 <% content_for :head do %>
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
 <% end %>
-<h2>Sign up</h2>
+<div class="page-header">
+  <h2>Sign up <small><%= params[:plan].titleize if params[:plan] %> Subscription Plan</small></h2>
+</div>
 <div id="stripe_error" class="alert alert-error" style="display:none" >
 </div>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'card_form form-vertical' }) do |f| %>
-  <h3><%= params[:plan].titleize if params[:plan] %> Subscription Plan</h3>
   <%= hidden_field_tag 'plan', params[:plan] %>
   <%= f.error_notification %>
   <%= display_base_errors resource %>
-  <%= f.input :name, :autofocus => true %> 
-  <%= f.input :email, :required => true %>
+
+<div class="input-group input-group-lg string required user_first_name">
+  <span class="input-group-addon">First Name</span>
+  <input class="form-control string required" autofocus="autofocus" id="user_first_name" name="user[first_name]" size="50" type="text" />
+</div>
+<br>
+
+<div class="input-group input-group-lg string required user_last_name">
+  <span class="input-group-addon">Last Name</span>
+  <input class="form-control string required" id="user_last_name" name="user[last_name]" size="50" type="text" />
+</div>
+<br>
+
+
+
+<%= f.input :email, :required => true %>
+  
+
+  <br>
+  
   <%= f.input :password, :required => true %>
+  <br>
+  
   <%= f.input :password_confirmation, :required => true %>
+  <br>
+  
   <% if @user.stripe_token %>
     <p>Credit card acceptance is pending.</p>
   <% else %>
@@ -20,18 +43,27 @@
       <%= label_tag :card_number, "Credit Card Number" %>
       <%= text_field_tag :card_number, nil, name: nil %>
     </div>
-    <div class="field">
-      <%= label_tag :card_code, "Card Security Code (CVV)" %>
-      <%= text_field_tag :card_code, nil, name: nil %>
+    <br>
+
+    <div class="input-group input-group-lg field">
+      <span class="input-group-addon">Card Security Code (CVV)</span>
+      <input class="form-control" id="card_code" type="text" />
     </div>
+    <br>
+
     <div class="field">
       <%= label_tag :card_month, "Card Expiration" %>
       <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
       <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
     </div>
-    <div class="field">
-      <%= f.input :coupon, :label => 'Promotional Coupon (if any)' %>
+    <br>
+
+    <div class="input-group input-group-lg field">
+      <span class="input-group-addon">Promotional Coupon (if any)</span>
+  <input class="form-control string optional" id="user_coupon" name="user[coupon]" size="50" type="text" />
+
     </div>
+    <br>
   <% end %>
   <%= f.hidden_field :stripe_token %>
   <%= f.button :submit, 'Sign up', :class => 'btn-primary' %>

@@ -1,12 +1,15 @@
 <% content_for :head do %>
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
 <% end %>
-<h2>Account</h2>
+<div class="page-header">
+  <h2>Edit <%= current_user.roles.first.name.capitalize %> Membership Account <small> (Your API Acess Token: <strong><%= current_user.api_key.access_token rescue nil %></strong>)</small></h2>
+</div>
 <div id="stripe_error" class="alert alert-error" style="display:none" ></div>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
   <%= f.error_notification %>
   <%= display_base_errors resource %>
-  <%= f.input :name, :autofocus => true %>
+  <%= f.input :first_name, :autofocus => true %>
+  <%= f.input :last_name, :autofocus => true %>
   <%= f.input :email, :required => true %>
   <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
   <%= f.input :password_confirmation, :required => false %>
@@ -30,49 +33,58 @@
 
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini' %></p>
 
-<div id="plan-options" class="modal" style="display: none;">
-  <%= simple_form_for resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
-    <div class="modal-header">
-      <a class="close" data-dismiss="modal">&#215;</a>
-      <h3>Change Plan</h3>
+<div class="modal fade" id="plan-options">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <%= simple_form_for resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">&#215;</a>
+        <h3>Change Plan</h3>
+      </div>
+      <div class="modal-body">
+        <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline' %>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit "Change Plan", :class => "btn btn-primary" %>
+        <a class="btn" data-dismiss="modal" href="#">Close</a>
+      </div>
+      <% end %>
     </div>
-    <div class="modal-body">
-      <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline' %>
-    </div>
-    <div class="modal-footer">
-      <%= f.submit "Change Plan", :class => "btn btn-primary" %>
-      <a class="btn" data-dismiss="modal" href="#">Close</a>
-    </div>
-  <% end %>
+  </div>
 </div>
 
 <div id="card-data" class="modal" style="display: none;">
-  <%= simple_form_for resource, :as => resource_name, :url => update_card_path, :html => {:method => :put, :class => 'form-horizontal card_form' } do |f| %>
-    <div class="modal-header">
-      <a class="close" data-dismiss="modal">&#215;</a>
-      <h3>Change Credit Card</h3>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= simple_form_for resource, :as => resource_name, :url => update_card_path, :html => {:method => :put, :class => 'form-horizontal card_form' } do |f| %>
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">&#215;</a>
+          <h3>Change Credit Card</h3>
+        </div>
+        <div class="modal-body">
+          <div class="field">
+            <%= label_tag :card_number, "Credit Card Number" %>
+            <%= text_field_tag :card_number, nil, name: nil %>
+          </div>
+          <div class="field">
+            <%= label_tag :card_code, "Card Security Code (CVV)" %>
+            <%= text_field_tag :card_code, nil, name: nil %>
+          </div>
+          <div class="field">
+            <%= label_tag :card_month, "Card Expiration" %>
+            <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
+            <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
+          </div>
+          <%= f.hidden_field :first_name %>
+          <%= f.hidden_field :last_name %>
+          <%= f.hidden_field :email %>
+          <%= f.hidden_field :stripe_token %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Change Credit Card", :class => "btn btn-primary" %>
+          <a class="btn" data-dismiss="modal" href="#">Close</a>
+        </div>
+      <% end %>
     </div>
-    <div class="modal-body">
-      <div class="field">
-        <%= label_tag :card_number, "Credit Card Number" %>
-        <%= text_field_tag :card_number, nil, name: nil %>
-      </div>
-      <div class="field">
-        <%= label_tag :card_code, "Card Security Code (CVV)" %>
-        <%= text_field_tag :card_code, nil, name: nil %>
-      </div>
-      <div class="field">
-        <%= label_tag :card_month, "Card Expiration" %>
-        <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
-        <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
-      </div>
-      <%= f.hidden_field :name %>
-      <%= f.hidden_field :email %>
-      <%= f.hidden_field :stripe_token %>
-    </div>
-    <div class="modal-footer">
-      <%= f.submit "Change Credit Card", :class => "btn btn-primary" %>
-      <a class="btn" data-dismiss="modal" href="#">Close</a>
-    </div>
-  <% end %>
+  </div>
 </div>

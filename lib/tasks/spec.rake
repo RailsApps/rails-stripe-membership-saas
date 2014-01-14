@@ -1,5 +1,5 @@
 require 'rake/testtask'
-require "teaspoon/console"
+# require "teaspoon/console"
 
 namespace 'spec' do
   desc "Run the javascript test"

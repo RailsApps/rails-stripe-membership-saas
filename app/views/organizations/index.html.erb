@@ -1,0 +1,17 @@
+<div class="page-header">
+	<h1>Organizations</h1>
+</div>
+<div class="row">
+<% @organizations.each do |organization| %>
+  <div class="col-md-4 well">
+  <h3><%= link_to organization.name, organization.url, :target => "_blank" %></h3>
+
+  <ul class="list-group">
+  <li class="list-group-item">
+    <span class="badge"><%= organization.listings.count %></span>
+	    Total Listings
+	  </li>
+	</ul>
+  </div>
+<% end %>
+</div>
