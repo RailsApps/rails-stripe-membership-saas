@@ -71,7 +71,15 @@ module Api
       end
 
       def remove_listing_fields
-        Resque.enqueue(RemoveListFieldWorker, params[:fields]) 
+        # Resque.enqueue(RemoveListFieldWorker, params[:fields]) 
+
+        listings ||= Listing.all
+        fields.split(',').each do |key|
+          listings.each do |l|
+            l.fields.delete(key)
+            l.save
+          end
+        end rescue nil
 
         respond_to do |format|
           msg = { :status => "ok", :message => "Success!", :html => "" }
