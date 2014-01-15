@@ -7,7 +7,7 @@ Feature: User signs up with stripe
     When I follow the subscribe for silver path
     Then I should see "Silver Subscription Plan"
 
-  @javascript
+  @fix @javascript
   Scenario: With valid card data
     Given I fill in the following:
       | Name                       | Testy McUserson   |
@@ -26,7 +26,7 @@ Feature: User signs up with stripe
   Scenario: With invalid card number
     Given I fill in the following:
       | Name                       | Testy McBadCard   |
-      | Email                      | testy@testing.com |
+      | Email                      | testy@example.com |
       | user_password              | secret_password   |
       | user_password_confirmation | secret_password   |
       | Credit Card Number         | 5555555555555     |
@@ -41,7 +41,7 @@ Feature: User signs up with stripe
   Scenario: With invalid card security code
     Given I fill in the following:
       | Name                       | Testy McBadCode   |
-      | Email                      | testy@testing.com |
+      | Email                      | testy@example.com |
       | user_password              | secret_password   |
       | user_password_confirmation | secret_password   |
       | Credit Card Number         | 4242424242424242  |
@@ -52,7 +52,7 @@ Feature: User signs up with stripe
     Then I should be on the new silver user registration page
     And I should see "Your card's security code is invalid"
 
-    @javascript
+    @fix @javascript
     Scenario: With declined card
       Given I fill in the following:
         | Name                       | Testy McDecline   |

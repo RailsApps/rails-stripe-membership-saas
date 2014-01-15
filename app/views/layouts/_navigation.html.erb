@@ -1,22 +1,18 @@
-<%= link_to "Rails Stripe Membership Saas", root_path, :class => 'brand' %>
+<%= link_to "Rails Stripe Membership Saas", root_path, :class => 'navbar-brand' %>
 <ul class="nav">
   <% if user_signed_in? %>
-    <li>
-    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>        
-    </li>
+    &#124; 
+    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
   <% else %>
-    <li>
-    <%= link_to 'Login', new_user_session_path %>  
-    </li>
+    &#124; 
+    <%= link_to 'Login', new_user_session_path %>   
   <% end %>
   <% if user_signed_in? %>
-    <li>
-    <%= link_to 'Edit account', edit_user_registration_path %>
-    </li>
+     &#124; 
+    <%= link_to 'Edit account', edit_user_registration_path %> 
     <% if current_user.has_role? :admin %>
-      <li>
+      &#124; 
       <%= link_to 'Admin', users_path %>
-      </li>
     <% end %>
   <% end %>
 </ul>

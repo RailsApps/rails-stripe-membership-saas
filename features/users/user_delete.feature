@@ -9,14 +9,14 @@ Feature: Delete User
       When I delete my account
       Then I should see an account deleted message
 
-    @javascript
+    @fix @javascript
     Scenario: I create a new subscription and delete my account
       Given: I am on the home page
       When I follow the subscribe for silver path
       Then I should see "Silver Subscription Plan"
       Given I fill in the following:
         | Name                       | Testy ShortLived  |
-        | Email                      | short@testing.com |
+        | Email                      | short@example.com |
         | user_password              | secret_password   |
         | user_password_confirmation | secret_password   |
         | Credit Card Number         | 4242424242424242  |

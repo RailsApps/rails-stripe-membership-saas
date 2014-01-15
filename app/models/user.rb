@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   
   # customer.charge.succeeded webhook
   def thanks
-      UserMailer.thanks_email(self).deliver
+    UserMailer.thanks_email(self).deliver
   end
 
 end

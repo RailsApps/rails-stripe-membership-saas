@@ -11,24 +11,24 @@
   <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
   <%= f.input :password_confirmation, :required => false %>
   <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
-  <%= f.button :submit, 'Update', :class => 'btn-primary' %>
+  <%= f.button :submit, 'Update', :class => "btn btn-primary" %>
 <% end %>
 
 <h3>Subscription Plan</h3>
 <p>
   <%= @user.roles.first.name.titleize %>
-  <a data-toggle="modal" href="#plan-options" class="btn btn-mini" type="button">Change plan</a>
+  <a data-toggle="modal" href="#plan-options" class="btn btn-xs" type="button">Change plan</a>
 </p>
 
 <h3>Card</h3>
 <p>
   Using card ending with <%= @user.last_4_digits %>
-  <a data-toggle="modal" href="#card-data" class="btn btn-mini" type="button">Change card</a>
+  <a data-toggle="modal" href="#card-data" class="btn btn-xs" type="button">Change card</a>
 </p>
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini' %></p>
+<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-xs' %></p>
 
 <div id="plan-options" class="modal" style="display: none;">
   <%= simple_form_for resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
@@ -41,7 +41,7 @@
     </div>
     <div class="modal-footer">
       <%= f.submit "Change Plan", :class => "btn btn-primary" %>
-      <a class="btn" data-dismiss="modal" href="#">Close</a>
+      <a class="btn btn-default" data-dismiss="modal" href="#">Close</a>
     </div>
   <% end %>
 </div>
@@ -72,7 +72,7 @@
     </div>
     <div class="modal-footer">
       <%= f.submit "Change Credit Card", :class => "btn btn-primary" %>
-      <a class="btn" data-dismiss="modal" href="#">Close</a>
+      <a class="btn btn-default" data-dismiss="modal" href="#">Close</a>
     </div>
   <% end %>
 </div>

@@ -1,6 +1,2 @@
 @import "bootstrap";
-body { padding-top: 60px; }
-/* @import "bootstrap-responsive"; */
-/* commenting this out fixed the problem with not finding fields for fill_in and other Cucumber/Rspec tests where the testing would fail due to not finding the field, even though it existed.*/
-/* there is no longer a bootstrap-responsive file : this new fact comes with the Bootstrap 3.0.0 upgrade !! http://bootply.com/bootstrap-3-migration-guide */
-/* it may be time to dump bootstrap and go with Foundation Zurb for stylings in our production app based on this template */
+body { padding-top: 20px; }
