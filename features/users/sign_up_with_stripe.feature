@@ -11,7 +11,7 @@ Feature: User signs up with stripe
   Scenario: With valid card data
     Given I fill in the following:
       | Name                       | Testy McUserson   |
-      | Email                      | testy@testing.com |
+      | Email                      | testy@example.com |
       | user_password              | secret_password   |
       | user_password_confirmation | secret_password   |
       | Credit Card Number         | 4242424242424242  |
