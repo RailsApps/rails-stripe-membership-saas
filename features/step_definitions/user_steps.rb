@@ -152,11 +152,10 @@ When /^I delete my account$/ do
   puts "You just pressed the Edit account button"
   puts "You have arrived here " + current_path        # can be removed when tests all pass
   click_link "Cancel my account"
+  page.driver.browser.switch_to.alert.accept
   puts "You have just pressed the Cancel my account button"
+  puts "You have just pressed the Okay button in the Confirm box"
   puts "You have arrived here " + current_path        # can be removed when tests all pass
- #@browser = GemName::CucumberFormatter::Browser.get_browser
- #@browser.alert.ok
-  # reference for above two lines : http://stackoverflow.com/questions/13643071/cannot-get-past-modal-dialog-present-seleniumwebdrivererrorunhandledalert
 end
 
 When /^I follow the subscribe for silver path$/ do

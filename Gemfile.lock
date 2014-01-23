@@ -119,8 +119,6 @@ GEM
     orm_adapter (0.5.0)
     phantomjs (1.9.2.1)
     polyglot (0.3.3)
-    protected_attributes (1.0.5)
-      activemodel (>= 4.0.1, < 5.0)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -229,7 +227,6 @@ DEPENDENCIES
   figaro (~> 0.7.0)
   jquery-rails
   launchy (~> 2.4.2)
-  protected_attributes (~> 1.0.5)
   quiet_assets (>= 1.0.2)
   rails (= 4.0.2)
   rails-observers (~> 0.1.2)
