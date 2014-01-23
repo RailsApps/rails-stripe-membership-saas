@@ -2,7 +2,7 @@
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
 <% end %>
 <h2>Account</h2>
-<div id="stripe_error" class="alert alert-error" style="display:none" ></div>
+<div id="stripe_error" class="alert alert-error" style="display:none;"></div>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
   <%= f.error_notification %>
   <%= display_base_errors resource %>
@@ -10,69 +10,108 @@
   <%= f.input :email, :required => true %>
   <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
   <%= f.input :password_confirmation, :required => false %>
-  <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+  <%= f.input :current_password, :hint => "we need your current password to confirm above changes", :required => true %>
   <%= f.button :submit, 'Update', :class => "btn btn-primary" %>
 <% end %>
 
 <h3>Subscription Plan</h3>
 <p>
-  <%= @user.roles.first.name.titleize %>
-  <a data-toggle="modal" href="#plan-options" class="btn btn-xs" type="button">Change plan</a>
+  Your plan is 
+  <%= @user.roles.first.name.titleize %> &nbsp;
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary btn-sm" data-backdrop="true" data-toggle="modal" data-target="#plan-options" data-toggle="modal" href="#plan-options">
+    Change plan
+  </button>
+  <!-- Bootstrap3 above : Bootstrap2 below -->
+  <!-- a data-toggle="modal" href="#plan-options" class="btn btn-xs" type="button" --><!-- Change plan --> <!-- /a -->
 </p>
 
 <h3>Card</h3>
 <p>
-  Using card ending with <%= @user.last_4_digits %>
-  <a data-toggle="modal" href="#card-data" class="btn btn-xs" type="button">Change card</a>
+  Using card ending with <%= @user.last_4_digits %> &nbsp; 
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary btn-sm" data-backdrop="true" data-target="#card-data" data-toggle="modal" href="#card-data">
+    Change card
+  </button>
+  <!-- Button trigger modal end -->
+  <!-- Bootstrap3 above : Bootstrap2 below -->
+  <!-- a data-toggle="modal" href="#card-data" class="btn btn-mini" type="button" --><!-- Change card --><!-- /a -->
 </p>
 
 <h3>Cancel my account</h3>
-
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-xs' %></p>
 
-<div id="plan-options" class="modal" style="display: none;">
-  <%= simple_form_for resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
-    <div class="modal-header">
-      <a class="close" data-dismiss="modal">&#215;</a>
-      <h3>Change Plan</h3>
-    </div>
-    <div class="modal-body">
-      <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline' %>
-    </div>
-    <div class="modal-footer">
-      <%= f.submit "Change Plan", :class => "btn btn-primary" %>
-      <a class="btn btn-default" data-dismiss="modal" href="#">Close</a>
-    </div>
-  <% end %>
-</div>
+<!-- Plan Modal -->
+<!-- bootstrap2 --><!-- div id="plan-options" class="modal" style="display: none;" -->
+<!-- bootstrap3 below -->
+  <div class="modal fade" id="plan-options" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title" id="modalplan">Change Plan</h4>
+        </div>
 
-<div id="card-data" class="modal" style="display: none;">
-  <%= simple_form_for resource, :as => resource_name, :url => update_card_path, :html => {:method => :put, :class => 'form-horizontal card_form' } do |f| %>
-    <div class="modal-header">
-      <a class="close" data-dismiss="modal">&#215;</a>
-      <h3>Change Credit Card</h3>
-    </div>
-    <div class="modal-body">
-      <div class="field">
-        <%= label_tag :card_number, "Credit Card Number" %>
-        <%= text_field_tag :card_number, nil, name: nil %>
+        <div class="modal-body">
+          <h3>Select New Plan</h3>
+          <%= simple_form_for resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
+              <!-- # Rails3 below-->
+              <!-- % = f.input :role_ids, :collection = > Role.all.delete_if {|i| i.name == 'admin'}, :as = > :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label = > false, :item_wrapper_class => 'inline' % -->           
+              <!-- # Rails4 below -->
+            <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name}, :label => false, :item_wrapper_class => 'inline' %>
+            </div><!-- close .modal-body  -->
+            <div class="modal-footer">
+              <%= f.submit "Change Plan", :class => "btn btn-primary" %>
+              <a class="btn btn-default" data-dismiss="modal" href="#">Close</a>
+            </div><!-- close .modal-footer -->
+          <% end %><!-- closes simple_form_for -->
+        </div><!-- close model-header  -->
+      </div><!-- close .modal-content -->
+    </div><!-- close .modal-dialog -->
+  </div><!-- close .modal -->
+<!-- end of Plan Modal -->
+
+<!-- Card Modal -->
+<!-- bootstrap2 --><!-- div id="card-data" class="modal" style="display:none;">
+<!-- bootstrap3 below -->
+  <div class="modal fade" id="card-data" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title" id="modalcard">Change Card</h4>
+        </div>
+ 
+      <div class="modal-body">
+        <h3>Change Credit Card In Use</h3>
+        <%= simple_form_for resource, :as => resource_name, :url => update_card_path, :html => {:method => :put, :class => 'form-horizontal card_form' } do |f| %>
+          <a class="close" data-dismiss="modal">&#215;</a>
+          <div class="field">
+            <%= label_tag :card_number, "Credit Card Number" %>
+            <%= text_field_tag :card_number, nil, name: nil %>
+          </div>
+          <div class="field">
+            <%= label_tag :card_code, "Card Security Code (CVV)" %>
+            <%= text_field_tag :card_code, nil, name: nil %>
+          </div>
+          <div class="field">
+            <%= label_tag :card_month, "Card Expiration" %>
+            <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
+            <%= select_year nil, {start_year: Date.today.year+1, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
+          </div>
+          <%= f.hidden_field :name %>
+          <%= f.hidden_field :email %>
+          <%= f.hidden_field :stripe_token %>
+          <div class="modal-footer">
+            <%= f.submit "Change Card In Use", :class => "btn btn-primary" %>
+            <a class="btn btn-default" data-dismiss="modal" href="#">Close</a>
+          </div>
+        <% end %>
       </div>
-      <div class="field">
-        <%= label_tag :card_code, "Card Security Code (CVV)" %>
-        <%= text_field_tag :card_code, nil, name: nil %>
-      </div>
-      <div class="field">
-        <%= label_tag :card_month, "Card Expiration" %>
-        <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
-        <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
-      </div>
-      <%= f.hidden_field :name %>
-      <%= f.hidden_field :email %>
-      <%= f.hidden_field :stripe_token %>
     </div>
-    <div class="modal-footer">
-      <%= f.submit "Change Credit Card", :class => "btn btn-primary" %>
-      <a class="btn btn-default" data-dismiss="modal" href="#">Close</a>
-    </div>
-  <% end %>
-</div>
+  </div>
+<!-- end of Card Modal -->

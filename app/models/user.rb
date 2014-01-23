@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
+  # comment out attr_accessible for Rails4 : also see changes in application_controller
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :stripe_token, :coupon
   attr_accessor :stripe_token, :coupon
   before_save :update_stripe
@@ -85,13 +86,12 @@ class User < ActiveRecord::Base
   
   # customer.subscription.deleted webhook
   def expire
-      UserMailer.expire_email(self).deliver
-      destroy
+    UserMailer.expire_email(self).deliver
+    destroy
   end
   
   # customer.charge.succeeded webhook
   def thanks
     UserMailer.thanks_email(self).deliver
   end
-
 end

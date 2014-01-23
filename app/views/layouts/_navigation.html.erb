@@ -1,18 +1,23 @@
-<%= link_to "Rails Stripe Membership Saas", root_path, :class => 'navbar-brand' %>
-<ul class="nav">
-  <% if user_signed_in? %>
-    &#124; 
-    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
-  <% else %>
-    &#124; 
-    <%= link_to 'Login', new_user_session_path %>   
+<%# navigation styled for Bootstrap 3.0 %>
+<ul class="navbar narbar-default">
+  <strong>
+    <%= link_to "Rails Stripe Membership Saas", root_path %> &nbsp;
+  </strong>
+  <% if user_signed_in? %> <b>&#124;</b>
+    <% if current_user.has_role? :platinum %><%= link_to "Hello " + "#{current_user.name}", content_platinum_path %> <b>&#124;</b>
+    <% elsif current_user.has_role? :gold %><%= link_to "Hello " + "#{current_user.name}", content_gold_path %> <b>&#124;</b>
+    <% elsif current_user.has_role? :silver %><%= link_to "Hello " + "#{current_user.name}", content_silver_path %> <b>&#124;</b>
+    <% end %>
   <% end %>
   <% if user_signed_in? %>
-     &#124; 
-    <%= link_to 'Edit account', edit_user_registration_path %> 
+    <%= link_to 'Edit account', edit_user_registration_path %> <b>&#124;</b>
     <% if current_user.has_role? :admin %>
-      &#124; 
-      <%= link_to 'Admin', users_path %>
-    <% end %>
+      <%= link_to 'Admin', users_path %> <b>&#124;</b>
+  <% end %>
+  <% end %>
+  <% if user_signed_in? %>
+    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
+  <% else %> <b>&#124;</b>
+    <%= link_to 'Login', new_user_session_path %>  
   <% end %>
 </ul>

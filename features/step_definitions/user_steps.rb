@@ -6,11 +6,12 @@ def create_visitor
 end
 
 def find_user
- #@user ||= User.first conditions: {:email => @visitor[:email]}         # Rails3
- # reference for change is http://rubydoc.info/docs/rails/ActiveRecord/Relation:find_or_create_by
- @user ||= User.find_or_create_by(email: @visitor[:email]) do |user|    # Rails4
-     user.password = @visitor[:password]                                # Rails4
- end                                                                    # Rails4
+ #@user ||= User.first conditions: {:email => @visitor[:email]}      # Rails3 : will not work in Rails4
+ #reference for change is http://rubydoc.info/docs/rails/ActiveRecord/Relation:find_or_create_by
+  @user ||= User.find_or_create_by(email: @visitor[:email])          # Rails4
+  # @user ||= User.find_or_create_by(email: @visitor[:email]) do |user|      # Rails4 to add more than one attribute
+  #   user.password = @visitor[:password]                                    # Rails4 use this 'do |user|' method
+  # end                                                                      # Rails4 end of the do command
 end
 
 def create_unconfirmed_user
@@ -28,10 +29,10 @@ def create_user
 end
 
 def delete_user
- #@user ||= User.first conditions: {:email => @visitor[:email]}  # Rails3
+ #@user ||= User.first conditions: {:email => @visitor[:email]}  # Rails3 : will not work in Rails4
+  @user ||= User.find_or_create_by(email: @visitor[:email])      # Rails4
  # reference for change is
  # http://stackoverflow.com/questions/18727356/how-to-fix-deprecation-relationfirst-with-finder-options
-  @user ||= User.find_or_create_by(:email => @visitor[:email])   # Rails4
 
   @user.destroy unless @user.nil?
 end
@@ -39,21 +40,23 @@ end
 def sign_up
   delete_user
   visit '/users/sign_up/?plan=silver'
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   page.fill_in "Name", :with => @visitor[:name]
   page.fill_in "Email", :with => @visitor[:email]
   page.fill_in "user_password", :with => @visitor[:password]
   page.fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
+  puts "You click on the Sign Up button next"         # can be removed when tests all pass
   click_button "Sign up"
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   find_user
-  puts "current path = " + current_path
-  puts "current path with arguements = " + current_path_with_args
 end
 
 def sign_in
   visit '/users/sign_in'
-  fill_in "Email", :with => @visitor[:email]
-  fill_in "Password", :with => @visitor[:password]
+  page.fill_in "Email", :with => @visitor[:email]
+  page.fill_in "Password", :with => @visitor[:password]
   click_button "Sign in"
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
 end
 
 ### GIVEN ###
@@ -138,15 +141,22 @@ end
 
 When /^I change my email address$/ do
   click_link "Edit account"
-  fill_in "user_email", :with => "different@example.com"
-  fill_in "user_current_password", :with => @visitor[:password]
+  page.fill_in "user_email", :with => "different@example.com"
+  page.fill_in "user_current_password", :with => @visitor[:password]
   click_button "Update"
 end
 
 When /^I delete my account$/ do
+  puts "You are here " + current_path        # can be removed when tests all pass
   click_link "Edit account"
+  puts "You just pressed the Edit account button"
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   click_link "Cancel my account"
-  page.driver.browser.switch_to.alert.accept
+  puts "You have just pressed the Cancel my account button"
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
+ #@browser = GemName::CucumberFormatter::Browser.get_browser
+ #@browser.alert.ok
+  # reference for above two lines : http://stackoverflow.com/questions/13643071/cannot-get-past-modal-dialog-present-seleniumwebdrivererrorunhandledalert
 end
 
 When /^I follow the subscribe for silver path$/ do
@@ -165,22 +175,49 @@ Then /^I should be signed out$/ do
   page.should_not have_content "Logout"
 end
 
-Then /^I should see "(.*?)"$/ do |text|
+And /^I should see "(.*?)"$/ do |text|                            # replaced by below specificly named tests
+  puts "You are currently here " + current_path                    # can be removed when tests all pass
   page.should have_content text
-  puts "current path = " + current_path
-  puts "current path with arguements = " + current_path_with_args
 end
+
+#Then /^I should see Silver Subscription Plan$/  do             # first replacement of above generic code with this exact code
+#  page.should have_content "Silver Subscription Plan"          # can be removed when all tests pass
+#end
+
+#Then /^I should see Your card number is incorrect$/  do        # second replacement of above generic code with this specific code
+#  page.should have_content "Your card number is incorrect"     # remove when all tests pass
+#end
+
+#Then /^I should see Your card security code is invalid$/  do     # third replacement of above generic with this specific code
+#  page.should have_content "Your card security code is invalid"  # remove notes when all tests pass
+#end
+
+#Then /^I should see declined$/  do                                  # fourth replacement of above generic with this specific code
+#  puts "You have arrived here " + current_path                      # can be removed when tests all pass
+#  puts "Alert Text is " + page.driver.browser.switch_to.alert.text  # can be removed when tests all pass
+#  page.driver.browser.switch_to.alert.accept                        # ? working ?
+#  page.should have_content "declined"
+#end
 
 Then /^I should be on the "([^"]*)" page$/ do |path_name|
+  puts "You have arrived here " + current_path                       # can be removed when tests all pass
+
   current_path.should == send("#{path_name.parameterize('_')}_path")
-  puts "current path = " + current_path
-  puts "current path with arguements = " + current_path_with_args
 end
 
+#Then /^I should be on the content silver page$/ do    # first replacement of above generic code with this specific address
+#  puts "You have arrived here " + current_path        # can be removed when tests all pass
+#  current_path.should == '/content/silver'
+#end
+
+#Then /^I should be on the user registration page$/ do      # second replacement of above generic code with this specific address
+#  puts "You have arrived here " + current_path        # can be removed when tests all pass
+#  current_path.should == '/users'
+#end
+
 Then /I should be on the new silver user registration page$/ do
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   current_path_with_args.should == '/users/sign_up/?plan=silver'
-  puts "current path = " + current_path
-  puts "current path with arguements = " + current_path_with_args
 end
 
 Then /^I see an unconfirmed account message$/ do
@@ -188,10 +225,12 @@ Then /^I see an unconfirmed account message$/ do
 end
 
 Then /^I see a successful sign in message$/ do
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   page.should have_content "Signed in successfully."
 end
 
-Then /^I should see a successful sign up message$/ do
+And /^I should see a successful sign up message$/ do
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   page.should have_content "Welcome! You have signed up successfully."
 end
 
@@ -204,13 +243,11 @@ Then /^I should see a missing password message$/ do
 end
 
 Then /^I should see a missing password confirmation message$/ do
-  page.should have_content "confirmationdoesn't match"    # TODO made to work but, something is still not right : fix
-  #page.should have_content "doesn't match confirmation"  # original code : and we need to get back to this code.
+  page.should have_content "Password confirmation doesn't match Password"
 end
 
 Then /^I should see a mismatched password message$/ do
-  page.should have_content "confirmationdoesn't match"   # TODO made to work but, something is still not right
- #page.should have_content "doesn't match confirmation"  # original code
+  page.should have_content "Password confirmation doesn't match Password"
 end
 
 Then /^I should see a missing subscription plan message$/ do
@@ -230,7 +267,10 @@ Then /^I should see an account edited message$/ do
 end
 
 Then /^I should see an account deleted message$/ do
-  page.should have_content "account was successfully cancelled"
+ page.should have_content "account was successfully cancelled"  # Original code, below is a temporary fix
+ #page.should have_content "Not authorized as an administrator"  # This passes the test # TODO  must fix this, why is it happening ?
+ #page.should have_content "Bye! Your account was successfully cancelled. We hope to see you again soon."
+                          # ^^^^ this is what shows when run in the browswer !!!
 end
 
 Then /^I should see my name$/ do
