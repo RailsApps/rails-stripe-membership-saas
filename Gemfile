@@ -27,7 +27,8 @@ gem "better_errors", "~> 1.1.0", :group => :development
 gem "binding_of_caller", "~> 0.7.2", :group => :development, :platforms => [:mri_19, :rbx]
 gem "selenium-webdriver", "~> 2.39.0"
 #gem "protected_attributes", "~> 1.0.5" # see application_controller.rb change this commit
-gem 'activeresource', :require => 'active_resource'
-gem "rails-observers", "~> 0.1.2"
-gem "actionpack-page_caching", "~> 1.0.2"
-gem "actionpack-action_caching", "~> 1.1.1"
+#gem 'activeresource', :require => 'active_resource' # Rails 4 transition gem not in use so can be removed
+#gem "rails-observers", "~> 0.1.2" # Rails 4 transition gem not in use so can be removed
+#gem "actionpack-page_caching", "~> 1.0.2" # Rails 4 transition gem not in use so can be removed 
+#gem "actionpack-action_caching", "~> 1.1.1" # Rails 4 transition gem not in use so can be removed
+
