@@ -1,3 +1,4 @@
+<%# not updated for Bootstrap3 %>
 <%%= simple_form_for(@<%= singular_table_name %>) do |f| %>
   <%%= f.error_notification %>
 
@@ -7,8 +8,7 @@
   <%- end -%>
   </div>
 
-  <!-- div class="form-actions" --> <!-- .form-actions was removed from Boostrap3 -->
-  <div class="createyourclass">
+  <div class="form-actions">
     <%%= f.button :submit %>
   </div>
 <%% end %>

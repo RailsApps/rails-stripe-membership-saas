@@ -31,7 +31,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_card
     @user = current_user
-    @user.stripe_token = params[:user][:stripe_token] # Rails3
+    @user.stripe_token = params[:user][:stripe_token]
     if @user.save
       redirect_to edit_user_registration_path, :notice => 'Updated card.'
     else

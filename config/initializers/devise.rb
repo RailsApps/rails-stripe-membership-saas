@@ -238,6 +238,8 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-  # added per Terminal instructions on a rake db:reset after update of Ruby and Rails on 20131215
+  # added per Terminal instructions on a rake db:reset after update to Ruby 2.1.0 and Rails 4.0.2
+  # this key can also be placed in the application.yml file as :
+  # SECRET_KEY: "your new 30 digit key"
   config.secret_key = 'df19a9b6c3dc5036747194c836d869a3c363b2458c388dbd6893164a00b7ead126969eeb1b91ce8f9ed77b2d6d0cce2e7a3a62c85065757b7fb7f529e2dab083'
 end

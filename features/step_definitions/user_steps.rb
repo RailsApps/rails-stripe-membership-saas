@@ -6,12 +6,10 @@ def create_visitor
 end
 
 def find_user
- #@user ||= User.first conditions: {:email => @visitor[:email]}      # Rails3 : will not work in Rails4
- #reference for change is http://rubydoc.info/docs/rails/ActiveRecord/Relation:find_or_create_by
-  @user ||= User.find_or_create_by(email: @visitor[:email])          # Rails4
-  # @user ||= User.find_or_create_by(email: @visitor[:email]) do |user|      # Rails4 to add more than one attribute
-  #   user.password = @visitor[:password]                                    # Rails4 use this 'do |user|' method
-  # end                                                                      # Rails4 end of the do command
+  @user ||= User.find_or_create_by(email: @visitor[:email])                  # Rails 4 : one attribute
+  # @user ||= User.find_or_create_by(email: @visitor[:email]) do |user|      # Rails 4 to add more than one attribute
+  #   user.password = @visitor[:password]                                    # Rails 4 use this 'do |user|' method
+  # end                                                                      # Rails 4 end of the do command
 end
 
 def create_unconfirmed_user
@@ -29,10 +27,7 @@ def create_user
 end
 
 def delete_user
- #@user ||= User.first conditions: {:email => @visitor[:email]}  # Rails3 : will not work in Rails4
-  @user ||= User.find_or_create_by(email: @visitor[:email])      # Rails4
- # reference for change is
- # http://stackoverflow.com/questions/18727356/how-to-fix-deprecation-relationfirst-with-finder-options
+  @user ||= User.find_or_create_by(email: @visitor[:email])
 
   @user.destroy unless @user.nil?
 end
@@ -147,7 +142,7 @@ When /^I change my email address$/ do
 end
 
 When /^I delete my account$/ do
-  puts "You are here " + current_path        # can be removed when tests all pass
+  puts "You are here " + current_path                 # can be removed when tests all pass
   click_link "Edit account"
   puts "You just pressed the Edit account button"
   puts "You have arrived here " + current_path        # can be removed when tests all pass
@@ -174,29 +169,10 @@ Then /^I should be signed out$/ do
   page.should_not have_content "Logout"
 end
 
-And /^I should see "(.*?)"$/ do |text|                            # replaced by below specificly named tests
-  puts "You are currently here " + current_path                    # can be removed when tests all pass
+And /^I should see "(.*?)"$/ do |text|
+  puts "You are currently here " + current_path                      # can be removed when tests all pass
   page.should have_content text
 end
-
-#Then /^I should see Silver Subscription Plan$/  do             # first replacement of above generic code with this exact code
-#  page.should have_content "Silver Subscription Plan"          # can be removed when all tests pass
-#end
-
-#Then /^I should see Your card number is incorrect$/  do        # second replacement of above generic code with this specific code
-#  page.should have_content "Your card number is incorrect"     # remove when all tests pass
-#end
-
-#Then /^I should see Your card security code is invalid$/  do     # third replacement of above generic with this specific code
-#  page.should have_content "Your card security code is invalid"  # remove notes when all tests pass
-#end
-
-#Then /^I should see declined$/  do                                  # fourth replacement of above generic with this specific code
-#  puts "You have arrived here " + current_path                      # can be removed when tests all pass
-#  puts "Alert Text is " + page.driver.browser.switch_to.alert.text  # can be removed when tests all pass
-#  page.driver.browser.switch_to.alert.accept                        # ? working ?
-#  page.should have_content "declined"
-#end
 
 Then /^I should be on the "([^"]*)" page$/ do |path_name|
   puts "You have arrived here " + current_path                       # can be removed when tests all pass
@@ -204,18 +180,8 @@ Then /^I should be on the "([^"]*)" page$/ do |path_name|
   current_path.should == send("#{path_name.parameterize('_')}_path")
 end
 
-#Then /^I should be on the content silver page$/ do    # first replacement of above generic code with this specific address
-#  puts "You have arrived here " + current_path        # can be removed when tests all pass
-#  current_path.should == '/content/silver'
-#end
-
-#Then /^I should be on the user registration page$/ do      # second replacement of above generic code with this specific address
-#  puts "You have arrived here " + current_path        # can be removed when tests all pass
-#  current_path.should == '/users'
-#end
-
 Then /I should be on the new silver user registration page$/ do
-  puts "You have arrived here " + current_path        # can be removed when tests all pass
+  puts "You have arrived here " + current_path                       # can be removed when tests all pass
   current_path_with_args.should == '/users/sign_up/?plan=silver'
 end
 
@@ -266,10 +232,7 @@ Then /^I should see an account edited message$/ do
 end
 
 Then /^I should see an account deleted message$/ do
- page.should have_content "account was successfully cancelled"  # Original code, below is a temporary fix
- #page.should have_content "Not authorized as an administrator"  # This passes the test # TODO  must fix this, why is it happening ?
- #page.should have_content "Bye! Your account was successfully cancelled. We hope to see you again soon."
-                          # ^^^^ this is what shows when run in the browswer !!!
+ page.should have_content "account was successfully cancelled"
 end
 
 Then /^I should see my name$/ do

@@ -1,6 +1,19 @@
+h2. Note of 20140122 : 
+
+This branch is a Rails 4.1.0 example application with recurring billing using Stripe.
+This branch runs Ruby 2.1.0, and Bootstrap 3.0
+Therefore, the instructions below will not always be in sync.
+As this app stands now, it is still using CanCan for authorization.
+We intend to can CanCan and put in Pundit.
+That's next.
+
+Kathy Onu
+end of note
+
 h1. !http://railsapps.github.io/images/rails-36x36.jpg(Rails Application for a Membership, Subscription, or SaaS Site)! Rails App for a Membership, Subscription, or SaaS Site
 
-Rails 3.2 example application with recurring billing using Stripe. Use for a Rails membership site, subscription site, or SaaS site (software-as-a-service). Using:
+
+Use for a Rails membership site, subscription site, or SaaS site (software-as-a-service). Using:
 
 * "Devise":http://github.com/plataformatec/devise authentication and user management
 * "CanCan":https://github.com/ryanb/cancan authorization for administrator access

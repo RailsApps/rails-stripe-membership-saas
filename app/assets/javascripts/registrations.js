@@ -27,7 +27,6 @@ $('.registrations').ready(function() {
         handleStripeResponse: function(status, response) {
           if (status === 200) {
             $('#user_stripe_token').val(response.id)
-            console.log('<%= STRIPE_PUBLIC_KEY %>');
             $('.card_form')[0].submit()
           } else {
             $('#stripe_error').text(response.error.message).show();
