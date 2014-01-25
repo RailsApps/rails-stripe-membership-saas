@@ -12,6 +12,28 @@ That's next on the upgrade, commit and push agenda.
 
  ~ Kathy Onu, a SiteKeeper 
 
+h4. Instructions to Operate
+
+1. Clone the branch into your system :
+
+    $ git clone -b rails4 https://github.com/kathyonu/rails-stripe-membership-saas.git
+1a. Change Directory into the new app: $ cd rails-stripe-membership-saas
+2. Run $ bundle install
+3. Create your application.yml file from the application.example.yml file, using your own data.
+4. Make sure /configuration/application.yml exists in your ./.gitignore file. (It is at the bottom of the file)
+5. Run $ rake db:migrate
+6. Run $ rake db:seed
+7. Run $ rake db:test:prepare
+
+You are now ready to run, and test your app.
+
+8. To run your server: $ rails s and open your browser to http://localhost:3000
+9. To run cucumber tests: $ cucumber
+10. To run Rspec tests: $ rspec spec 
+
+You are up and running on Rails 4.
+
+
 References used during these upgrading commits include, and are not limited to :
 
 "Check your Gemfile's readiness for Rails 4":http://ready4rails4.net/gemfile_check/new
