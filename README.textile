@@ -1,21 +1,22 @@
-h2. Note of 20140124 : 
+h4. Note of 20140124 : 
 
-This Rails 4 branch is updated to Rails 4.0.2. running on Ruby 2.1.0, and styled with Bootstrap 3.0
+This Rails 4 branch is updated to Rails 4.0.2. running on Ruby 2.1.0, and styled with Bootstrap-Sass 3.0.3.0.
 This branch is the Rails 4 App for a Membership, Subscription, or SaaS Site.
 
 For original instructions on how to install the app, please see Daniel Kehoe's Master Branch :
-!https://github.com/RailsApps/rails-stripe-membership-saas(README.md)!
-As this app stands now, it is still using CanCan for authorization.
+"README.md":https://github.com/RailsApps/rails-stripe-membership-saas
+
+As this point this application is still using CanCan for authorization.
 We intend to can CanCan and put in Pundit.
 That's next on the upgrade, commit and push agenda.
 
-Kathy Onu, a SiteKeeper 
+ ~ Kathy Onu, a SiteKeeper 
 
-References used in these currently ongoing upgrading commits include :
+References used during these upgrading commits include, and are not limited to :
 
-!http://ready4rails4.net/gemfile_check(Check your Gemfile's readiness for Rails 4)!
+"Check your Gemfile's readiness for Rails 4":http://ready4rails4.net/gemfile_check
 
-http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html(Ruby Edge Guide for Upgrading to Rails 4.0, 4.1 and beyond)
+"Ruby Edge Guide for Upgrading to Rails 4.0, 4.1 and beyond":http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html
 Note : this page is in sections, on different upgrades, so make sure you are in the right section.
 Section 5 : Upgrading from Rails 3.0 to Rails 3.1
 Section 4 : Upgrading from Rails 3.1 to Rails 3.2
@@ -23,21 +24,22 @@ Section 3 : Upgrading from Rails 3.2 to Rails 4.0
 Section 2 : Upgrading from Rails 4.0 to Rails 4.1 and later.
 Again, make sure you are using the right instructions, and stay in that section until you are done.
 
-!http://blog.sensible.io/2013/08/17/strong-parameters-by-example.html(Strong Parameters by Example)!
-!http://blog.barbershoplabs.com/blog/page/2(Upgrading to Rails4: Strong Parameters)!
-Also, you can reference our commit where we removed the protected_attributes gem, you will see the code additions that accompanied that removal.
+"Strong Parameters by Example":http://blog.sensible.io/2013/08/17/strong-parameters-by-example.html
+"Upgrading to Rails4: Strong Parameters":http://blog.barbershoplabs.com/blog/page/2
+
 
 h4. Pundit instead of CanCan.
-!https://rubygems.org/gems/pundit(Pundit Gem)!
-!https://github.com/elabs/pundit(Pundit Source)!
-!http://www.elabs.se/blog/52-simple-authorization-in-ruby-on-rails-apps(Pundit is simple authorization in pure Ruby)!
+"Pundit Gem":https://rubygems.org/gems/pundit
+"Pundit Source":!https://github.com/elabs/pundit
+
+"Pundit is simple authorization in pure Ruby":http://www.elabs.se/blog/52-simple-authorization-in-ruby-on-rails-apps
 
 h4. Migrating to Pundit from CanCan
-!http://blog.carbonfive.com/2013/10/21/migrating-to-pundit-from-cancan/(Put In Pundit Migration Instructions)!
-!http://thunderboltlabs.com/blog/2013/03/27/testing-pundit-policies-with-rspec/(Testing Pundit Policies with Rspec)!
+"Put In Pundit Migration Instructions":http://blog.carbonfive.com/2013/10/21/migrating-to-pundit-from-cancan/
+"Testing Pundit Policies with Rspec":http://thunderboltlabs.com/blog/2013/03/27/testing-pundit-policies-with-rspec/
 
 h4. Your Rails 4 app to Heroku :
-!https://devcenter.heroku.com/articles/rails4(Rails 4 on Heroku)!
+"Rails 4 on Heroku":https://devcenter.heroku.com/articles/rails4
 
 end of 20140124 note.
 
@@ -50,7 +52,7 @@ Daniel Kehoe implemented the application and wrote the tutorial.
 
 Taylor Mock contributed tests and feature improvements.
 
-Kathy Ony upgraded the Rails 3 master onto the Rails4 branch using Bootstrap 3, and will be replacing CanCan with Pundit.
+Kathy Onu upgraded the Rails 3 master onto the Rails 4 branch using Bootstrap 3, and will be replacing CanCan with Pundit.
  
 Is the app useful to you? Follow the project on Twitter: "@rails_apps":http://twitter.com/rails_apps
 and tweet some praise. I'd love to know you were helped out by what I've put together.
@@ -59,7 +61,7 @@ h2. MIT License
 
 "MIT License":http://www.opensource.org/licenses/mit-license
 
-Copyright © 2012 Daniel Kehoe
+Copyright © 2012-2014 Daniel Kehoe
 
 h2. Useful Links
 
