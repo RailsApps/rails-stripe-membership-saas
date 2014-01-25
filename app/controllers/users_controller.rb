@@ -12,11 +12,12 @@ class UsersController < ApplicationController
   
   def update
     authorize! :update, @user, :message => 'Not authorized as an administrator.'
-    @user = User.find(params[:id])
+    @user = User.find(user_params)
     role = Role.find(params[:user][:role_ids]) unless params[:user][:role_ids].nil?
     params[:user] = params[:user].except(:role_ids)
     
-    if @user.update_attributes(params[:user])
+   #if @user.update_attributes(params[:user])       # Rails3
+   if @user.update_attributes(user_params)          # Rails4 Strong Parameters
       @user.update_plan(role) unless role.nil?
       redirect_to users_path, :notice => "User updated."
     else

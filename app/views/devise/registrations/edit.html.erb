@@ -19,7 +19,7 @@
   Your plan is 
   <%= @user.roles.first.name.titleize %> &nbsp;
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary btn-sm" data-backdrop="true" data-toggle="modal" data-target="#plan-options" data-toggle="modal" href="#plan-options">
+  <button type="button" class="btn btn-primary btn-sm" data-target="#plan-options" data-toggle="modal" href="#plan-options">
     Change plan
   </button>
 </p>
@@ -28,7 +28,7 @@
 <p>
   Using card ending with <%= @user.last_4_digits %> &nbsp; 
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary btn-sm" data-backdrop="true" data-target="#card-data" data-toggle="modal" href="#card-data">
+  <button type="button" class="btn btn-primary btn-sm" data-target="#card-data" data-toggle="modal" href="#card-data">
     Change card
   </button>
   <!-- Button trigger modal end -->
@@ -50,8 +50,8 @@
 
         <div class="modal-body">
           <h3>Select New Plan</h3>
-          <%= simple_form_for resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
-            <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name}, :label => false, :item_wrapper_class => 'inline' %>
+          <%= simple_form_for(resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' }) do |f| %>
+            <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline' %>
         </div><!-- close .modal-body  -->
           <div class="modal-footer">
             <%= f.submit "Change Plan", :class => "btn btn-primary" %>
@@ -77,7 +77,7 @@
  
       <div class="modal-body">
         <h3>Change Credit Card In Use</h3>
-        <%= simple_form_for resource, :as => resource_name, :url => update_card_path, :html => {:method => :put, :class => 'form-horizontal card_form' } do |f| %>
+        <%= simple_form_for(resource, :as => resource_name, :url => update_card_path, :html => {:method => :put, :class => 'form-horizontal card_form' }) do |f| %>
           <a class="close" data-dismiss="modal">&#215;</a>
           <div class="field">
             <%= label_tag :card_number, "Credit Card Number" %>
