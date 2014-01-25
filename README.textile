@@ -14,25 +14,76 @@ That's next on the upgrade, commit and push agenda.
 
 h4. Instructions to Operate
 
-1. Clone the branch into your system :
+1. Clone the branch into your system, setting up a branch called rails4 :
 
-    $ git clone -b rails4 https://github.com/kathyonu/rails-stripe-membership-saas.git
-1a. Change Directory into the new app: $ cd rails-stripe-membership-saas
-2. Run $ bundle install
+<pre>
+$ git clone -b rails4 https://github.com/kathyonu/rails-stripe-membership-saas.git@ 
+</pre>
+
+1a. Change Directory into the new app: 
+
+<pre>
+$ cd rails-stripe-membership-saas
+</pre>
+
+2. Open your Gemfile and make sure you have the right versions of Ruby and Rails : 
+
+<pre>
+  source 'https://rubygems.org'
+  ruby "2.1.0"
+  gem 'rails', '4.0.2'
+</pre>
+
+2a. Using your favorite editor, open the .ruby-gemset and .ruby-version files and verify latest version is showing :
+
+<pre>
+$ open -e .ruby-gemset
+$ open -e .ruby-version
+</pre>
+
+Your .ruby-gemset file should show only the gemset name, here we use : Rails4.0.2_rails-stripe-membership-saas
+Your .ruby-version file should show only the version number : 2.1.0
+
+2b. Create your gemset, then run bundle install :
+
+<pre>
+$ rvm use Ruby-2.1.0@Rails4.0.2_rails-stripe-membership-saas --create --default
+$ bundle install
+</pre>
+
 3. Create your application.yml file from the application.example.yml file, using your own data.
 4. Make sure /configuration/application.yml exists in your ./.gitignore file. (It is at the bottom of the file)
-5. Run $ rake db:migrate
-6. Run $ rake db:seed
-7. Run $ rake db:test:prepare
+5. Run the setup commands :
+
+<pre>
+$ rake db:migrate
+$ rake db:seed
+$ rake db:test:prepare
+</pre>
 
 You are now ready to run, and test your app.
 
-8. To run your server: $ rails s and open your browser to http://localhost:3000
-9. To run cucumber tests: $ cucumber
-10. To run Rspec tests: $ rspec spec 
+8. To run your server: 
+
+<pre>
+$ rails s
+</pre>
+
+then open your browser to http://localhost:3000
+
+9. To run cucumber tests: 
+
+<pre>
+$ cucumber
+</pre>
+
+10. To run Rspec tests: 
+
+<pre>
+$ rspec spec 
+</pre>
 
 You are up and running on Rails 4.
-
 
 References used during these upgrading commits include, and are not limited to :
 
