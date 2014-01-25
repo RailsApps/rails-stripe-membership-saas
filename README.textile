@@ -4,7 +4,7 @@ This Rails 4 branch is updated to Rails 4.0.2. running on Ruby 2.1.0, and styled
 This branch is the Rails 4 App for a Membership, Subscription, or SaaS Site.
 
 For original instructions on how to install the app, please see Daniel Kehoe's Master Branch :
-"README.md":https://github.com/RailsApps/rails-stripe-membership-saas
+"README.textile":https://github.com/RailsApps/rails-stripe-membership-saas
 
 As this point this application is still using CanCan for authorization.
 We intend to can CanCan and put in Pundit.
@@ -14,7 +14,7 @@ That's next on the upgrade, commit and push agenda.
 
 References used during these upgrading commits include, and are not limited to :
 
-"Check your Gemfile's readiness for Rails 4":http://ready4rails4.net/gemfile_check
+"Check your Gemfile's readiness for Rails 4":http://ready4rails4.net/gemfile_check/new
 
 "Ruby Edge Guide for Upgrading to Rails 4.0, 4.1 and beyond":http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html
 Note : this page is in sections, on different upgrades, so make sure you are in the right section.
@@ -30,7 +30,7 @@ Again, make sure you are using the right instructions, and stay in that section 
 
 h4. Pundit instead of CanCan.
 "Pundit Gem":https://rubygems.org/gems/pundit
-"Pundit Source":!https://github.com/elabs/pundit
+"Pundit Source":https://github.com/elabs/pundit
 
 "Pundit is simple authorization in pure Ruby":http://www.elabs.se/blog/52-simple-authorization-in-ruby-on-rails-apps
 
