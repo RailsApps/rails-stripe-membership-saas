@@ -14,17 +14,20 @@ That's next on the upgrade, commit and push agenda.
 
 h4. Instructions to Operate
 
-1. Clone the branch into your system, setting up a branch called rails4 :
+1. Clone into your system :
 
 <pre>
-$ git clone -b rails4 https://github.com/kathyonu/rails-stripe-membership-saas.git@ 
+$ git clone https://github.com/kathyonu/rails-stripe-membership-saas.git
 </pre>
 
-1a. Change Directory into the new app: 
+1a. Change Directory into the new app verify you have the rails4 branch :
 
 <pre>
 $ cd rails-stripe-membership-saas
+$ git branch
 </pre>
+
+Your response will be <pre>  * rails4 </pre>
 
 2. Open your Gemfile and make sure you have the right versions of Ruby and Rails : 
 
@@ -34,7 +37,8 @@ $ cd rails-stripe-membership-saas
   gem 'rails', '4.0.2'
 </pre>
 
-2a. Using your favorite editor, open the .ruby-gemset and .ruby-version files and verify latest version is showing :
+2a. Using your favorite editor, open the .ruby-gemset and .ruby-version files. 
+    This will open TextEdit from inside your Terminal :
 
 <pre>
 $ open -e .ruby-gemset
@@ -44,15 +48,14 @@ $ open -e .ruby-version
 Your .ruby-gemset file should show only the gemset name, here we use : Rails4.0.2_rails-stripe-membership-saas
 Your .ruby-version file should show only the version number : 2.1.0
 
-2b. Create your gemset, then run bundle install :
+2b. After you verify your new gemset, then run bundle install :
 
 <pre>
-$ rvm use Ruby-2.1.0@Rails4.0.2_rails-stripe-membership-saas --create --default
 $ bundle install
 </pre>
 
 3. Create your application.yml file from the application.example.yml file, using your own data.
-4. Make sure /configuration/application.yml exists in your ./.gitignore file. (It is at the bottom of the file)
+4. Make sure /config/application.yml exists in your ./.gitignore file. (It is at the bottom of the file)
 5. Run the setup commands :
 
 <pre>
@@ -69,7 +72,7 @@ You are now ready to run, and test your app.
 $ rails s
 </pre>
 
-then open your browser to http://localhost:3000
+Now you can open your browser to http://localhost:3000 
 
 9. To run cucumber tests: 
 
