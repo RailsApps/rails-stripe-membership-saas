@@ -19,6 +19,7 @@ user = User.find_or_create_by(email: ENV['ADMIN_EMAIL'].dup) do |user|
     user.password_confirmation = ENV['ADMIN_PASSWORD'].dup
 end
 puts 'user: ' << user.name
+user.add_role :admin
 user2 = User.find_or_create_by(email: 'user2@example.com') do |user|
     user.name = 'Silver User'
     user.password = 'changeme'

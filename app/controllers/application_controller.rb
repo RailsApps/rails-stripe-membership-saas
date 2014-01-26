@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    case current_user.roles.first.name
+      case current_user.roles.first.name
       when 'admin'
         users_path
       when 'silver'
@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   private
   # Rails 4 Documentation: https://github.com/plataformatec/devise#strong-parameters
   def update_sanitized_params
+    devise_parameter_sanitizer.for(:sign_in) {|u| u.permit(:email, :password)}
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:name, :coupon, :stripe_token, :email, :password, :password_confirmation)}
     devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:name, :email, :password, :password_confirmation, :current_password)}
   end

@@ -16,8 +16,7 @@ class UsersController < ApplicationController
     role = Role.find(params[:user][:role_ids]) unless params[:user][:role_ids].nil?
     params[:user] = params[:user].except(:role_ids)
     
-   #if @user.update_attributes(params[:user])       # Rails3
-   if @user.update_attributes(user_params)          # Rails4 Strong Parameters
+   if @user.update_attributes(user_params)
       @user.update_plan(role) unless role.nil?
       redirect_to users_path, :notice => "User updated."
     else
@@ -36,4 +35,11 @@ class UsersController < ApplicationController
       redirect_to users_path, :notice => "Can't delete yourself."
     end
   end
+  
+  private
+  
+  def user_params
+      params.require(:user).permit(:id, :name)
+  end
+
 end
