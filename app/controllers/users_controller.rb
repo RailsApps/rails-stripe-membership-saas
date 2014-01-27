@@ -7,16 +7,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+      @user = User.find(id_params[:id])
   end
   
   def update
     authorize! :update, @user, :message => 'Not authorized as an administrator.'
-    @user = User.find(user_params)
+    @user = User.find(id_params)
     role = Role.find(params[:user][:role_ids]) unless params[:user][:role_ids].nil?
     params[:user] = params[:user].except(:role_ids)
     
-   if @user.update_attributes(user_params)
+   if @user.update_attributes(id_params)
       @user.update_plan(role) unless role.nil?
       redirect_to users_path, :notice => "User updated."
     else
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     
   def destroy
     authorize! :destroy, @user, :message => 'Not authorized as an administrator.'
-    user = User.find(params[:id])
+    user = User.find(id_params)
     
     unless user == current_user
       user.destroy
@@ -38,8 +38,8 @@ class UsersController < ApplicationController
   
   private
   
-  def user_params
-      params.require(:user).permit(:id, :name)
+  def id_params
+      params.permit(:id, :name, :email, :password, :password_confirmation, :remember_me, :stripe_token, :coupon)
   end
 
 end
