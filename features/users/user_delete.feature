@@ -3,13 +3,13 @@ Feature: Delete User
   I want to delete my user profile
   so I can close my account
 
-    @fix @javascript
+    @javascript
     Scenario: I sign in and delete my account
       Given I am logged in
       When I delete my account
       Then I should see an account deleted message
 
-    @fix @javascript
+    @javascript
     Scenario: I create a new subscription and delete my account
       Given: I am on the home page
       When I follow the subscribe for silver path

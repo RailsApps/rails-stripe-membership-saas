@@ -1,4 +1,4 @@
-h4. Note of 20140124 : 
+h4. Note of 20140127 : 
 
 This Rails 4 branch is updated to Rails 4.0.2. running on Ruby 2.1.0, and styled with Bootstrap-Sass 3.0.3.0.
 This branch is the Rails 4 App for a Membership, Subscription, or SaaS Site.
@@ -14,7 +14,7 @@ That's next on the upgrade, commit and push agenda.
 
 h4. Instructions to Operate
 
-1. Clone into your system :
+1. Clone as a new application into a new directory :
 
 <pre>
 $ git clone https://github.com/kathyonu/rails-stripe-membership-saas.git
@@ -117,14 +117,14 @@ h4. Migrating to Pundit from CanCan
 h4. Your Rails 4 app to Heroku :
 "Rails 4 on Heroku":https://devcenter.heroku.com/articles/rails4
 
-end of 20140124 note.
+end of 20140127 note.
 
 There is a "detailed tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas 
 showing how it is built with the original Rails 3 coding.
 
 h2. Credits
 
-Daniel Kehoe implemented the application and wrote the tutorial.
+Daniel Kehoe implemented the application and wrote the "tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas.
 
 Taylor Mock contributed tests and feature improvements.
 
