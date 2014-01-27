@@ -16,7 +16,8 @@ gem "factory_girl_rails", "~> 4.3.0", :group => [:development, :test]
 gem "teaspoon", "~> 0.7.8", :group => [:development, :test]
 gem "bootstrap-sass", "~> 3.0.3.0"
 gem "devise", "~> 3.2.2"
-gem "cancan", "~> 1.6.10"
+gem "cancan", "~> 1.6.10" # after pundit is installed and working, cancan will be removed
+gem "pundit"
 gem 'rolify', '~> 3.3.0.rc4'
 gem "simple_form", "~> 3.0.1"
 gem "stripe", "~> 1.9.9"

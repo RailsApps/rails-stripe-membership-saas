@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # Rails 4 Documentation: https://github.com/plataformatec/devise#strong-parameters
   before_filter :update_sanitized_params, if: :devise_controller?
 
+  # this CanCan 'rescue_from' is to be removed, replaced by ?? of Pundit
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_path, :alert => exception.message
   end

@@ -1,3 +1,4 @@
+# this entire CanCan file will be removed, replaced by app/policies of Pundit
 class Ability
   include CanCan::Ability
 
