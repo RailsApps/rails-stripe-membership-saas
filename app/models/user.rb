@@ -6,8 +6,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :stripe_token, :coupon
   attr_accessor :stripe_token, :coupon
   before_save :update_stripe
   before_destroy :cancel_subscription
@@ -83,9 +81,14 @@ class User < ActiveRecord::Base
     false
   end
   
+  # customer.subscription.deleted webhook
   def expire
     UserMailer.expire_email(self).deliver
     destroy
   end
   
+  # customer.charge.succeeded webhook
+  def thanks
+    UserMailer.thanks_email(self).deliver
+  end
 end

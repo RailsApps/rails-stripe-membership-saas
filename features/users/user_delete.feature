@@ -15,12 +15,12 @@ Feature: Delete User
       When I follow the subscribe for silver path
       Then I should see "Silver Subscription Plan"
       Given I fill in the following:
-        | Name                       | Testy ShortLived  |
-        | Email                      | short@testing.com |
-        | user_password              | secret_password   |
-        | user_password_confirmation | secret_password   |
-        | Credit Card Number         | 4242424242424242  |
-        | card_code                  | 111               |
+        | Name                       | Testy ShortLived   |
+        | Email                      | testy@testing.com  |
+        | user_password              | secret_password    |
+        | user_password_confirmation | secret_password    |
+        | Credit Card Number         | 4242424242424242   |
+        | card_code                  | 111                |
       Then I select "5 - May" as the "month"
       And I select "2015" as the "year"
       When I press "Sign up"
