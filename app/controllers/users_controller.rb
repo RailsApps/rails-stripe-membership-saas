@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    authorize! :index, @user, :message => 'Not authorized as an administrator.'
+      authorize! :index, @user, :message => 'Not authorized as an administrator.'  # CanCan method to be replaced by Pundit
     @users = User.all
   end
 
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
   
   def update
-    authorize! :update, @user, :message => 'Not authorized as an administrator.'
+    authorize! :update, @user, :message => 'Not authorized as an administrator.'  # CanCan method to be replaced by Pundit
     @user = User.find(id_params)
     role = Role.find(params[:user][:role_ids]) unless params[:user][:role_ids].nil?
     params[:user] = params[:user].except(:role_ids)
