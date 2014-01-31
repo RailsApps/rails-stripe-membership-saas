@@ -1,6 +1,52 @@
+// import the CSS framework
 @import "bootstrap";
-body { padding-top: 60px; }
-/* @import "bootstrap-responsive"; */
-/* commenting this out fixed the problem with not finding fields for fill_in and other Cucumber/Rspec tests where the testing would fail due to not finding the field, even though it existed.*/
-/* there is no longer a bootstrap-responsive file : this new fact comes with the Bootstrap 3.0.0 upgrade !! http://bootply.com/bootstrap-3-migration-guide */
-/* it may be time to dump bootstrap and go with Foundation Zurb for stylings in our production app based on this template */
+body { padding-top: 20px; }
+// make all images responsive by default
+img {
+  @extend .img-responsive;
+  margin: 0 auto;
+  }
+// override for the 'Home' navigation link
+.navbar-brand {
+  font-size: inherit;
+  }
+
+// THESE ARE EXAMPLES YOU CAN MODIFY
+// create your own classes
+// to make views framework-neutral
+
+// .column {
+//  @extend .col-md-6;
+//  @extend .text-center;
+//  }
+
+// .form {
+//  @extend .col-md-6;
+//  }
+
+// .form-centered {
+//  @extend .col-md-6;
+//  @extend .text-center;
+//  }
+
+// .submit {
+//  @extend .btn;
+//  @extend .btn-primary;
+//  @extend .btn-lg;
+//  }
+
+// apply styles to HTML elements
+// to make views framework-neutral
+
+// main {
+//  @extend .container;
+//  background-color: #eee;
+//  padding-bottom: 80px;
+//  width: 100%;
+//  margin-top: 51px; // accommodate the navbar
+//  }
+
+// section {
+//  @extend .row;
+//  margin-top: 20px;
+//  }

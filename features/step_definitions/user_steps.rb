@@ -6,7 +6,10 @@ def create_visitor
 end
 
 def find_user
-  @user ||= User.first conditions: {:email => @visitor[:email]}
+  @user ||= User.find_or_create_by(email: @visitor[:email])                  # Rails 4 : one attribute
+  # @user ||= User.find_or_create_by(email: @visitor[:email]) do |user|      # Rails 4 to add more than one attribute
+  #   user.password = @visitor[:password]                                    # Rails 4 use this 'do |user|' method
+  # end                                                                      # Rails 4 end of the do command
 end
 
 def create_unconfirmed_user
@@ -24,26 +27,31 @@ def create_user
 end
 
 def delete_user
-  @user ||= User.first conditions: {:email => @visitor[:email]}
+  @user ||= User.find_or_create_by(email: @visitor[:email])
+
   @user.destroy unless @user.nil?
 end
 
 def sign_up
   delete_user
   visit '/users/sign_up/?plan=silver'
-  fill_in "Name", :with => @visitor[:name]
-  fill_in "Email", :with => @visitor[:email]
-  fill_in "user_password", :with => @visitor[:password]
-  fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
+  page.fill_in "Name", :with => @visitor[:name]
+  page.fill_in "Email", :with => @visitor[:email]
+  page.fill_in "user_password", :with => @visitor[:password]
+  page.fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
+  puts "You click on the Sign Up button next"         # can be removed when tests all pass
   click_button "Sign up"
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   find_user
 end
 
 def sign_in
   visit '/users/sign_in'
-  fill_in "Email", :with => @visitor[:email]
-  fill_in "Password", :with => @visitor[:password]
+  page.fill_in "Email", :with => @visitor[:email]
+  page.fill_in "Password", :with => @visitor[:password]
   click_button "Sign in"
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
 end
 
 ### GIVEN ###
@@ -128,15 +136,21 @@ end
 
 When /^I change my email address$/ do
   click_link "Edit account"
-  fill_in "user_email", :with => "different@example.com"
-  fill_in "user_current_password", :with => @visitor[:password]
+  page.fill_in "user_email", :with => "different@example.com"
+  page.fill_in "user_current_password", :with => @visitor[:password]
   click_button "Update"
 end
 
 When /^I delete my account$/ do
+  puts "You are here " + current_path                 # can be removed when tests all pass
   click_link "Edit account"
+  puts "You just pressed the Edit account button"
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   click_link "Cancel my account"
   page.driver.browser.switch_to.alert.accept
+  puts "You have just pressed the Cancel my account button"
+  puts "You have just pressed the Okay button in the Confirm box"
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
 end
 
 When /^I follow the subscribe for silver path$/ do
@@ -155,15 +169,19 @@ Then /^I should be signed out$/ do
   page.should_not have_content "Logout"
 end
 
-Then /^I should see "(.*?)"$/ do |text|
+And /^I should see "(.*?)"$/ do |text|
+  puts "You are currently here " + current_path                      # can be removed when tests all pass
   page.should have_content text
 end
 
 Then /^I should be on the "([^"]*)" page$/ do |path_name|
+  puts "You have arrived here " + current_path                       # can be removed when tests all pass
+
   current_path.should == send("#{path_name.parameterize('_')}_path")
 end
 
 Then /I should be on the new silver user registration page$/ do
+  puts "You have arrived here " + current_path                       # can be removed when tests all pass
   current_path_with_args.should == '/users/sign_up/?plan=silver'
 end
 
@@ -172,10 +190,12 @@ Then /^I see an unconfirmed account message$/ do
 end
 
 Then /^I see a successful sign in message$/ do
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   page.should have_content "Signed in successfully."
 end
 
-Then /^I should see a successful sign up message$/ do
+And /^I should see a successful sign up message$/ do
+  puts "You have arrived here " + current_path        # can be removed when tests all pass
   page.should have_content "Welcome! You have signed up successfully."
 end
 
@@ -188,11 +208,11 @@ Then /^I should see a missing password message$/ do
 end
 
 Then /^I should see a missing password confirmation message$/ do
-  page.should have_content "doesn't match confirmation"
+  page.should have_content "Password confirmation doesn't match Password"
 end
 
 Then /^I should see a mismatched password message$/ do
-  page.should have_content "doesn't match confirmation"
+  page.should have_content "Password confirmation doesn't match Password"
 end
 
 Then /^I should see a missing subscription plan message$/ do
@@ -212,7 +232,7 @@ Then /^I should see an account edited message$/ do
 end
 
 Then /^I should see an account deleted message$/ do
-  page.should have_content "account was successfully cancelled"
+ page.should have_content "account was successfully cancelled"
 end
 
 Then /^I should see my name$/ do

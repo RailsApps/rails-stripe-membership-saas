@@ -2,13 +2,14 @@
   <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
 <% end %>
 <h2>Sign up</h2>
-<div id="stripe_error" class="alert alert-error" style="display:none" >
+<div id="stripe_error" class="alert alert-error" style="display:none;">
 </div>
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'card_form form-vertical' }) do |f| %>
   <h3><%= params[:plan].titleize if params[:plan] %> Subscription Plan</h3>
   <%= hidden_field_tag 'plan', params[:plan] %>
   <%= f.error_notification %>
   <%= display_base_errors resource %>
+  <%= devise_error_messages! %>
   <%= f.input :name, :autofocus => true %> 
   <%= f.input :email, :required => true %>
   <%= f.input :password, :required => true %>
@@ -27,12 +28,12 @@
     <div class="field">
       <%= label_tag :card_month, "Card Expiration" %>
       <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
-      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
+      <%= select_year nil, {start_year: Date.today.year+1, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
     </div>
     <div class="field">
       <%= f.input :coupon, :label => 'Promotional Coupon (if any)' %>
     </div>
   <% end %>
   <%= f.hidden_field :stripe_token %>
-  <%= f.button :submit, 'Sign up', :class => 'btn-primary' %>
+  <%= f.submit 'Sign up', :class => 'btn-primary' %>
 <% end %>

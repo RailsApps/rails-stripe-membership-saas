@@ -66,5 +66,3 @@ Feature: User signs up with stripe
       When I press "Sign up"
       Then I should be on the "user registration" page
       And I should see "declined"
-
-
