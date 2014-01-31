@@ -16,14 +16,11 @@ h4. Instructions to Operate
 $ git clone https://github.com/kathyonu/rails-stripe-membership-saas.git
 </pre>
 
-1a. Change Directory into the new app verify you have the rails4 branch :
+1a. Change Directory into the new app  :
 
 <pre>
 $ cd rails-stripe-membership-saas
-$ git branch
 </pre>
-
-Your response will be <pre>  * rails4 </pre>
 
 2. Open your Gemfile and make sure you have the right versions of Ruby and Rails : 
 
