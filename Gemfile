@@ -17,7 +17,7 @@ gem "teaspoon", "~> 0.7.8", :group => [:development, :test]
 gem "bootstrap-sass", "~> 3.1.0"
 gem "devise", "~> 3.2.2"
 gem "cancan", "~> 1.6.10"
-gem 'rolify', '~> 3.3.0.rc4'
+gem "rolify", "~> 3.4.0"
 gem "simple_form", "~> 3.0.1"
 gem "stripe", "~> 1.9.9"
 gem "stripe_event", "~> 1.1.0"
