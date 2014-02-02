@@ -37,3 +37,10 @@
   <%= f.hidden_field :stripe_token %>
   <%= f.submit 'Sign up', :class => 'btn-primary' %>
 <% end %>
+<div class="col-sm-6 pull-left">
+  <div class="creditcard">
+    Your credit card info is encrypted and processed by <a href="http://www.stripe.com" target="_blank">Stripe.com</a> 
+    <br>
+    <%= image_tag "creditcards-small.jpg" %>
+  </div>
+</div>
