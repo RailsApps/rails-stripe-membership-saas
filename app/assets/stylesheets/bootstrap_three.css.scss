@@ -1,2 +1,11 @@
 .modal { z-index: 1050; }
 .modal-backdrop { z-index: 1040; }
+
+/* the following can be moved to your css file, borders removed if you like */
+.modal-body-plan   { border: 1px solid blue; }
+.modal-body-card   { border: 1px solid blue; }
+.registrationsedit { border: 1px solid blue; }
+.registrationsform { border: 1px solid blue; }
+.scaffoldform	   { border: 1px solid blue; }
+.sessionsnew	   { border: 1px solid blue; }
+.usermodal	   { border: 1px solid blue; }

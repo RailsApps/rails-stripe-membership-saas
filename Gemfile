@@ -14,7 +14,7 @@ gem "launchy", "~> 2.4.2", :group => :test
 gem "capybara", "~> 2.2.1", :group => :test
 gem "factory_girl_rails", "~> 4.3.0", :group => [:development, :test]
 gem "teaspoon", "~> 0.7.8", :group => [:development, :test]
-gem "bootstrap-sass", "~> 3.1.0"
+gem "bootstrap-sass", "~> 3.1.0.2"
 gem "devise", "~> 3.2.2"
 gem "cancan", "~> 1.6.10"
 gem "rolify", "~> 3.4.0"

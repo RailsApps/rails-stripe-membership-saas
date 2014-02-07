@@ -4,43 +4,45 @@
 <h2>Sign up</h2>
 <div id="stripe_error" class="alert alert-error" style="display:none;">
 </div>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'card_form form-vertical' }) do |f| %>
-  <h3><%= params[:plan].titleize if params[:plan] %> Subscription Plan</h3>
-  <%= hidden_field_tag 'plan', params[:plan] %>
-  <%= f.error_notification %>
-  <%= display_base_errors resource %>
-  <%= devise_error_messages! %>
-  <%= f.input :name, :autofocus => true %> 
-  <%= f.input :email, :required => true %>
-  <%= f.input :password, :required => true %>
-  <%= f.input :password_confirmation, :required => true %>
-  <% if @user.stripe_token %>
-    <p>Credit card acceptance is pending.</p>
-  <% else %>
-    <div class="field">
-      <%= label_tag :card_number, "Credit Card Number" %>
-      <%= text_field_tag :card_number, nil, name: nil %>
-    </div>
-    <div class="field">
-      <%= label_tag :card_code, "Card Security Code (CVV)" %>
-      <%= text_field_tag :card_code, nil, name: nil %>
-    </div>
-    <div class="field">
-      <%= label_tag :card_month, "Card Expiration" %>
-      <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
-      <%= select_year nil, {start_year: Date.today.year+1, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
-    </div>
-    <div class="field">
-      <%= f.input :coupon, :label => 'Promotional Coupon (if any)' %>
-    </div>
+<div class="registrationsform" role="form" aria-label="registrationform">
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'card_form form-vertical' }) do |f| %>
+    <h3><%= params[:plan].titleize if params[:plan] %> Subscription Plan</h3>
+    <%= hidden_field_tag 'plan', params[:plan] %>
+    <%= f.error_notification %>
+    <%= display_base_errors resource %>
+    <%= devise_error_messages! %>
+    <%= f.input :name, :autofocus => true %> 
+    <%= f.input :email, :required => true %>
+    <%= f.input :password, :required => true %>
+    <%= f.input :password_confirmation, :required => true %>
+    <% if @user.stripe_token %>
+      <p>Credit card acceptance is pending.</p>
+    <% else %>
+      <div class="field">
+        <%= label_tag :card_number, "Credit Card Number" %>
+        <%= text_field_tag :card_number, nil, name: nil %>
+      </div>
+      <div class="field">
+        <%= label_tag :card_code, "Card Security Code (CVV)" %>
+        <%= text_field_tag :card_code, nil, name: nil %>
+      </div>
+      <div class="field">
+        <%= label_tag :card_month, "Card Expiration" %>
+        <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
+        <%= select_year nil, {start_year: Date.today.year+1, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
+      </div>
+      <div class="field">
+        <%= f.input :coupon, :label => 'Promotional Coupon (if any)' %>
+      </div>
+    <% end %>
+    <%= f.hidden_field :stripe_token %>
+    <%= f.submit 'Sign up', :class => 'btn-primary' %>
   <% end %>
-  <%= f.hidden_field :stripe_token %>
-  <%= f.submit 'Sign up', :class => 'btn-primary' %>
-<% end %>
-<div class="col-sm-6 pull-left">
-  <div class="creditcard">
-    Your credit card info is encrypted and processed by <a href="http://www.stripe.com" target="_blank">Stripe.com</a> 
-    <br>
-    <%= image_tag "creditcards-small.jpg" %>
+  <div class="col-sm-6 pull-left">
+    <div class="creditcard">
+      Your credit card info is encrypted and processed by <a href="http://www.stripe.com" target="_blank">Stripe.com</a> 
+      <br>
+      <%= image_tag "creditcards-small.jpg" %>
+    </div>
   </div>
 </div>
