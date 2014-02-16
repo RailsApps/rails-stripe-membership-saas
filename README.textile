@@ -1,3 +1,27 @@
+h1. Sequencers Memberships
+
+Good Works On Earth's Sequencers Membership site is home to our membership supporting and using the ongoing researches.
+
+The base of this application was generated with the "rails_apps_composer":https://github.com/RailsApps/rails_apps_composer gem provided by the "RailsApps Project":http://railsapps.github.com/.
+The base of this application was created by Daniel Kehoe, he created the application generator, he wrote the tutorial.
+The base of this application is completed as of 20121212.  All Cucumber and Rspec tests pass, the commit number is : c60423dff50e1578d9da632dfc02880b52152788
+
+Further builds on this application are by Kathy Onu, for the "Good Works On Earth":https://goodworksonearth.net secure site.
+This is the codebase for our "Sequencers Membership":https://www.goodworksonearth.net application.
+
+h4. Note of 20140124 : 
+
+This Rails 4 branch is updated to Rails 4.0.2 running on Ruby 2.1.0, and styled with Bootstrap-Sass 3.1.0.0
+
+This is our Rails 4 App for a Membership, Subscription, or SaaS Site.
+
+For original instructions on how to install the app, please see Daniel Kehoe's Master Branch :
+"README.textile":https://github.com/RailsApps/rails-stripe-membership-saas
+
+As this point this application is still using CanCan for authorization.
+
+ ~ Kathy Onu, a SiteKeeper 
+
 h4. Note of 20140130 : 
 
 This Running-on-Rails-4 branch is updated to Rails 4.0.2. running on Ruby 2.1.0, using Bootstrap-Sass 3.1.0 for styling.
@@ -59,6 +83,18 @@ $ rake db:test:prepare
 
 You are now ready to run, and test your app.
 
+6. To run cucumber tests: 
+
+<pre>
+$ cucumber
+</pre>
+
+7. To run Rspec tests: 
+
+<pre>
+$ rspec spec 
+</pre>
+
 8. To run your server: 
 
 <pre>
@@ -66,18 +102,6 @@ $ rails s
 </pre>
 
 Now you can open your browser to http://localhost:3000 
-
-9. To run cucumber tests: 
-
-<pre>
-$ cucumber
-</pre>
-
-10. To run Rspec tests: 
-
-<pre>
-$ rspec spec 
-</pre>
 
 You are up and running on Rails 4.
 
@@ -120,7 +144,11 @@ h2. MIT License
 
 "MIT License":http://www.opensource.org/licenses/mit-license
 
-Copyright © 2012-2014 Daniel Kehoe
+20121212 - 2013 -2014 Good Works On Earth, a 501-c-3 non-profit organization 
+h4. Copyright © on Sequencers Membership application codes beyond 20121212
+h4. Copyright © 20121212 and prior material - Daniel Kehoe
+
+Copyright © on the building template : 2012 Daniel Kehoe
 
 h2. Useful Links
 
