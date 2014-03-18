@@ -16,11 +16,12 @@ class RegistrationsController < Devise::RegistrationsController
     # role = Role.find(params[:user][:role_ids]) unless params[:user][:role_ids].nil? # original code line 1
     # if @user.update_plan(role)                                                      # original code line 2
    ## comment out above TWO lines and uncomment the below FOUR lines, to protect against user making themself an admin.
+
     role_id = params[:user][:role_ids] unless params[:user].nil? || params[:user][:role_ids].nil?
     role = Role.find_by_id role_id unless role_id.nil?
 
     authorized = !role.nil? && (role.name != 'admin' || current_user.roles.first.name == 'admin')
-   
+
     if authorized && @user.update_plan(role)
       redirect_to edit_user_registration_path, :notice => 'Updated plan.'
     else
