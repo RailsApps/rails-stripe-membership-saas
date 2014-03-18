@@ -20,11 +20,11 @@
     <% else %>
       <div class="field">
         <%= label_tag :card_number, "Credit Card Number" %>
-        <%= text_field_tag :card_number, nil, name: nil %>
+        <%= text_field_tag :card_number, nil, name: nil, size: "20" %>
       </div>
       <div class="field">
         <%= label_tag :card_code, "Card Security Code (CVV)" %>
-        <%= text_field_tag :card_code, nil, name: nil %>
+        <%= text_field_tag :card_code, nil, name: nil, size: "20" %>
       </div>
       <div class="field">
         <%= label_tag :card_month, "Card Expiration" %>
@@ -36,7 +36,7 @@
       </div>
     <% end %>
     <%= f.hidden_field :stripe_token %>
-    <%= f.submit 'Sign up', :class => 'btn-primary' %>
+    <%= f.submit 'Sign up', :class => 'btn btn-primary' %>
   <% end %>
   <div class="col-sm-6 pull-left">
     <div class="creditcard">

@@ -18,7 +18,7 @@ This is our Rails 4 App for a Membership, Subscription, or SaaS Site.
 For original instructions on how to install the app, please see Daniel Kehoe's Master Branch :
 "README.textile":https://github.com/RailsApps/rails-stripe-membership-saas
 
-As this point this application is still using CanCan for authorization.
+As this point this application is using CanCan for authorization.
 
  ~ Kathy Onu, a SiteKeeper 
 
