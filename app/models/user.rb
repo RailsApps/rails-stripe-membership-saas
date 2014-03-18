@@ -70,7 +70,10 @@ class User < ActiveRecord::Base
     unless customer_id.nil?
       customer = Stripe::Customer.retrieve(customer_id)
       unless customer.nil? or customer.respond_to?('deleted')
-        if customer.subscription.status == 'active'
+       # next three lines change : https://github.com/RailsApps/rails-stripe-membership-saas/commit/67088dbdd96a29213dc4be9e3360924e56c8e7c9
+       #if customer.subscription.status == 'active'
+        subscription = customer.subscriptions.data[0]
+        if subscription.status == 'active'
           customer.cancel_subscription
         end
       end

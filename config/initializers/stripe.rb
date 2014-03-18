@@ -4,25 +4,43 @@ STRIPE_PUBLIC_KEY = ENV["STRIPE_PUBLIC_KEY"]
 # Note: do not listen for customer.subscription.updated
 # Reference : http://imzank.com/2012/11/how-to-use-stripe-com-to-email-your-customers/
 
-# Changed StripeEvent#method from setup to configure
+# changed from setup to configure : 20140214
 # Reference : https://github.com/RailsApps/rails-stripe-membership-saas/issues/96#issuecomment-35108722
-StripeEvent.configure do
-  subscribe 'customer.subscription.deleted' do |event|
+StripeEvent.configure do |events|
+  events.subscribe 'customer.subscription.deleted' do |event|
     StripeEvent.event_retriever = lambda do |params|
       verified_event = Stripe::Event.retrieve(params[event.id])
           
-     #user = User.find_by_customer_id(verified_event.data.object.customer)
-     user = User.where(customer_id: :verified_event.data.object.customer)
+      user = User.where(customer_id: verified_event.data.object.customer)
       user.expire
     end
   end
 
-  subscribe 'customer.charge.succeeded' do |event|
+  events.subscribe 'customer.charge.succeeded' do |event|
     StripeEvent.event_retriever = lambda do |params|
       verified_event = Stripe::Event.retrieve(params[event.id])
           
-      user = User.find_by_customer_id(verified_event.data.object.customer)
+      user = User.where(customer_id: verified_event.data.object.customer)
       user.thanks
+    end
+  end
+
+  events.subscribe 'transfer.created' do |event|
+    StripeEvent.event_retriever = lambda do |params|
+      verified_event = Stripe::Event.retrieve(params[event.id])
+        
+      user = User.where(customer_id: verified_event.data.object.customer)
+      owner = User.first
+      user.transfer_created
+    end
+  end
+  
+  events.subscribe 'customer.subscription.updated' do |event|
+    StripeEvent.event_retriever = lambda do |params|
+      verified_event = Stripe::Event.retrieve(params[event.id])
+          
+      user = User.where(customer_id: verified_event.data.object.customer)
+      user.plan_changed
     end
   end
 end
