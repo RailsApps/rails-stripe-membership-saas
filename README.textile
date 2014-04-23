@@ -29,6 +29,12 @@ h4. "Get the Tutorial":https://tutorials.railsapps.org/rails-stripe-membership-s
 
 The tutorial documents each step to follow to create the application. Every step is documented concisely, so a complete beginner can create this application without any additional knowledge. However, no explanation is offered for any of the steps, so if you are a beginner, you’re advised to look for an introduction to Rails elsewhere. See a list of recommended resources for "Rails":http://railsapps.github.io/rails.html.
 
+h2. Developing on Nitrous.IO
+
+Start hacking on this app on "Nitrous.IO":https://www.nitrous.io/?utm_source=github.com&utm_campaign=rails-stripe-membership-saas&utm_medium=hackonnitrous in seconds:
+
+!https://d3o0mnbgv6k92a.cloudfront.net/assets/hack-l-v1-3cc067e71372f6045e1949af9d96095b.png(Hack RailsApps/rails-stripe-membership-saas on Nitrous.IO)!:https://www.nitrous.io/hack_button?source=embed&runtime=rails&repo=RailsApps%2Frails-stripe-membership-saas&file_to_open=README.nitrous.md
+
 h2. What Is Implemented -- and What Is Not
 
 Membership sites restrict access to content such as articles, videos, or user forums. Software-as-a-service (SaaS) sites limit use of web-based software to paid subscribers. The revenue model is the same whether the site provides high-value content or software as a service: A visitor purchases a subscription and gains access to restricted areas of the site. Typically, the subscription is repurchased monthly through a service that provides recurring billing.
