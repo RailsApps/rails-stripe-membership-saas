@@ -109,7 +109,7 @@ If you want to use the project as a starter app, use the "Rails Composer":http:/
 To build the example application, run the command:
 
 <pre>
-$ rails new rails-stripe-membership-saas -m https://raw.github.com/RailsApps/rails-composer/master/composer.rb -T
+$ rails new rails-stripe-membership-saas -m https://raw.github.com/RailsApps/rails-composer/master/composer-Rails3_2.rb -T
 </pre>
 
 Use the @-T@ flag to skip Test::Unit files.
