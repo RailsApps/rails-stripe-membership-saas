@@ -1,6 +1,6 @@
 # Rename this file to local_env.yml
 # Add account settings and API keys here.
-# This file should be listed in .gitignore to keep your settings secret!
+# NOTE : This file MUST be listed in .gitignore to keep your settings secret!
 # Each entry gets set as a local environment variable.
 # This file overrides ENV variables in the Unix shell.
 # For example, setting:
@@ -11,7 +11,3 @@ STRIPE_API_KEY: 'Your_Stripe_API_key'
 STRIPE_PUBLIC_KEY: 'Your_Stripe_Public_Key'
 GMAIL_USERNAME: 'Your_Gmail_Username'
 GMAIL_PASSWORD: 'Your_Gmail_Password'
-
-# moved from config/initializers/devise.rb
-# You must change this key if you host app in production
-SECRET_KEY: 'df19a9b6c3dc5036747194c836d869a3c363b2458c388dbd6893164a00b7ead126969eeb1b91ce8f9ed77b2d6d0cce2e7a3a62c85065757b7fb7f529e2dab083'
