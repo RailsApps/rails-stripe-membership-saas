@@ -6,10 +6,7 @@ def create_visitor
 end
 
 def find_user
-  @user ||= User.find_or_create_by(email: @visitor[:email])                  # Rails 4 : one attribute
-  # @user ||= User.find_or_create_by(email: @visitor[:email]) do |user|      # Rails 4 to add more than one attribute
-  #   user.password = @visitor[:password]                                    # Rails 4 use this 'do |user|' method
-  # end                                                                      # Rails 4 end of the do command
+  @user ||= User.find_or_create_by(email: @visitor[:email])
 end
 
 def create_unconfirmed_user

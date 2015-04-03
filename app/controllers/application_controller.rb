@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-      case current_user.roles.first.name
+    case current_user.roles.first.name
       when 'admin'
         users_path
       when 'silver'

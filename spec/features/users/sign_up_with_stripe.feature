@@ -10,7 +10,7 @@ Feature: User signs up with stripe
   @javascript
   Scenario: With valid card data
     Given I fill in the following:
-      | Name                       | Testy McUserson   |
+      | Name                       | Testy McUserton   |
       | Email                      | testy@testing.com |
       | user_password              | secret_password   |
       | user_password_confirmation | secret_password   |

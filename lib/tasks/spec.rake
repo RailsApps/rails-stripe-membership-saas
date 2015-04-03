@@ -1,5 +1,6 @@
 require 'rake/testtask'
-require "teaspoon/console"
+require "teaspoon/console" if %w[development test].include?(Rails.env)
+# ref ^ https://github.com/RailsApps/rails-stripe-membership-saas/issues/107
 
 namespace 'spec' do
   desc "Run the javascript test"

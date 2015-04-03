@@ -22,7 +22,6 @@ gem "simple_form", "~> 3.0.1"
 gem "stripe", "~> 1.9.9"
 gem "stripe_event", "~> 1.1.0"
 gem "quiet_assets", ">= 1.0.2", :group => :development
-gem "figaro", "~> 0.7.0"
 gem "better_errors", "~> 1.1.0", :group => :development
 gem "binding_of_caller", "~> 0.7.2", :group => :development, :platforms => [:mri_19, :rbx]
 gem "selenium-webdriver", "~> 2.39.0"

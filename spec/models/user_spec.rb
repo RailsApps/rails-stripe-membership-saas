@@ -1,4 +1,4 @@
-require 'spec_helper'
+#require 'spec_helper'
 
 describe User do
 
@@ -129,7 +129,7 @@ describe User do
 
     it "wont remove original role from database" do
       @user.update_plan(@role2)
-      Role.all.count.should == 2
+      expect(Role.all.count).to eq 2
     end
   end
 
@@ -142,7 +142,8 @@ describe User do
       before do
         successful_stripe_response = StripeHelper::Response.new("success")
         Stripe::Customer.stub(:create).and_return(successful_stripe_response)
-        @user = User.new(email: "test@testign.com", stripe_token: 12345, name: 'tester', password: 'password')
+        #@user = User.new(email: "test@testign.com", stripe_token: 12345, name: 'tester', password: 'password')
+        @user = User.new(email: "test@testing.com", stripe_token: 12345, name: 'tester', password: 'password')
         @role = FactoryGirl.create(:role, name: "silver")
         @user.add_role(@role.name)
       end

@@ -5,13 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-# Environment variables (ENV['...']) are set in the file config/application.yml.
-# See http://railsapps.github.io/rails-environment-variables.html
-puts "ROLES"
-YAML.load(ENV['ROLES']).each do |role|
-    Role.find_or_create_by(name: role) # }, :without_protection => true) # Rails 4 further research this change
-  puts 'role: ' << role
-end
+
+Role.find_or_create_by!(name: :'Silver')
+Role.find_or_create_by!(name: :'Gold')
+Role.find_or_create_by!(name: :'Platinum')
+
 puts "DEFAULT USERS"
 user = User.find_or_create_by(email: ENV['ADMIN_EMAIL'].dup) do |user|
     user.name = ENV['ADMIN_NAME'].dup

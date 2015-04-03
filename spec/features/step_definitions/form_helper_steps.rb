@@ -12,6 +12,6 @@ When /^I select "(.*?)" as the "(.*?)"$/ do |selection, field|
   find(:css, "select[id*='card_#{field}']").select(selection)
 end
 
-When /^I press "(.*?)"$/ do |button_name|
+When /^I press "(.*?)" as a monthly subscriber$/ do |button_name|
   click_button(button_name)
 end
