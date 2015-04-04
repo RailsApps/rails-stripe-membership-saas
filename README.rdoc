@@ -1,28 +1,26 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails Stripe Membership Saas
+========================
 
-Things you may want to cover:
+h4. Note of 20150404 : 
 
-* Ruby version
+While you can use this project as a starting point for a Rails web application, we recommend this : 
 
-* System dependencies
+This fork is currently being upgraded to Ruby 2.2 and Rails 4.2.
 
-* Configuration
+Please fork or use Daneiel Kehoe's master at : 
 
-* Database creation
+"Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas
 
-* Database initialization
+________________________
 
-* How to run the test suite
+For more information, please see the updated README file on GitHub:
 
-* Services (job queues, cache servers, search engines, etc.)
+https://github.com/railsapps/rails-stripe-membership-saas
 
-* Deployment instructions
+________________________
 
-* ...
+MIT License
 
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+http://www.opensource.org/licenses/mit-license

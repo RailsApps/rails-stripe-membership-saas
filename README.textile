@@ -9,6 +9,14 @@ The base of this application is completed as of 20121212.  All Cucumber and Rspe
 Further builds on this application are by Kathy Onu, for the "Good Works On Earth":https://goodworksonearth.net secure site.
 This is the codebase for our "Sequencers Membership":https://www.goodworksonearth.net application.
 
+h4. Note of 20150404 : 
+
+This fork is currently being upgraded to Ruby 2.2 and Rails 4.2.
+
+Please fork or use Daneiel Kehoe's master at : 
+
+"Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas
+
 h4. Note of 20140124 : 
 
 This Rails 4 branch is updated to Rails 4.0.2 running on Ruby 2.1.0, and styled with Bootstrap-Sass 3.1.0.0
