@@ -3,7 +3,7 @@
 Rails Stripe Membership Saas
 ========================
 
-h4. Note of 20150404 : 
+Note of 20150404 : 
 
 This fork is currently being upgraded to Ruby 2.2 and Rails 4.2.
 
