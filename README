@@ -3,17 +3,9 @@ Rails Stripe Membership Saas
 
 h4. Note of 20150404 : 
 
-While you can use this project as a starting point for a Rails web application, we recommend this : 
-
 This fork is currently being upgraded to Ruby 2.2 and Rails 4.2.
 
-Please fork or use Daneiel Kehoe's master at : 
-
-"Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas
-
-________________________
-
-For more information, please see the updated README file on GitHub:
+While you can use this project as a starting point for a Rails web application, we recommend this : Please fork or use Daniel Kehoe's master at : 
 
 https://github.com/railsapps/rails-stripe-membership-saas
 
