@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  helper_method :resource, :resource_name, :devise_mapping
 
   # Rails 4 Documentation: https://github.com/plataformatec/devise#strong-parameters
   before_filter :update_sanitized_params, if: :devise_controller?
