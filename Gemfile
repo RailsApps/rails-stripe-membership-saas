@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
-ruby '2.1.0'
-gem 'rails', '4.2.0'
+ruby '2.2.1'
+gem 'rails', '4.2.1'
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.3.0'
   %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
