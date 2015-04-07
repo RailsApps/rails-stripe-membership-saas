@@ -1,9 +1,11 @@
+== README
+
 Rails Stripe Membership Saas
 ========================
 
-h4. Note of 20150404 : 
+Note of 20150407 : 
 
-This fork is currently being upgraded to Ruby 2.2 and Rails 4.2.
+This fork is now running on Ruby 2.2.1 and Rails 4.2.1
 
 While you can use this project as a starting point for a Rails web application, we recommend this : Please fork or use Daniel Kehoe's master at : 
 

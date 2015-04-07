@@ -8,17 +8,11 @@ The base of this application is completed as of 20121212. At that time, all Cucu
 
 h4. Note of 20150407 :
 
-This fork is currently being upgraded to Ruby 2.2 and Rails 4.2.
+This fork is now upgraded to Ruby 2.2.1 and Rails 4.2.1, with RSpec 3.
 
 Please fork or use Daneiel Kehoe's master at :
 
 "Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas
-
-h4. Note of 20140124 :
-
-This Rails 4 branch is updated to Rails 4.0.2 running on Ruby 2.1.0, and styled with Bootstrap-Sass 3.1.0.0
-
-This is our Rails 4 App for a Membership, Subscription, or SaaS Site.
 
 For original instructions on how to install the app, please see Daniel Kehoe's Master Branch :
 "README.textile":https://github.com/RailsApps/rails-stripe-membership-saas
