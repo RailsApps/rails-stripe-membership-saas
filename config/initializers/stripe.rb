@@ -1,5 +1,5 @@
 Stripe.api_key = ENV["STRIPE_API_KEY"]
-STRIPE_PUBLIC_KEY = ENV["STRIPE_PUBLIC_KEY"]
+STRIPE_PUBLISHABLE_KEY = ENV["STRIPE_PUBLISHABLE_KEY"]
 
 # Note: do not listen for customer.subscription.updated
 # Reference : http://imzank.com/2012/11/how-to-use-stripe-com-to-email-your-customers/

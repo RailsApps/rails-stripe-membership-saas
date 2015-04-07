@@ -4,20 +4,17 @@ Good Works On Earth's Sequencers Membership site is home to our membership suppo
 
 The base of this application was generated with the "rails_apps_composer":https://github.com/RailsApps/rails_apps_composer gem provided by the "RailsApps Project":http://railsapps.github.com/.
 The base of this application was created by Daniel Kehoe, he created the application generator, he wrote the tutorial.
-The base of this application is completed as of 20121212.  All Cucumber and Rspec tests pass, the commit number is : c60423dff50e1578d9da632dfc02880b52152788
+The base of this application is completed as of 20121212. At that time, all Cucumber and Rspec tests pass, the commit number is : c60423dff50e1578d9da632dfc02880b52152788
 
-Further builds on this application are by Kathy Onu, for the "Good Works On Earth":https://goodworksonearth.net secure site.
-This is the codebase for our "Sequencers Membership":https://www.goodworksonearth.net application.
-
-h4. Note of 20150404 : 
+h4. Note of 20150407 :
 
 This fork is currently being upgraded to Ruby 2.2 and Rails 4.2.
 
-Please fork or use Daneiel Kehoe's master at : 
+Please fork or use Daneiel Kehoe's master at :
 
 "Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas
 
-h4. Note of 20140124 : 
+h4. Note of 20140124 :
 
 This Rails 4 branch is updated to Rails 4.0.2 running on Ruby 2.1.0, and styled with Bootstrap-Sass 3.1.0.0
 
@@ -26,11 +23,11 @@ This is our Rails 4 App for a Membership, Subscription, or SaaS Site.
 For original instructions on how to install the app, please see Daniel Kehoe's Master Branch :
 "README.textile":https://github.com/RailsApps/rails-stripe-membership-saas
 
-As this point this application is using CanCan for authorization.
+As this point this application is using CanCan for authorization, upgraded to "CanCanCan":https://github.com/CanCanCommunity/cancancan
+Note : CanCanCan will not be required in the April 2015 update, as ROLES will be vastly simplified with the use of enum.
+ ~ Kathy Onu, a SiteKeeper
 
- ~ Kathy Onu, a SiteKeeper 
-
-h4. Note of 20140130 : 
+h4. Note of 20140130 :
 
 This Running-on-Rails-4 branch is updated to Rails 4.0.2. running on Ruby 2.1.0, using Bootstrap-Sass 3.1.0 for styling.
 
@@ -38,9 +35,10 @@ This branch is the Rails 4 update of Daniel Kehoe's original, using Rails 3.2.16
 For original instructions on how to install the app, please see Daniel Kehoe's Master Branch :
 "README.textile":https://github.com/RailsApps/rails-stripe-membership-saas
 
- ~ Kathy Onu, a SiteKeeper 
+ ~ Kathy Onu, SiteKeeper
 
-h4. Instructions to Operate
+h4. Old Instructions to operate original app at Rails 3.2
+Note : 20150407 : new instructions will be written when the RailsApp master is released in April 2015
 
 1. Clone as a new application into a new directory :
 
@@ -54,7 +52,7 @@ $ git clone https://github.com/kathyonu/rails-stripe-membership-saas.git
 $ cd rails-stripe-membership-saas
 </pre>
 
-2. Open your Gemfile and make sure you have the right versions of Ruby and Rails : 
+2. Open your Gemfile and make sure you have the right versions of Ruby and Rails :
 
 <pre>
   source 'https://rubygems.org'
@@ -62,7 +60,7 @@ $ cd rails-stripe-membership-saas
   gem 'rails', '4.0.2'
 </pre>
 
-2a. Using your favorite editor, open the .ruby-gemset and .ruby-version files. 
+2a. Using your favorite editor, open the .ruby-gemset and .ruby-version files.
     This will open TextEdit from inside your Terminal :
 
 <pre>
@@ -91,25 +89,25 @@ $ rake db:test:prepare
 
 You are now ready to run, and test your app.
 
-6. To run cucumber tests: 
+6. To run cucumber tests:
 
 <pre>
 $ cucumber
 </pre>
 
-7. To run Rspec tests: 
+7. To run Rspec tests:
 
 <pre>
-$ rspec spec 
+$ rspec spec
 </pre>
 
-8. To run your server: 
+8. To run your server:
 
 <pre>
 $ rails s
 </pre>
 
-Now you can open your browser to http://localhost:3000 
+Now you can open your browser to http://localhost:3000
 
 You are up and running on Rails 4.
 
@@ -133,8 +131,8 @@ h4. Your Rails 4 app to Heroku :
 
 end of 20140130 note.
 
-There is a "detailed tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas 
-showing how it is built with the original Rails 3 coding.
+There is a "detailed tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas showing how it is built with the original Rails 3 coding.
+Note: 20150407 : the master is being updated to Ruby 2.2, Rails 4.2, Payola, Stripe
 
 h2. Credits
 
@@ -142,21 +140,21 @@ Daniel Kehoe implemented the application and wrote the "tutorial":https://tutori
 
 Taylor Mock contributed tests and feature improvements.
 
-Kathy Onu upgraded the Rails 3 master onto this Rails 4 branch using Bootstrap 3 and CanCan for authorization. 
+Kathy Onu upgraded the Rails 3 master onto this Rails 4 branch using Bootstrap 3 and CanCan for authorization.
 
-There are plans to create a branch using Pundit for authorization.  Details will be shared here.
- 
-Is the app useful to you? Follow the original project creator on Twitter: "@rails_apps":http://twitter.com/rails_apps and see what else Daniel Kehoe is doing.
+There are plans to create a branch using Pundit for authorization, and it is now available, see the Tutorials link.
+
+Is the app useful to you?
+
+Follow the original project creator on Twitter: "@rails_apps":http://twitter.com/rails_apps and see what else Daniel Kehoe is doing.
 
 h2. MIT License
 
 "MIT License":http://www.opensource.org/licenses/mit-license
 
-20121212 - 2013 -2014 Good Works On Earth, a 501-c-3 non-profit organization 
-h4. Copyright © on Sequencers Membership application codes beyond 20121212
-h4. Copyright © 20121212 and prior material - Daniel Kehoe
+h4. Copyright © 2012-2015 Daniel Kehoe
 
-Copyright © on the building template : 2012 Daniel Kehoe
+Copyright © on the building template : 2012-2015 Daniel Kehoe
 
 h2. Useful Links
 

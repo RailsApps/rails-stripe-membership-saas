@@ -1,3 +1,50 @@
+GIT
+  remote: git://github.com/rspec/rspec-core.git
+  revision: c4a6ed2b161100233141c5d759ef9a2d57205bb9
+  branch: master
+  specs:
+    rspec-core (3.3.0.pre)
+      rspec-support (= 3.3.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-expectations.git
+  revision: 734fe2e3969e7d7d8b851f07230f981df5a43938
+  branch: master
+  specs:
+    rspec-expectations (3.3.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.3.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-mocks.git
+  revision: 838fc710797d15450ec992138bcce2f5e0658316
+  branch: master
+  specs:
+    rspec-mocks (3.3.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.3.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-rails.git
+  revision: fba0669b86d2d1c65b3efc7b14703046cbbe200e
+  branch: master
+  specs:
+    rspec-rails (3.3.0.pre)
+      actionpack (>= 3.0, < 4.3)
+      activesupport (>= 3.0, < 4.3)
+      railties (>= 3.0, < 4.3)
+      rspec-core (= 3.3.0.pre)
+      rspec-expectations (= 3.3.0.pre)
+      rspec-mocks (= 3.3.0.pre)
+      rspec-support (= 3.3.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-support.git
+  revision: ad758245d098c24b9fd4bd0bb7a4054e66b574c2
+  branch: master
+  specs:
+    rspec-support (3.3.0.pre)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -44,6 +91,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    blankslate (3.1.3)
     bootstrap-sass (3.1.0.2)
       sass (~> 3.2)
     builder (3.2.2)
@@ -76,6 +124,7 @@ GEM
       mime-types (>= 1.16, < 3)
       nokogiri (~> 1.5)
       rails (>= 3, < 5)
+    dante (0.2.0)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     devise (3.4.1)
@@ -107,6 +156,11 @@ GEM
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
+    jimson-temp (0.9.5)
+      blankslate (>= 3.1.2)
+      multi_json (~> 1.0)
+      rack (~> 1.4)
+      rest-client (~> 1.0)
     jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -118,7 +172,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mime-types (1.25.1)
+    method_source (0.8.2)
+    mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
     multi_json (1.11.0)
@@ -127,6 +182,10 @@ GEM
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.0)
@@ -164,18 +223,6 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rolify (3.4.1)
-    rspec-core (2.14.8)
-    rspec-expectations (2.14.5)
-      diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.6)
-    rspec-rails (2.14.2)
-      actionpack (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
     rubyzip (1.1.7)
     sass (3.2.19)
     sass-rails (4.0.5)
@@ -191,6 +238,7 @@ GEM
     simple_form (3.0.3)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    slop (3.6.0)
     spring (1.3.3)
     sprockets (2.12.3)
       hike (~> 1.2)
@@ -202,11 +250,15 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
-    stripe (1.9.9)
-      mime-types (~> 1.25)
-      multi_json (>= 1.0.4, < 2)
+    stripe (1.20.1)
+      json (~> 1.8.1)
+      mime-types (>= 1.25, < 3.0)
       rest-client (~> 1.4)
-    stripe_event (1.1.0)
+    stripe-ruby-mock (2.1.1)
+      dante (>= 0.2.0)
+      jimson-temp
+      stripe (= 1.20.1)
+    stripe_event (1.5.0)
       activesupport (>= 3.1)
       stripe (~> 1.6)
     teaspoon (0.7.9)
@@ -224,6 +276,11 @@ GEM
     unf_ext (0.0.6)
     warden (1.2.3)
       rack (>= 1.0)
+    web-console (2.1.2)
+      activemodel (>= 4.0)
+      binding_of_caller (>= 0.7.2)
+      railties (>= 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
     websocket (1.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -245,16 +302,23 @@ DEPENDENCIES
   factory_girl_rails (~> 4.3.0)
   jquery-rails
   launchy (~> 2.4.2)
+  pry
   quiet_assets (>= 1.0.2)
   rails (= 4.2.0)
   rolify (~> 3.4.0)
-  rspec-rails (~> 2.14.1)
+  rspec-core!
+  rspec-expectations!
+  rspec-mocks!
+  rspec-rails!
+  rspec-support!
   sass-rails (~> 4.0.1)
   selenium-webdriver (~> 2.39.0)
   simple_form (~> 3.0.1)
   spring
   sqlite3
-  stripe (~> 1.9.9)
-  stripe_event (~> 1.1.0)
+  stripe (~> 1.20)
+  stripe-ruby-mock (~> 2.1)
+  stripe_event (~> 1.5.0)
   teaspoon (~> 0.7.8)
   uglifier (~> 2.4.0)
+  web-console (~> 2.0)
