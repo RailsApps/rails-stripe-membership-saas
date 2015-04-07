@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'rails_helper'
 
 describe UserMailer do
   describe '#expire_mail' do
@@ -6,15 +6,15 @@ describe UserMailer do
     let(:mail) { UserMailer.expire_email(user) }
 
     it "has the correct user email" do
-      mail.to.should == [user.email]
+      expect(mail.to).to eq([user.email])
     end
 
     it "has the correct senders email" do
-      mail.from.should == ["notifications@example.com"]
+      expect(mail.from).to eq(["notifications@example.com"])
     end
 
     it "has the correct subject" do
-      mail.subject.should == "Subscription Cancelled"
+      expect(mail.subject).to eq("Subscription Cancelled")
     end
 
   end

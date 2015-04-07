@@ -32,14 +32,14 @@ end
 def sign_up
   delete_user
   visit '/users/sign_up/?plan=silver'
-  puts "You have arrived here " + current_path        # can be removed when tests all pass
+  puts "You have arrived here " + current_path
   page.fill_in "Name", :with => @visitor[:name]
   page.fill_in "Email", :with => @visitor[:email]
   page.fill_in "user_password", :with => @visitor[:password]
   page.fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
-  puts "You click on the Sign Up button next"         # can be removed when tests all pass
+  puts "You click on the Sign Up button next"
   click_button "Sign up"
-  puts "You have arrived here " + current_path        # can be removed when tests all pass
+  puts "You have arrived here " + current_path
   find_user
 end
 
@@ -48,7 +48,7 @@ def sign_in
   page.fill_in "Email", :with => @visitor[:email]
   page.fill_in "Password", :with => @visitor[:password]
   click_button "Sign in"
-  puts "You have arrived here " + current_path        # can be removed when tests all pass
+  puts "You have arrived here " + current_path
 end
 
 ### GIVEN ###
@@ -139,15 +139,15 @@ When /^I change my email address$/ do
 end
 
 When /^I delete my account$/ do
-  puts "You are here " + current_path                 # can be removed when tests all pass
+  puts "You are here " + current_path
   click_link "Edit account"
   puts "You just pressed the Edit account button"
-  puts "You have arrived here " + current_path        # can be removed when tests all pass
+  puts "You have arrived here " + current_path
   click_link "Cancel my account"
   page.driver.browser.switch_to.alert.accept
   puts "You have just pressed the Cancel my account button"
   puts "You have just pressed the Okay button in the Confirm box"
-  puts "You have arrived here " + current_path        # can be removed when tests all pass
+  puts "You have arrived here " + current_path
 end
 
 When /^I follow the subscribe for silver path$/ do
@@ -156,83 +156,82 @@ end
 
 ### THEN ###
 Then /^I should be signed in$/ do
-  page.should have_content "Logout"
-  page.should_not have_content "Sign up"
-  page.should_not have_content "Login"
+  expect(page).to have_content "Logout"
+  expect(page).to_not have_content "Sign up"
+  expect(page).to_not have_content "Login"
 end
 
 Then /^I should be signed out$/ do
-  page.should have_content "Login"
-  page.should_not have_content "Logout"
+  expect(page).to have_content "Login"
+  expect(page).to_not have_content "Logout"
 end
 
 And /^I should see "(.*?)"$/ do |text|
-  puts "You are currently here " + current_path                      # can be removed when tests all pass
-  page.should have_content text
+  puts "You are currently here " + current_path
+  expect(page).to have_content text
 end
 
 Then /^I should be on the "([^"]*)" page$/ do |path_name|
-  puts "You have arrived here " + current_path                       # can be removed when tests all pass
-
-  current_path.should == send("#{path_name.parameterize('_')}_path")
+  puts "You have arrived here " + current_path
+  expect(current_path).to eq(send("#{path_name.parameterize('_')}_path"))
 end
 
 Then /I should be on the new silver user registration page$/ do
-  puts "You have arrived here " + current_path                       # can be removed when tests all pass
-  current_path_with_args.should == '/users/sign_up/?plan=silver'
+  puts "You have arrived here " + current_path
+  expect(current_path_with_args).to eq('/users/sign_up/?plan=silver')
 end
 
 Then /^I see an unconfirmed account message$/ do
-  page.should have_content "You have to confirm your account before continuing."
+  expect(page).to have_content "You have to confirm your account before continuing."
 end
 
 Then /^I see a successful sign in message$/ do
-  puts "You have arrived here " + current_path        # can be removed when tests all pass
-  page.should have_content "Signed in successfully."
+  puts "You have arrived here " + current_path
+  expect(page).to have_content "Signed in successfully."
 end
 
 And /^I should see a successful sign up message$/ do
-  puts "You have arrived here " + current_path        # can be removed when tests all pass
-  page.should have_content "Welcome! You have signed up successfully."
+  puts "You have arrived here " + current_path
+  expect(page).to have_content "Welcome! You have signed up successfully."
 end
 
 Then /^I should see an invalid email message$/ do
-  page.should have_content "is invalid"
+  expect(page).to have_content "is invalid"
 end
 
 Then /^I should see a missing password message$/ do
-  page.should have_content "can't be blank"
+  expect(page).to have_content "can't be blank"
 end
 
 Then /^I should see a missing password confirmation message$/ do
-  page.should have_content "Password confirmation doesn't match Password"
+  expect(page).to have_content "Password confirmation doesn't match Password"
 end
 
 Then /^I should see a mismatched password message$/ do
-  page.should have_content "Password confirmation doesn't match Password"
+  expect(page).to have_content "Password confirmation doesn't match Password"
 end
 
 Then /^I should see a missing subscription plan message$/ do
-  page.should have_content "Please select a subscription plan below"
+  expect(page).to have_content "Please select a subscription plan below"
 end
 
 Then /^I should see a signed out message$/ do
-  page.should have_content "Signed out successfully."
+  expect(page).to have_content "Signed out successfully."
 end
 
 Then /^I see an invalid login message$/ do
-  page.should have_content "Invalid email or password."
+  expect(page).to have_content "Invalid email or password."
 end
 
 Then /^I should see an account edited message$/ do
-  page.should have_content "You updated your account successfully."
+  expect(page).to have_content "You updated your account successfully."
 end
 
 Then /^I should see an account deleted message$/ do
- page.should have_content "account was successfully cancelled"
+ expect(page).to have_content "account was successfully cancelled"
 end
 
 Then /^I should see my name$/ do
   create_user
-  page.should have_content @user[:name]
+  expect(page).to have_content @user[:name]
 end
