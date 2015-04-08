@@ -29,8 +29,6 @@ You can build this application in only a few minutes using the "Rails Composer":
 
 !http://railsapps.github.io/images/rails-stripe-membership-saas.png(Rails Application for a Membership, Subscription, or SaaS Site)!
 
-h4. !http://railsapps.github.io/images/join/join-railsapps.png(Join RailsApps)!:http://railsapps.github.io/
-
 h4. What is the RailsApps Project?
 
 The "RailsApps project":http://railsapps.github.io/ provides example applications that developers use as starter apps. Hundreds of developers use the apps, report problems as they arise, and propose solutions. Rails changes frequently; each application is known to work and serves as your personal "reference implementation." Support for the project comes from subscribers. If this application is helpful to you, please "join the RailsApps project":http://railsapps.github.io/ to support our work.
