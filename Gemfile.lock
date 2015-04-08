@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rspec/rspec-core.git
-  revision: c4a6ed2b161100233141c5d759ef9a2d57205bb9
+  revision: 2a07aa92560cf6d4ae73ab04ff3b9b565451e83f
   branch: master
   specs:
     rspec-core (3.3.0.pre)
@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/rspec/rspec-expectations.git
-  revision: 734fe2e3969e7d7d8b851f07230f981df5a43938
+  revision: f0b79d1e58bcc209191bfc99a04211dd38718955
   branch: master
   specs:
     rspec-expectations (3.3.0.pre)
@@ -108,7 +108,7 @@ GEM
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-script (2.3.0)
+    coffee-script (2.4.1)
       coffee-script-source
       execjs
     coffee-script-source (1.9.1)
@@ -141,7 +141,7 @@ GEM
       launchy (~> 2.1)
       mail (~> 2.2)
     erubis (2.7.0)
-    execjs (2.4.0)
+    execjs (2.5.0)
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.3.0)
@@ -239,7 +239,7 @@ GEM
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     slop (3.6.0)
-    spring (1.3.3)
+    spring (1.3.4)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -317,7 +317,7 @@ DEPENDENCIES
   spring
   sqlite3
   stripe (~> 1.20)
-  stripe-ruby-mock (~> 2.1)
+  stripe-ruby-mock (~> 2.1.1)
   stripe_event (~> 1.5.0)
   teaspoon (~> 0.7.8)
   uglifier (~> 2.4.0)

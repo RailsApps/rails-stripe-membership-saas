@@ -1,7 +1,6 @@
 require 'rails_helper'
 require 'stripe_mock'
 require 'stripe_mock/server'
-require 'pry'
 
 include Warden::Test::Helpers
 Warden.test_mode!
@@ -155,7 +154,6 @@ RSpec.describe User do
   end
 
   describe ".update_stripe" do
-    #StripeMock.start
 
     let(:stripe_helper) { StripeMock.create_test_helper }
     before { StripeMock.start }
@@ -180,8 +178,6 @@ RSpec.describe User do
           card: stripe_helper.generate_card_token(:id => "silver", :amount => 900)
         })
         expect(customer.email).to eq('example@example.com')
-#binding.pry
-#        TOKEN = stripe_helper.generate_card_token
         TOKEN = customer.card
         @user = User.new(email: "example@example.com", stripe_token: TOKEN, name: 'tester', password: 'changeme', password_confirmation: 'changeme')
         @role = FactoryGirl.create(:role, name: "silver")
@@ -190,8 +186,8 @@ RSpec.describe User do
         expect(@user.roles.first.name).to eq('silver')
 
         customer = Stripe::Customer.retrieve(customer.id)
-        expect(customer.id).to match(/test_cus/)
-        expect(customer.card).to match(/test_tok/)
+        expect(customer.id).to match(/^test_cus/)
+        expect(customer.card).to match(/^test_tok/)
         StripeMock.stop
       end
 
