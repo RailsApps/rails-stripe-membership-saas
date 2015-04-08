@@ -1,8 +1,28 @@
-<h2>Sign in</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
-  <%= f.input :email, :autofocus => true %>
-  <%= f.input :password %>
-  <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
-  <%= f.button :submit, "Sign in", :class => 'btn-primary' %>
-<% end %>
-<%= render "devise/shared/links" %>
+<div class="authform">
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
+    <h3>Sign in</h3>
+    <%= devise_error_messages! %>
+    <div class="form-group">
+      <%- if devise_mapping.registerable? %>
+        <%= link_to 'Sign up', new_registration_path(resource_name), class: 'right'  %>
+      <% end -%>
+      <%= f.label :email %>
+      <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%- if devise_mapping.recoverable? %>
+        <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
+      <% end -%>
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+      <%= f.submit 'Sign in', :class => 'button right' %>
+      <% if devise_mapping.rememberable? -%>
+        <div class="checkbox" style="width:150px">
+          <label>
+            <%= f.check_box :remember_me %> Remember me
+          </label>
+        </div>
+      <% end -%>
+  <% end %>
+</div>

@@ -1,5 +1,9 @@
 h1. CHANGELOG
 
+h2. 2.0.0 April 8, 2015
+
+* new version using the Payola gem
+
 h2. 1.0.11 July 16, 2013
 
 * Stripe API 2013-07-05 version removed 'active_card'

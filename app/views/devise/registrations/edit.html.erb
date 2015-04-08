@@ -1,78 +1,47 @@
-<% content_for :head do %>
-  <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
-<% end %>
-<h2>Account</h2>
-<div id="stripe_error" class="alert alert-error" style="display:none" ></div>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
-  <%= f.error_notification %>
-  <%= display_base_errors resource %>
-  <%= f.input :name, :autofocus => true %>
-  <%= f.input :email, :required => true %>
-  <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-  <%= f.input :password_confirmation, :required => false %>
-  <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
-  <%= f.button :submit, 'Update', :class => 'btn-primary' %>
-<% end %>
-
-<h3>Subscription Plan</h3>
-<p>
-  <%= @user.roles.first.name.titleize %>
-  <a data-toggle="modal" href="#plan-options" class="btn btn-mini" type="button">Change plan</a>
-</p>
-
-<h3>Card</h3>
-<p>
-  Using card ending with <%= @user.last_4_digits %>
-  <a data-toggle="modal" href="#card-data" class="btn btn-mini" type="button">Change card</a>
-</p>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini' %></p>
-
-<div id="plan-options" class="modal" style="display: none;">
-  <%= simple_form_for resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
-    <div class="modal-header">
-      <a class="close" data-dismiss="modal">&#215;</a>
-      <h3>Change Plan</h3>
+<div class="authform">
+  <h3>Edit <%= resource_name.to_s.humanize %></h3>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
     </div>
-    <div class="modal-body">
-      <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline' %>
-    </div>
-    <div class="modal-footer">
-      <%= f.submit "Change Plan", :class => "btn btn-primary" %>
-      <a class="btn" data-dismiss="modal" href="#">Close</a>
-    </div>
+    <fieldset>
+      <p>Leave these fields blank if you don't want to change your password.</p>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, :autocomplete => 'off', class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+    </fieldset>
+    <fieldset>
+      <p>You must enter your current password to make changes.</p>
+      <div class="form-group">
+        <%= f.label :current_password %>
+        <%= f.password_field :current_password, class: 'form-control' %>
+      </div>
+    </fieldset>
+    <%= f.submit 'Update', :class => 'button right' %>
   <% end %>
 </div>
-
-<div id="card-data" class="modal" style="display: none;">
-  <%= simple_form_for resource, :as => resource_name, :url => update_card_path, :html => {:method => :put, :class => 'form-horizontal card_form' } do |f| %>
-    <div class="modal-header">
-      <a class="close" data-dismiss="modal">&#215;</a>
-      <h3>Change Credit Card</h3>
+<div class="authform">
+  <h3>Subscription Plan</h3>
+  <%= form_for(resource, :as => resource_name, :url => change_plan_path, :html => { :method => :put, :role  => 'form'}) do |f| %>
+    <div class="form-group">
+      <%= f.label 'Subscription plan' %>
+      <%= f.collection_select(:plan_id, Plan.all, :id, :name) %>
     </div>
-    <div class="modal-body">
-      <div class="field">
-        <%= label_tag :card_number, "Credit Card Number" %>
-        <%= text_field_tag :card_number, nil, name: nil %>
-      </div>
-      <div class="field">
-        <%= label_tag :card_code, "Card Security Code (CVV)" %>
-        <%= text_field_tag :card_code, nil, name: nil %>
-      </div>
-      <div class="field">
-        <%= label_tag :card_month, "Card Expiration" %>
-        <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}%>
-        <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year"}%>
-      </div>
-      <%= f.hidden_field :name %>
-      <%= f.hidden_field :email %>
-      <%= f.hidden_field :stripe_token %>
-    </div>
-    <div class="modal-footer">
-      <%= f.submit "Change Credit Card", :class => "btn btn-primary" %>
-      <a class="btn" data-dismiss="modal" href="#">Close</a>
-    </div>
+    <%= f.submit 'Change Plan', :class => 'button right' %>
   <% end %>
+</div>
+<div class="authform">
+  <h3>Cancel Account</h3>
+  <p>Unhappy? We'll be sad to see you go.</p>
+  <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button right' %>
 </div>
