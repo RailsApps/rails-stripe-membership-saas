@@ -54,7 +54,7 @@
           <h3>Select New Plan</h3>
           <div class="modal-body-plan" role="form" aria-label="modal-body-plan">
             <%= simple_form_for(resource, :as => resource_name, :url => update_plan_path, :html => {:method => :put, :class => 'form-horizontal' }) do |f| %>
-              <%= f.input :role_ids, :collection => Role.all.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline' %>
+              <%= f.input :role_ids, :collection => Role.all.to_a.delete_if {|i| i.name == 'admin'}, :as => :radio_buttons, :label_method => lambda {|t| t.name.titleize}, :label => false, :item_wrapper_class => 'inline' %>
           </div><!-- close .modal-body-plan -->
         </div><!-- close .modal-body -->
           <div class="modal-footer form-control">
