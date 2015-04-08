@@ -178,8 +178,8 @@ RSpec.describe User do
           card: stripe_helper.generate_card_token(:id => "silver", :amount => 900)
         })
         expect(customer.email).to eq('example@example.com')
-        TOKEN = customer.card
-        @user = User.new(email: "example@example.com", stripe_token: TOKEN, name: 'tester', password: 'changeme', password_confirmation: 'changeme')
+        token = customer.card
+        @user = User.new(email: "example@example.com", stripe_token: token, name: 'tester', password: 'changeme', password_confirmation: 'changeme')
         @role = FactoryGirl.create(:role, name: "silver")
         @user.add_role(@role.name)
         @user.save
@@ -209,11 +209,11 @@ RSpec.describe User do
           email: 'example@example.com',
           card: stripe_helper.generate_card_token(:id => "silver", :amount => 900)
         })
-        TOKEN = customer.card
+        token = customer.card
         addresses = %w[user@foo.com THE_USER@foo.bar.org first.last@foo.jp]
         addresses.each do |address|
         valid_email_user = FactoryGirl.build(:user)
-        valid_email_user.update_attributes(email: "example@example.com", stripe_token: TOKEN, name: 'tester', password: 'changeme', password_confirmation: 'changeme')
+        valid_email_user.update_attributes(email: "example@example.com", stripe_token: token, name: 'tester', password: 'changeme', password_confirmation: 'changeme')
         expect(valid_email_user).to be_truthy
         end
         StripeMock.stop
