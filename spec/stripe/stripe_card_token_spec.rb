@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'stripe_mock'
-require 'pry'
 
 include Warden::Test::Helpers
 Warden.test_mode!

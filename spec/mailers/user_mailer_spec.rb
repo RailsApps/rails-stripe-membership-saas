@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UserMailer do
+RSpec.describe UserMailer, type: :mailer do
   describe '#expire_mail' do
     let(:user) { FactoryGirl.create(:user) }
     let(:mail) { UserMailer.expire_email(user) }
@@ -16,6 +16,6 @@ describe UserMailer do
     it "has the correct subject" do
       expect(mail.subject).to eq("Subscription Cancelled")
     end
-
   end
+
 end

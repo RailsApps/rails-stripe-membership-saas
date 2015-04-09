@@ -6,137 +6,39 @@ The base of this application was generated with the "rails_apps_composer":https:
 The base of this application was created by Daniel Kehoe, he created the application generator, he wrote the tutorial.
 The base of this application is completed as of 20121212. At that time, all Cucumber and Rspec tests pass, the commit number is : c60423dff50e1578d9da632dfc02880b52152788
 
-h4. Note of 20150407 :
+h4. Note of 20150409 :
 
 This fork is now upgraded to Ruby 2.2.1 and Rails 4.2.1, with RSpec 3.
+
+Rails 4.2 example application demonstrates how to use "Stripe":https://stripe.com/ and the "Payola":https://www.payola.io/ gem  for a Rails membership site, subscription site, or SaaS site (software-as-a-service). Use Daniel's example application as a starter app for your own web applications.
+
+This application replaces a very popular Rails 3.2 implementation, available in Daniel's "Rails 3.2 branch":https://github.com/RailsApps/rails-stripe-membership-saas/tree/rails3.2, and now uses the "Payola":https://www.payola.io/ gem.
+
+See the tutorial for a complete explanation of the code:
+
+* "*Membership Site with Stripe*":https://tutorials.railsapps.org/rails-stripe-membership-saas
+
+This is a complex application. To understand the code, you'll need the tutorial.
+
+The application uses:
+
+* "Payola":https://www.payola.io/ for Stripe integration with Rails
+* "Stripe":https://stripe.com/ for credit card payment processing
+* "Devise":https://github.com/plataformatec/devise for user management and authentication
+* "Role-Based Authorization":http://railsapps.github.io/rails-devise-roles for administrator access
+* "Bootstrap":http://getbootstrap.com/ front-end framework
+
+Other tutorials may be helpful:
+
+* "Signup and Download":https://tutorials.railsapps.org/rails-signup-download
+* "Role-Based Authorization":http://railsapps.github.io/rails-devise-roles
+* "Devise Tutorial":http://railsapps.github.io/rails-devise/
+* "RSpec Tutorial":http://railsapps.github.io/rspec.html
 
 Please fork or use Daneiel Kehoe's master at :
 
 "Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas
-
-For original instructions on how to install the app, please see Daniel Kehoe's Master Branch :
-"README.textile":https://github.com/RailsApps/rails-stripe-membership-saas
-
-As this point this application is using CanCan for authorization, upgraded to "CanCanCan":https://github.com/CanCanCommunity/cancancan
-Note : CanCanCan will not be required in the April 2015 update, as ROLES will be vastly simplified with the use of enum.
- ~ Kathy Onu, a SiteKeeper
-
-h4. Note of 20140130 :
-
-This Running-on-Rails-4 branch is updated to Rails 4.0.2. running on Ruby 2.1.0, using Bootstrap-Sass 3.1.0 for styling.
-
-This branch is the Rails 4 update of Daniel Kehoe's original, using Rails 3.2.16.
-For original instructions on how to install the app, please see Daniel Kehoe's Master Branch :
-"README.textile":https://github.com/RailsApps/rails-stripe-membership-saas
-
  ~ Kathy Onu, SiteKeeper
-
-h4. Old Instructions to operate original app at Rails 3.2
-Note : 20150407 : new instructions will be written when the RailsApp master is released in April 2015
-
-1. Clone as a new application into a new directory :
-
-<pre>
-$ git clone https://github.com/kathyonu/rails-stripe-membership-saas.git
-</pre>
-
-1a. Change Directory into the new app  :
-
-<pre>
-$ cd rails-stripe-membership-saas
-</pre>
-
-2. Open your Gemfile and make sure you have the right versions of Ruby and Rails :
-
-<pre>
-  source 'https://rubygems.org'
-  ruby "2.1.0"
-  gem 'rails', '4.0.2'
-</pre>
-
-2a. Using your favorite editor, open the .ruby-gemset and .ruby-version files.
-    This will open TextEdit from inside your Terminal :
-
-<pre>
-$ open -e .ruby-gemset
-$ open -e .ruby-version
-</pre>
-
-Your .ruby-gemset file should show only the gemset name, here we use : Rails4.0.2_rails-stripe-membership-saas
-Your .ruby-version file should show only the version number : 2.1.0
-
-2b. After you verify your new gemset, then run bundle install :
-
-<pre>
-$ bundle install
-</pre>
-
-3. Create your application.yml file from the application.example.yml file, using your own data.
-4. Make sure /config/application.yml exists in your ./.gitignore file. (It is at the bottom of the file)
-5. Run the setup commands :
-
-<pre>
-$ rake db:migrate
-$ rake db:seed
-$ rake db:test:prepare
-</pre>
-
-You are now ready to run, and test your app.
-
-6. To run cucumber tests:
-
-<pre>
-$ cucumber
-</pre>
-
-7. To run Rspec tests:
-
-<pre>
-$ rspec spec
-</pre>
-
-8. To run your server:
-
-<pre>
-$ rails s
-</pre>
-
-Now you can open your browser to http://localhost:3000
-
-You are up and running on Rails 4.
-
-References used during these upgrading commits include, and are not limited to :
-
-"Check your Gemfile's readiness for Rails 4":http://ready4rails4.net/gemfile_check/new
-
-"Ruby Edge Guide for Upgrading to Rails 4.0, 4.1 and beyond":http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html
-Note : this page is in sections, on different upgrades, so make sure you are in the right section.
-Section 5 : Upgrading from Rails 3.0 to Rails 3.1
-Section 4 : Upgrading from Rails 3.1 to Rails 3.2
-Section 3 : Upgrading from Rails 3.2 to Rails 4.0
-Section 2 : Upgrading from Rails 4.0 to Rails 4.1 and later.
-Again, make sure you are using the right instructions, and stay in that section until you are done.
-
-"Strong Parameters by Example":http://blog.sensible.io/2013/08/17/strong-parameters-by-example.html
-"Upgrading to Rails4: Strong Parameters":http://blog.barbershoplabs.com/blog/page/2
-
-h4. Your Rails 4 app to Heroku :
-"Rails 4 on Heroku":https://devcenter.heroku.com/articles/rails4
-
-end of 20140130 note.
-
-There is a "detailed tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas showing how it is built with the original Rails 3 coding.
-Note: 20150407 : the master is being updated to Ruby 2.2, Rails 4.2, Payola, Stripe
-
-h2. Credits
-
-Daniel Kehoe implemented the application and wrote the "tutorial":https://tutorials.railsapps.org/rails-stripe-membership-saas.
-
-Taylor Mock contributed tests and feature improvements.
-
-Kathy Onu upgraded the Rails 3 master onto this Rails 4 branch using Bootstrap 3 and CanCan for authorization.
-
-There are plans to create a branch using Pundit for authorization, and it is now available, see the Tutorials link.
 
 Is the app useful to you?
 
@@ -146,22 +48,4 @@ h2. MIT License
 
 "MIT License":http://www.opensource.org/licenses/mit-license
 
-h4. Copyright © 2012-2015 Daniel Kehoe
-
-Copyright © on the building template : 2012-2015 Daniel Kehoe
-
-h2. Useful Links
-
-|_. Getting Started |_. Articles |_. Tutorials |
-| "Learn Rails":http://learn-rails.com/ | "Twitter Bootstrap and Rails":http://railsapps.github.io/twitter-bootstrap-rails.html | "Rails and Bootstrap":http://railsapps.github.io/rails-bootstrap/ |
-| "Ruby and Rails":http://railsapps.github.io/ruby-and-rails.html | "Analytics for Rails":http://railsapps.github.io/rails-google-analytics.html | |
-| "What is Ruby on Rails?":http://railsapps.github.io/what-is-ruby-rails.html | "Heroku and Rails":http://railsapps.github.io/rails-heroku-tutorial.html | "Devise with CanCan and Twitter Bootstrap":https://tutorials.railsapps.org/rails3-bootstrap-devise-cancan |
-| "Rails Tutorial":https://tutorials.railsapps.org/rails-tutorial | "JavaScript and Rails":http://railsapps.github.io/rails-javascript-include-external.html | "Rails Membership Site with Stripe":https://tutorials.railsapps.org/rails-stripe-membership-saas |
-| "Installing Rails":http://railsapps.github.io/installing-rails.html | "Rails Environment Variables":http://railsapps.github.io/rails-environment-variables.html | "Rails Subscription Site with Recurly":https://tutorials.railsapps.org/rails-recurly-subscription-saas |
-| "Updating Rails":http://railsapps.github.io/updating-rails.html | "Git and Rails":http://railsapps.github.io/rails-git.html | "Startup Prelaunch Signup Application":http://railsapps.github.io/tutorial-rails-prelaunch-signup.html |
-| "Rails Composer":http://railsapps.github.io/rails-composer/ | "Email and Rails":http://railsapps.github.io/rails-send-email.html | "Devise with RSpec and Cucumber":http://railsapps.github.io/tutorial-rails-devise-rspec-cucumber.html |
-| "Rails Examples":http://railsapps.github.io/ | "Haml and Rails":http://railsapps.github.io/rails-haml.html | "Devise with Mongoid":http://railsapps.github.io/tutorial-rails-mongoid-devise.html |
-| "Rails Starter Apps":http://railsapps.github.io/rails-examples-tutorials.html | "Rails Application Layout":http://railsapps.github.io/rails-default-application-layout.html | "OmniAuth with Mongoid":http://railsapps.github.io/tutorial-rails-mongoid-omniauth.html |
-| | "HTML5 Boilerplate for Rails":http://railsapps.github.io/rails-html5-boilerplate.html | "Subdomains with Devise":http://railsapps.github.io/tutorial-rails-subdomains.html |
-| | "Example Gemfiles for Rails":http://railsapps.github.io/rails-3-2-example-gemfile.html | |
-| | "Rails Application Templates":http://railsapps.github.io/rails-application-templates.html | |
+Copyright ©2014-15 Daniel Kehoe

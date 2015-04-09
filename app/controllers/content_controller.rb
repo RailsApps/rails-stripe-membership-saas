@@ -1,15 +1,16 @@
 class ContentController < ApplicationController
-  before_filter :authenticate_user!
-  
+  before_action :authenticate_user!
+
   def silver
-    authorize! :view, :silver, :message => 'Access limited to Silver Plan subscribers.'
+    redirect_to root_path, :notice => "Access denied." unless current_user.silver?
   end
-  
+
   def gold
-    authorize! :view, :gold, :message => 'Access limited to Gold Plan subscribers.'
+    redirect_to root_path, :notice => "Access denied." unless current_user.gold?
   end
 
   def platinum
-    authorize! :view, :platinum, :message => 'Access limited to Platinum Plan subscribers.'
+    redirect_to root_path, :notice => "Access denied." unless current_user.platinum?
   end
+
 end

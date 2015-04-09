@@ -17,11 +17,31 @@ end
 
 RSpec.describe User do
 
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+  end
+
   after(:each) do
     Warden.test_reset!
   end
 
   let(:stripe_helper) { StripeMock.create_test_helper }
+    
+  subject { @user }
+
+  it { should respond_to(:email) }
+
+  it "#email returns a string" do
+    expect(@user.email).to match 'test@example.com'
+  end
+
+  it "should have a password attribute" do
+    expect(@user).to respond_to(:password)
+  end
+
+  it "should have a password confirmation attribute" do
+    expect(@user).to respond_to(:password_confirmation)
+  end
 
   it "creates a Silver stripe customer" do
     StripeMock.start
@@ -81,7 +101,7 @@ RSpec.describe User do
     StripeMock.stop
   end
 
-  it "mocks an card declined error" do
+  it "mocks a card declined error" do
     StripeMock.start
     StripeMock.prepare_card_error(:card_declined)
 
@@ -247,21 +267,6 @@ RSpec.describe User do
     end
   end
 
-  describe "passwords" do
-
-    before(:each) do
-      @user = FactoryGirl.create(:user)
-    end
-
-    it "should have a password attribute" do
-      expect(@user).to respond_to(:password)
-    end
-
-    it "should have a password confirmation attribute" do
-      expect(@user).to respond_to(:password_confirmation)
-    end
-  end
-
   describe "password validations" do
 
     before(:each) do
@@ -331,4 +336,5 @@ RSpec.describe User do
       expect(Role.all.count).to eq(2)
     end
   end
+
 end
