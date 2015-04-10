@@ -10,7 +10,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "has the correct senders email" do
-      expect(mail.from).to eq(["notifications@example.com"])
+      expect(mail.from).to eq(["do-not-reply@example.com"])
     end
 
     it "has the correct subject" do

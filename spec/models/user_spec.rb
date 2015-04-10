@@ -4,9 +4,9 @@ require 'stripe_mock/server'
 
 include Warden::Test::Helpers
 Warden.test_mode!
-#
+
 RSpec.configure do
-  valid_session = { "user_id" => 1 }
+
   @attr = {
     :name => "Test User",
     :email => "testuser@example.com",
@@ -26,21 +26,35 @@ RSpec.describe User do
   end
 
   let(:stripe_helper) { StripeMock.create_test_helper }
-    
+
+  before(:each) { @user = User.new(email: 'user@example.com') }
+
   subject { @user }
 
   it { should respond_to(:email) }
 
+#  it "should respond to email" do
+ #   StripeMock.start
+  #  expect(respond_to(:email).to be_success
+   # StripeMock.stop
+  #end
+
   it "#email returns a string" do
-    expect(@user.email).to match 'test@example.com'
+    StripeMock.start
+    expect(@user.email).to match 'user@example.com'
+    StripeMock.stop
   end
 
   it "should have a password attribute" do
+    StripeMock.start
     expect(@user).to respond_to(:password)
+    StripeMock.stop
   end
 
   it "should have a password confirmation attribute" do
+    StripeMock.start
     expect(@user).to respond_to(:password_confirmation)
+    StripeMock.stop
   end
 
   it "creates a Silver stripe customer" do
@@ -182,28 +196,24 @@ RSpec.describe User do
     context "with a non-existing user" do
 
       it "creates a new stripe customer and card token" do
-        StripeMock.start
         customer = Stripe::Customer.create({
           email: 'someone@example.com',
           card: stripe_helper.generate_card_token
         })
         expect(customer.email).to eq('someone@example.com')
-        StripeMock.stop
       end
 
       it "creates a new user with a succesful stripe response" do
-        StripeMock.start
         customer = Stripe::Customer.create({
           email: 'example@example.com',
           card: stripe_helper.generate_card_token(:id => "silver", :amount => 900)
         })
         expect(customer.email).to eq('example@example.com')
         token = customer.card
-        @user = User.new(email: "example@example.com", stripe_token: token, name: 'tester', password: 'changeme', password_confirmation: 'changeme')
-        @role = FactoryGirl.create(:role, name: "silver")
-        @user.add_role(@role.name)
+        @user = FactoryGirl.build(:user, email: "example@example.com", password: 'changeme', password_confirmation: 'changeme')
+        @user.role = "silver"
         @user.save
-        expect(@user.roles.first.name).to eq('silver')
+        expect(@user.role).to eq('silver')
 
         customer = Stripe::Customer.retrieve(customer.id)
         expect(customer.id).to match(/^test_cus/)
@@ -212,28 +222,32 @@ RSpec.describe User do
       end
 
       it "should create a new instance given a valid attribute" do
-        email_user = FactoryGirl.create(:user)
-        email_user.update_attributes(:email => "newinstance@example.com")
+        StripeMock.start
+        email_user = FactoryGirl.create(:user, :email => "instance@example.com")
+        email_user.update_attributes(:email => "user@example.com")
         expect(email_user.email.nil?).to be_falsey
+        StripeMock.stop
       end
 
       it "should require an email address" do
-        no_email_user = FactoryGirl.create(:user)
+        StripeMock.start
+        no_email_user = FactoryGirl.create(:user, :email => "noemail@example.com")
         no_email_user.update_attributes(:email => "")
         expect(no_email_user.email.nil?).to be_falsey
+        StripeMock.stop
       end
 
       it "should accept valid email addresses" do
         StripeMock.start
-          customer = Stripe::Customer.create({
+        customer = Stripe::Customer.create({
           email: 'example@example.com',
           card: stripe_helper.generate_card_token(:id => "silver", :amount => 900)
         })
-        token = customer.card
+        @token = customer.card
         addresses = %w[user@foo.com THE_USER@foo.bar.org first.last@foo.jp]
         addresses.each do |address|
         valid_email_user = FactoryGirl.build(:user)
-        valid_email_user.update_attributes(email: "example@example.com", stripe_token: token, name: 'tester', password: 'changeme', password_confirmation: 'changeme')
+        valid_email_user.update_attributes(email: "example@example.com", password: 'changeme', password_confirmation: 'changeme')
         expect(valid_email_user).to be_truthy
         end
         StripeMock.stop
@@ -251,8 +265,9 @@ RSpec.describe User do
 
       it "should reject duplicate email addresses" do
         StripeMock.start
-        user = FactoryGirl.create(:user)
-        expect(FactoryGirl.build(:user)).to be_invalid
+        user = FactoryGirl.create(:user, :email => "duplicate@example.com")
+        user2 = FactoryGirl.build(:user, :email => "duplicate@example.com")
+        expect(user2).to be_invalid
         StripeMock.stop
       end
     end
@@ -270,36 +285,46 @@ RSpec.describe User do
   describe "password validations" do
 
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.build(:user)
     end
 
     it "should require a password" do
+      StripeMock.start
       expect(@user.update_attributes(:password => "", :password_confirmation => "")).to eq false
+      StripeMock.stop
     end
 
     it "should require a matching password confirmation" do
+      StripeMock.start
       expect(@user.update_attributes(:password_confirmation => "invalid")).to be_falsey
+      StripeMock.stop
     end
 
     it "should reject short passwords" do
+      StripeMock.start
       short = "a" * 5
       hash = @user.update_attributes(:password => short, :password_confirmation => short)
       expect(User.new(hash)).to_not be_valid
+      StripeMock.stop
     end
   end
 
   describe "password encryption" do
 
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.build(:user)
     end
 
     it "should have an encrypted password attribute" do
+      StripeMock.start
       expect(@user).to respond_to(:encrypted_password)
+      StripeMock.stop
     end
 
     it "should set the encrypted password attribute" do
+      StripeMock.start
       expect(@user.encrypted_password).to be_truthy
+      StripeMock.stop
     end
   end
 
@@ -319,21 +344,18 @@ RSpec.describe User do
 
   describe "#update_plan" do
     before(:each) do
-      @user = FactoryGirl.create(:user, email: "test@example.com")
-      @role1 = FactoryGirl.create(:role, name: "silver")
-      @role2 = FactoryGirl.create(:role, name: "gold")
-      @user.add_role(@role1.name)
+      @user = FactoryGirl.build(:user)
+      @role1 = 'silver'
+      @role2 = 'gold'
+      @user.role = @role1
     end
 
     it "updates a users role" do
-      expect(@user.roles.first.name).to eq("silver")
-      @user.update_plan(@role2)
-      expect(@user.roles.first.name).to eq("gold")
-    end
-
-    it "wont remove original role from database" do
-      @user.update_plan(@role2)
-      expect(Role.all.count).to eq(2)
+      StripeMock.start
+      expect(@user.role).to eq("silver")
+      @user.update_attributes(:role => @role2)
+      expect(@user.role).to eq("gold")
+      StripeMock.stop
     end
   end
 
