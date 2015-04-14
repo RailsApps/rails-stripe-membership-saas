@@ -41,8 +41,8 @@
     <br />
     <div class="form-group">
       <%= label_tag :card_month, "Card Expiry" %>
-      <%= select_month nil, { use_two_digit_numbers: true}, { name: nil, data: {stripe: 'exp-month' } } %>
-      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, { name: nil, data: {stripe: 'exp-year' } %>
+      <%= select_month nil, { use_two_digit_numbers: true}, { name: nil, data: { stripe: 'exp-month' } } %>
+      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, { name: nil, data: { stripe: 'exp-year' } } %>
     </div>
     <%= f.submit 'Sign up', :class => 'button right' %>
   <% end %>
