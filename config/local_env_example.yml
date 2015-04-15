@@ -1,0 +1,38 @@
+# Rename this file to local_env.yml for use, to keep your data private.
+# NOTE: The local_env.yml file MUST FIRST be listed in .gitignore BEFORE you save it, to keep your settings secret
+# Do that now by opening your git ignore file : $ open -e .gitignore
+# NOW, uncomment this line /config/local_env.yml
+
+# If you accidentally save your file, then uncomment the git ignore statement, your file will still show in the repository, including changes.  To resolve do this : $ git rm configl/local_env.yml
+# Only then, will it be safe to add your private data into this file.
+
+# Add account settings and API keys here.
+# Each entry in local_env.yml gets set as a local environment variable.
+# The local_env.yml file overrides ENV variables in the Unix shell.
+# For example, setting:
+# GMAIL_USERNAME: 'Your_Gmail_Username'
+# makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
+
+# See the 2nd part of using local_env.yml in config/application.rb
+# With that code in place, the secrets.yml file environment variables 
+# will look in the local_env.yml file to access the data.
+# Source Reference : http://railsapps.github.com/rails-environment-variables.html
+
+ADMIN_NAME: Admin
+ADMIN_EMAIL: 'user@example.com'
+ADMIN_PASSWORD: 'changeme'
+DOMAIN_NAME: 'example.com'
+GMAIL_USERNAME: 'Your_Gmail_Username'
+GMAIL_PASSWORD: 'Your_Gmail_Password'
+MAILCHIMP_API_KEY: 'Your_MailChimp_API_key'
+MAILCHIMP_LIST_ID: 'Your_MailChimp_List_ID'
+STRIPE_API_KEY: 'Your_Stripe_Test_or_Production_Private_API_key'
+STRIPE_PUBLISHABLE_KEY: 'Your_Stripe_Test_or_Production_Publishable_Key'
+ROLES: [admin, silver, gold, platinum]
+
+# Generate your own new key with $ rake secret
+SECRET_KEY_BASE: 'your_very_long_secret_key'
+
+# uncomment if you use Mandrill :
+#MANDRILL_USERNAME: 'Your_Mandrill_User_Name'
+#MANDRILL_API_KEY: 'Your_Mandrill_Test_or_Production_Private_API_key'

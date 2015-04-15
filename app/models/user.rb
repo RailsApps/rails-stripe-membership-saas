@@ -35,5 +35,4 @@ class User < ActiveRecord::Base
     })
     Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
   end
-
 end
