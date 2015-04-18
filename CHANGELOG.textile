@@ -1,0 +1,67 @@
+h1. CHANGELOG
+
+h2. 2.0.0 April 8, 2015
+
+* new version using the Payola gem
+
+h2. 1.0.11 July 16, 2013
+
+* Stripe API 2013-07-05 version removed 'active_card'
+
+h2. 1.0.10 January 30, 2013
+
+* accommodate change from 'factory_girl_rails' 4.1.0 to 4.2.0 (fix issue #52)
+
+h2. 1.0.9 January 22, 2013
+
+* Devise default minimum password length changed from six to eight
+* fix issue #49, prevent creation of new roles by users
+
+h2. 1.0.8 December 16, 2012
+
+* add option to use a coupon when subscribing (fix issue #36)
+* use metatag to set STRIPE_PUBLIC_KEY in 'app/assets/javascripts/registrations.js' file (fix issue #29)
+* use 'find_or_create_by_name' in the 'db/seeds.rb' file to avoid duplicate roles (fix issue #41)
+* set roles and admin user credentials from 'application.yml' file
+
+h2. 1.0.7 December 14, 2012
+
+* use 'figaro' gem to set local environment variables for Stripe credentials
+
+h2. 1.0.6 December 7, 2012
+
+* handle cancellation when Stripe customer is already deleted
+* change message to 'Credit card acceptance is pending' to handle 'card declined' situations
+* fix issue #17, eliminate display of empty error div when form has errors
+
+h2. 1.0.5 December 2, 2012
+
+* fix issue #17: handle 'card declined' errors
+* add tests for Stripe authorization (contributed by Taylor Mock)
+* improve Registrations controller so current password is not required to change plan or credit card
+* fix issue #25: Capybara needs disambiguation
+
+h2. 1.0.4 November 13, 2012
+
+* display month numbers for credit card expiry on new and edit registration forms (contributed by Aaron Breckenridge)
+
+h2. 1.0.3 November 11, 2012
+
+* fix issue #15: ddded the stripe error response div to the account/edit page (contributed by Matt Witek)
+
+h2. 1.0.2 November 9, 2012
+
+* fix issue #14: make sure plan parameter persists after failed registration (contributed by Matt Witek)
+* fix issue #13: removing a user subscription plan won't alter the Role database (contributed by Taylor Mock)
+* fix issue #12: example.com email addresses can be used in development and test but not production (contributed by Matt Witek)
+
+h2. 1.0.1 October 27, 2012
+
+* fix issue #8: mass assignment error when changing plans
+* require a new user to choose a subscription plan (contributed by Taylor Mock)
+* add mailer specs (contributed by Taylor Mock)
+* fix rspec test for content controller (contributed by Jordan Andree)
+
+h2. 1.0.0 October 25, 2012
+
+* initial release (build using rails_apps_composer 2.2.16)

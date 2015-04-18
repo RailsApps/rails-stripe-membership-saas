@@ -1,0 +1,28 @@
+Rails Stripe Membership Saas
+========================
+
+You can use this project as a starting point for a Rails web application. It requires Rails 3 and uses Devise for user management and authentication, CanCan for authorization, Twitter Bootstrap for CSS styling, and Stripe for recurring billing.
+
+Devise
+http://github.com/plataformatec/devise
+
+CanCan
+https://github.com/ryanb/cancan
+
+Twitter Bootstrap
+http://twitter.github.com/bootstrap/
+
+Stripe
+https://stripe.com/
+
+________________________
+
+For more information, please see the updated README file on GitHub:
+
+https://github.com/railsapps/rails-stripe-membership-saas
+
+________________________
+
+MIT License
+
+http://www.opensource.org/licenses/mit-license
