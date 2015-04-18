@@ -16,7 +16,6 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'gibbon'
 gem 'payola-payments'
-gem 'stripe-ruby-mock', '~> 2.1.1', :require => 'stripe_mock'
 gem 'sucker_punch'
 group :development do
   gem 'better_errors'
@@ -30,6 +29,7 @@ group :development, :test do
   gem 'rspec-rails'
   %w[ rspec rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support ].each do |lib|
     'gem lib, github: "rspec/#{lib}"'
+  gem 'stripe-ruby-mock', '~> 2.1.1', :require => 'stripe_mock'
   end
 end
 group :test do
