@@ -1,13 +1,20 @@
 Rails Stripe Membership Saas
 ========================
 
-You can use this project as a starting point for a Rails web application. It requires Rails 3 and uses Devise for user management and authentication, CanCan for authorization, Twitter Bootstrap for CSS styling, and Stripe for recurring billing.
+We recommend you follow/fork the RailsApps master at :
+
+https://github.com/railsapps/rails-stripe-membership-saas
+
+You can use this project as a starting point for a Rails web application. 
+
+On 20150419, our fork is running on Ruby 2.2.2, on Rails 4.2.1, uses 
+Devise for user management and authentication, enum for roles authorization, 
+Twitter Bootstrap for CSS styling, and Payola and Stripe.com for processing 
+of products purchased and recurring billing for subscriptions and donations. 
+You create the plans on Stripe and describe them as you wish in your app.
 
 Devise
 http://github.com/plataformatec/devise
-
-CanCan
-https://github.com/ryanb/cancan
 
 Twitter Bootstrap
 http://twitter.github.com/bootstrap/
@@ -15,14 +22,181 @@ http://twitter.github.com/bootstrap/
 Stripe
 https://stripe.com/
 
+Payola
+https://www.payola.io/
+
+Enum
+http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html
+
 ________________________
 
-For more information, please see the updated README file on GitHub:
+For more information, please see the recently updated RailsApps master on GitHub:
 
 https://github.com/railsapps/rails-stripe-membership-saas
 
 ________________________
 
-MIT License
+h2. MIT License
 
-http://www.opensource.org/licenses/mit-license
+"MIT License":http://www.opensource.org/licenses/mit-license
+
+This is a fork of the original works of and Copyright ©2014-15 Daniel Kehoe
+
+________________________
+
+201504181726pst : First sharing of how we keep our app's codes current and operating
+
+Presumptions : 
+1. You have Homebrew installed
+1a. If you need a simple installation guide, there is no better than this : 
+
+	http://railsapps.github.io/installrubyonrails-mac.html
+
+1b. You must install Homebrew first, before RVM. RVM? See next.
+
+2. You have RVM installed
+2a. If you need a simple installation guide : 
+
+	http://railsapps.github.io/installrubyonrails-mac.html
+
+3. You check to see your environment variables set :
+
+	$ env
+
+3a. If you need a guide as to how to do so :
+
+	http://railsapps.github.io/installrubyonrails-mac.html
+
+3b. For the memberships app you will need these env variables : 
+3c. Note : to generate the secret base key, you can use : 
+
+	$ rake secret
+
+For Developent : 
+
+export ADMIN_NAME='First User'
+export ADMIN_PASSWORD=changme
+export ADMIN_EMAIL=user@example.com
+export DOMAIN_NAME=example.com
+export GMAIL_USERNAME=you@youraddress.com
+export GMAIL_PASSWORD=OneVeryLongStrongPassword
+export MAILCHIMP_LIST_ID=yourListID
+export MAILCHIMP_API_KEY=yourVeryLongMailChimpAPIKey-us5
+export MANDRILL_API_KEY=yoursMandrillAPIKey
+export MANDRILL_USERNAME=yourMandrillUsername
+export SECRET_BASE_KEY=yourVeryLongNumber
+export STRIPE_API_KEY=sk_test_yourStripAPIKeyNumber
+export STRIPE_PUBLISHABLE_KEY=pk_test_yourStripAPIKeyNumber
+
+3d. Note : regarding the SECRET_BASE_KEY, do not reuse keys from development or testing.
+3e. Note : generate a new SECRET_BASE_KEY for the production environment and keep it secret.
+
+4a. You have git installed.
+4b. If not, for further instruction, see ... wait for it : 
+
+	http://railsapps.github.io/installrubyonrails-mac.html
+
+
+
+
+For Production : same as above, plus these changes :
+
+#export STRIPE_API_KEY=pk_live_yourAPIKeyNumber			  # uncomment and use these two when ready to go live
+#export STRIPE_PUBLISHABLE_KEY=sk_live_yourPublishableKeyNumber   # uncomment and use these two when ready to go live
+
+Also, if you are using a Mandrill Test Key while in development and testing, 
+Change that key to your live key for production.
+
+	export MANDRILL_API_KEY=yoursMandrillAPITestKey		# replace this test key with the production key
+	export MANDRILL_API_KEY=yoursMandrillAPILiveKey		# after you set this key ..
+
+You have your brew ready ..
+You have your rvm ready ..
+You have your env variables set ..
+You are ready to begin.
+
+Overall health :
+000. Update rvm and homebrew
+
+	$ rvm get stable		# update your rvm to the latest stable version
+	$ brew update			# update your Homebrew : both brew commands may take a while
+	$ brew doctor			# this will tell you all is well with your Homebrew, or not
+	$ rvm list known		# this will show you the Rubies rvm knows about and
+					#  can install : http://rvm.io/rubies/installing
+					# follow instructions below for how it is done
+
+000a.	$ rvm gemset use global
+000b.	$ gem update --system
+000c.	$ gem update rake
+000d	$ gem update bundler
+000e.	$ gem update rubygems-bundler
+000f.	$ gem list
+000g.   $ gem outdated
+000h.	$ gem update
+        Global gems /\
+00a.	Close Terminal
+00b.	Open new Terminal
+	Application gems \/
+0a.	$ cd myapplication-name
+0b	$ rvm use 2.2.2				# tells rvm we want Ruby 2.2.2 version
+0c.	$ rvm gemset use Rails4.2.1-rails-stripe-membership-saas --create
+0d.	$ open -e .ruby-gemset			# verify name is same : Rails4.2.1-etc
+0e.	$ open -e .ruby-version			# verify version line is 2.2.2
+	$ gem install rails			# takes a wee while
+	$ bundle update rails			# for going from one version up to another
+	$ bundle install			# brings in the gems listed in your Gemfile
+	$ rake rails:update			# do not forget this step : otherwise it will haunt you with eerie errors
+						# this step is worth knowing.  when it asks if you want to update a file
+						# due to conflict, first answer with this : diff
+						# diff will tell you what is different.
+						# if you want to keep parts of your old file, copy it, for next step, then answer Y
+						# use your copy as reference for and allow the update to overwrite your app file
+						# after the rails update is done, open the updated file and make any changes from copy
+0f.	$ bundle outdated			# tells you if any gems are out of date, and can be updated
+0g.	$ bundle update				# bundle does your hard work for you : MAKE SURE you are using the right gemset
+0h.	$ rake rails:update:bin 		# updates the bin/rails file if need be after rails updates
+0i.	$ rake db:reset				# doing so ensures this part of the system works, resetting your database
+0j.	$ rails c				# doing so ensures this part of the system works, your rails console
+0k.	$ rails s				# doing so ensures this part of the system works, your rails server
+0l.	open browswer to http://localhost:3000	# enjoy the view of your newly updated and fine tuned new working app
+0m.	$ Control+c				# stops the server : press the Control button and the letter c at the same time
+0n.	$ rspec spec				# runs the RSpec tests : 20150419 all tests of this memberships app are passing
+
+   You are now ready to further develop this app.
+
+
+Getting Ready for Live in Production on Heroku :
+1a.	environment variables : change your env SECRET_.
+1aa.	environment variables : change to live Stripe keys.
+1b.	$ heroku config:add STRIPE_API_KEY=sk_live_your_strip_api_key
+1c.	$ heroku config:add STRIPE_PUBLIC_KEY=pk_live_your_strip_public_key
+1d.	$ heroku config:add STRIPE_API_KEY=sk_test_your_strip_api_key
+1e.	$ heroku config:add STRIPE_publishable_KEY=pk_test_your_strip_publishabel_key
+1f.	$ heroku config:add
+1g.	$ heroku config:add
+1h.	$ heroku config:add
+1i.	$ heroku config:add
+1j.	$ heroku config:add
+1l.	$ heroku config:add
+1l.	$ heroku config:add
+1m.	$ heroku config:add
+
+2a.	$ open -e Gemfile
+2b.	add gem 'pg'							# for production only
+2c.	$ bundle install						# installs the postgres gem
+2d. 	$ rake assets:clobber						# cleans up the assets prior to compiling
+2f.	$ RAILS_ENV=production bundle exec rake assets:precompile	# we be compiling all assets
+2g.	$ git status							# where be we
+2h.	$ git add .							# the . adds all affected precompiled files
+2i.	$ git commit -m "compiled assets for heroku push"		# get ready for a push command
+
+3a.	$ heroku maintenance:on						# you can put your visible app on maintenance
+3b.	$ git push origin master					# you just pushed your app to your repository on git
+3c.	$ git push heroku master					# you just pushed your app to your repository on heroku
+
+
+4.	$ heroku restart						# you have a new slug and variables are set so restart heroku
+5.	$ heroku maintenance:off					# get ready for showtime
+6.	$ heroku open							# will open your browser to show you the app in production
+
+Author of this work : https://github.com/kathyonu
