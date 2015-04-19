@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.0'
+ruby '2.2.2'
 gem 'rails', '4.2.1'
 gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
@@ -27,10 +27,16 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
+  %w[ rspec rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support ].each do |lib|
+    'gem lib, github: "rspec/#{lib}"'
+  gem 'stripe-ruby-mock', '~> 2.1.1', :require => 'stripe_mock'
+  end
 end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'pry'
   gem 'selenium-webdriver'
+  gem 'thin'
 end
