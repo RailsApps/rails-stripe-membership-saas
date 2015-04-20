@@ -16,6 +16,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'gibbon'
 gem 'payola-payments'
+gem 'simple_form'
 gem 'sucker_punch'
 group :development do
   gem 'better_errors'

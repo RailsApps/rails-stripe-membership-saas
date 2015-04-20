@@ -10,4 +10,5 @@ Rails.application.routes.draw do
     put 'change_plan', :to => 'registrations#change_plan'
   end
   resources :users
+  resources :visitors, only: [:index, :new, :create, :starlight]
 end
