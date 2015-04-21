@@ -37,10 +37,12 @@ db/*.sqlite3
 /doc/app/
 /doc/features.html
 /doc/specs.html
+/log/*
 /public/cache
 /public/stylesheets/compiled
 /public/system/*
 /spec/tmp/*
+/stripe-mock-server.log
 /cache
 /capybara*
 /capybara-*.html
