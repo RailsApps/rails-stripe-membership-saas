@@ -3,7 +3,7 @@ describe User do
   before(:each) { @user = FactoryGirl.build(:user, email: 'test@example.com') }
 
   subject { @user }
-#binding.pry
+
   it { should respond_to(:email) }
 
   it "#email returns a string" do
