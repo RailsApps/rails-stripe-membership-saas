@@ -1,5 +1,9 @@
 h1. CHANGELOG
 
+h2. 2.0.1 April 23, 2015
+
+* update to Ruby 2.2.2
+
 h2. 2.0.0 April 8, 2015
 
 * new version using the Payola gem
