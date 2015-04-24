@@ -11,13 +11,9 @@ You can use this project as a starting point for a Rails web application. It req
 
 "Payola":https://www.payola.io/
 
-Payola
-https://www.payola.io/
+"Payola"https://www.payola.io/
 
-Enum
-http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html
-
-________________________
+"Enum":http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html
 
 For more information, please see the updated README file on GitHub:
 
@@ -25,4 +21,5 @@ For more information, please see the updated README file on GitHub:
 
 ________________________
 
-This is a fork of the original works of and Copyright ©2014-15 Daniel Kehoe
+"MIT License":http://www.opensource.org/licenses/mit-license
+
