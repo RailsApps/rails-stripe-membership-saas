@@ -24,7 +24,7 @@ db/*.sqlite3
 **.war
 *.rbc
 *.sassc
-.rspec
+#.rspec
 .redcar/
 .sass-cache
 /config/config.yml
@@ -37,10 +37,12 @@ db/*.sqlite3
 /doc/app/
 /doc/features.html
 /doc/specs.html
+/log/*
 /public/cache
 /public/stylesheets/compiled
 /public/system/*
 /spec/tmp/*
+/stripe-mock-server.log
 /cache
 /capybara*
 /capybara-*.html
