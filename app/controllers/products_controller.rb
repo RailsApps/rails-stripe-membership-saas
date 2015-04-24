@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :identify_product
+  before_action :authenticate_user!
+  before_action :identify_product
 
   def show
     send_file @path, :disposition => "attachment; filename=#{@file}"

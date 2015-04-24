@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe User do
 
   before(:each) { @user = FactoryGirl.build(:user, email: 'test@example.com') }
