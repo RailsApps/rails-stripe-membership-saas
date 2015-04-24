@@ -1,3 +1,50 @@
+GIT
+  remote: git://github.com/rspec/rspec-core.git
+  revision: ba3c8bd6a77de1d531eeddca00ab0514a0e06adf
+  branch: master
+  specs:
+    rspec-core (3.3.0.pre)
+      rspec-support (= 3.3.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-expectations.git
+  revision: 25237369536bd3d5edfbd909406cc9206f223b7c
+  branch: master
+  specs:
+    rspec-expectations (3.3.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.3.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-mocks.git
+  revision: 18277e260e749ddf2daec617a39f2f514da1ec10
+  branch: master
+  specs:
+    rspec-mocks (3.3.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.3.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-rails.git
+  revision: a09a6231ceecefa177ec08b27c3066d5947e5899
+  branch: master
+  specs:
+    rspec-rails (3.3.0.pre)
+      actionpack (>= 3.0, < 4.3)
+      activesupport (>= 3.0, < 4.3)
+      railties (>= 3.0, < 4.3)
+      rspec-core (= 3.3.0.pre)
+      rspec-expectations (= 3.3.0.pre)
+      rspec-mocks (= 3.3.0.pre)
+      rspec-support (= 3.3.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-support.git
+  revision: bd6026ace12cd1a42de997f7efc220f91e7dee5e
+  branch: master
+  specs:
+    rspec-support (3.3.0.pre)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -170,23 +217,6 @@ GEM
     rest-client (1.7.3)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rspec-core (3.2.3)
-      rspec-support (~> 3.2.0)
-    rspec-expectations (3.2.1)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.2.0)
-    rspec-mocks (3.2.1)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.2.0)
-    rspec-rails (3.2.1)
-      actionpack (>= 3.0, < 4.3)
-      activesupport (>= 3.0, < 4.3)
-      railties (>= 3.0, < 4.3)
-      rspec-core (~> 3.2.0)
-      rspec-expectations (~> 3.2.0)
-      rspec-mocks (~> 3.2.0)
-      rspec-support (~> 3.2.0)
-    rspec-support (3.2.2)
     rubyzip (1.1.7)
     sass (3.4.13)
     sass-rails (5.0.3)
@@ -264,7 +294,11 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.1)
   rails_layout
-  rspec-rails
+  rspec-core!
+  rspec-expectations!
+  rspec-mocks!
+  rspec-rails!
+  rspec-support!
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
