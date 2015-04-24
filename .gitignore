@@ -74,5 +74,6 @@ pickle-email-*.html
 # vim artifacts
 **.swp
 
-# Ignore application configuration
-/config/application.yml
+# Environment files that may contain sensitive data
+.env
+.powenv
