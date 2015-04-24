@@ -18,7 +18,6 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'gibbon'
 gem 'payola-payments'
-gem 'stripe-ruby-mock', '~> 2.1.1', :require => 'stripe_mock'
 gem 'sucker_punch'
 group :development do
   gem 'better_errors'
@@ -29,7 +28,6 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
- #gem 'email_spec', '~> 1.6.0'
   gem 'launchy'
   gem 'selenium-webdriver'
 end
