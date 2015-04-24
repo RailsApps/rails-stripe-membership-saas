@@ -5,6 +5,15 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+require 'rspec/mocks'
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'factory_girl_rails'
+require 'stripe_mock'
+require 'stripe_mock/server'
+require 'sucker_punch'
+require 'sucker_punch/testing/inline'
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -23,6 +32,14 @@ require 'rspec/rails'
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+
+# Reference : http://stackoverflow.com/questions/8862967/visit-method-not-found-in-my-rspec
+module ::RSpec::Core
+  class ExampleGroup
+    include Capybara::DSL
+    include Capybara::RSpecMatchers
+  end
+end
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -47,4 +64,6 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  config.include Warden::Test::Helpers
 end
