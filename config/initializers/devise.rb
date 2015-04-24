@@ -1,13 +1,10 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  # The secret key is used by Devise to generate random tokens.
-  # After you are in production on your server, if you change your secret_key,
-  # you will render invalid all existing confirmation, reset passwords and
-  # unlock tokens in the database. The first time you run this app in Development,
-  # Devise will respond in your Terminal, showing you your new secret_key.
-  # Place that very long key below, then uncomment the line and you are ready to go.
-  # config.secret_key = 'replace_with_new_very_long_secret_key_d0acf5229989d2def7090'
+  # The secret key used by Devise. Devise uses this key to generate
+  # random tokens. Changing this key will render invalid all existing
+  # confirmation, reset password and unlock tokens in the database.
+  # config.secret_key = 'd0acf5229989d2def7090e91f2d7a584b6eee8d2545048675ed17784aaeda8e3b3131b0679797a863177e83592b234847c931f67a4f5b7c7177a96f2e445acf0'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -259,6 +256,4 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-
-  config.secret_key = 'c733446d870cd5d5dfa3dd5114c8939f3e2515e87cafcb1a36c1d891267bab14a2f186bea892f7cfb791457f38c0df58fae7b422a3b9e94789f6b66f0a9aa7e3'
 end
