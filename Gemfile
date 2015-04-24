@@ -13,9 +13,6 @@ group :development, :test do
   gem 'spring'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0'
-  %w[ rspec rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support ].each do |lib|
-    'gem lib, github: "rspec/#{lib}"'
-  end
 end
 gem 'bootstrap-sass'
 gem 'devise'
