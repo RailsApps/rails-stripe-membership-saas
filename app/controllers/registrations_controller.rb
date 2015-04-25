@@ -54,6 +54,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
+  def payola_can_modify_subscription?(subscription)
+    subscription.owner == current_user
+  end
+
   def sign_up_params
     params.require(:user).permit(:email,
     :password, :password_confirmation, :plan_id)
@@ -68,6 +72,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def cancel_subscription
+    params[:email] = current_user.email
     subscription = Payola::Subscription.find_by!(email: current_user.email)
     Payola::CancelSubscription.call(subscription)
   end
