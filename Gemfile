@@ -11,8 +11,10 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'pry'
   gem 'rspec-rails'
   gem 'spring'
+  gem 'stripe-ruby-mock', '~> 2.1.1', :require => 'stripe_mock'
   gem 'web-console', '~> 2.0'
 end
 gem 'bootstrap-sass'
