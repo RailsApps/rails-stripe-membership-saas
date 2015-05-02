@@ -1,5 +1,4 @@
 require 'stripe_mock'
-require 'pry'
 
 include Warden::Test::Helpers
 Warden.test_mode!
@@ -84,7 +83,6 @@ describe 'Card API' do
   end
 
   context "retrieval and deletion" do
-
     it "retrieves a customers card" do
       customer = Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original")
       card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2099)
@@ -131,7 +129,6 @@ describe 'Card API' do
     
   context "deletion when the user has two card sources" do
     it "has just one card anymore" do
-#      StripeMock.start
       card.delete
       retrieved_cus = Stripe::Customer.retrieve(customer.id)
       expect(retrieved_cus.sources.data.count).to eq 1
