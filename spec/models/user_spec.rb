@@ -1,21 +1,6 @@
-require 'pry'
-
 describe User do
 
   let(:user) { FactoryGirl.create(:user) }
-#  before(:each) do
- #   @attr = {
-  #    :name => "Example User",
-   #   :email => "user@example.com",
-    #  :password => "changeme",
-     # :password_confirmation => "changeme"
-#    }
- # end
-
-#  before(:each) { @user = FactoryGirl.build(:user)
-#  before(:each) { @user = FactoryGirl.build(:user, email: 'test@example.com') }
-
-#  subject { @user }
 
   it { should respond_to(:email) }
 
@@ -23,9 +8,8 @@ describe User do
     expect(@user.email).to match 'test@example.com'
   end
 
-
   it "should create a new instance given a valid attribute" do
-  	@user.email = 'valid@example.com'
+    @user.email = 'valid@example.com'
     expect(@user.save!).to be_valid
   end
 
@@ -76,7 +60,7 @@ describe "password validations" do
   let(:user) { FactoryGirl.build(:user) }
 
   it "should require a password" do
-  	expect((@user.password = "").save).to_not be_valid
+    expect((@user.password = "").save).to_not be_valid
   end
 
   it "should require a matching password confirmation" do
@@ -84,7 +68,6 @@ describe "password validations" do
     @user.password = "different"
     @user.save
     expect(@user.password).to_not eq original_user_password
-
   end
 
   it "should reject short passwords" do
@@ -96,10 +79,6 @@ end
 describe "password encryption" do
 
   let(:user) { FactoryGirl.create(:user) }
-
-#  before(:each) do
- #   @user = User.create!(@attr)
-  #end
 
   it "should have an encrypted password attribute" do
     expect(@user.save).to respond_to(:encrypted_password)
@@ -113,9 +92,6 @@ end
 describe "expire" do
 
   let(:user) { FactoryGirl.build(:user) }
-# before(:each) do
- #  @user = User.create!(@attr)
- #end
 
   it "sends an email to user" do
     @user.save
@@ -129,13 +105,6 @@ describe "#update_plan" do
   let(:user) { FactoryGirl.build(:user) }
   let(:user1) { FactoryGirl.build(:user, role: :'2') }
   let(:user2) { FactoryGirl.build(:user, role: :'3') }
-
-#  before do
- #   @user = FactoryGirl.create(:user, email: "test@example.com")
-  #  @role1 = FactoryGirl.create(:role, name: "silver")
-  #  @role2 = FactoryGirl.create(:role, name: "gold"
- #   @user.add_role(@role1.name)
-#  end
 
   it "updates a users role" do
     @user.save
@@ -168,7 +137,6 @@ describe ".update_stripe" do
       new_user = User.last
       expect(new_user.customer_id).to eq("youAreSuccessful")
       expect(new_user.stripe_token).to be_nil
-
     end
   end
 end
