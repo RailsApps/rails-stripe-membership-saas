@@ -25,6 +25,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring'
   gem 'stripe-ruby-mock', '~> 2.1.1', :require => 'stripe_mock'
+  gem 'thin', '>= 1.6.2'
   gem 'web-console', '~> 2.0'
 end
 group :test do
