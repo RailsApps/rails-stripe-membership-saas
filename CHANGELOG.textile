@@ -1,5 +1,9 @@
 h1. CHANGELOG
 
+h2. 2.0.2 May 11, 2015
+
+* find subscription by owner_id not email address (contributed by ThreeWest)
+
 h2. 2.0.1 April 23, 2015
 
 * update to Ruby 2.2.2
