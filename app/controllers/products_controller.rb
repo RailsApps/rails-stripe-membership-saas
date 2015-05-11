@@ -1,5 +1,4 @@
 class ProductsController < ApplicationController
-
   before_action :authenticate_user!
   before_action :identify_product
 
@@ -8,6 +7,7 @@ class ProductsController < ApplicationController
   end
 
   private
+
   def identify_product
     valid_characters = "^[0-9a-zA-Z]*$".freeze
     unless params[:id].blank?
