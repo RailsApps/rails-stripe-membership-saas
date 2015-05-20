@@ -41,6 +41,7 @@ db/*.sqlite3
 /public/stylesheets/compiled
 /public/system/*
 /spec/tmp/*
+/stripe-mock-server.log
 /cache
 /capybara*
 /capybara-*.html

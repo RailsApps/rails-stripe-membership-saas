@@ -2,6 +2,8 @@
   <% if current_user.admin? %>
     <h3>Admin</h3>
     <p><%= link_to 'User count:', users_path %> <%= User.count %></p>
+    <h4>Products Offered</h4>
+    <%= link_to 'Download PDF', products_path('product.pdf'), class: 'btn btn-success btn-large' %>
   <% else %>
     <h3>You've signed up. Download a free book.</h3>
     <%= link_to 'Download PDF', products_path('product.pdf'), class: 'btn btn-success btn-large' %>
@@ -18,7 +20,7 @@
         <li>One lesson a month</li>
       </ul>
       <h3>$9/month</h3>
-      <%= link_to 'Subscribe', new_user_registration_path(plan: 'silver'), :class => 'btn btn-primary' %>
+      <%= link_to 'Subscribe', new_user_registration_path(plan: 'silver'), class: 'btn btn-primary' %>
     </div>
     <div class="col-sm-2 well featured">
       <div class="plan featured-plan"><h2>Gold</h2></div>
@@ -26,7 +28,7 @@
         <li>Ten lessons a month</li>
       </ul>
       <h3>$19/month</h3>
-      <%= link_to 'Subscribe', new_user_registration_path(plan: 'gold'), :class => 'btn btn-primary' %>
+      <%= link_to 'Subscribe', new_user_registration_path(plan: 'gold'), class: 'btn btn-primary' %>
     </div>
     <div class="col-sm-2 well">
       <div class="plan"><h2>Platinum</h2></div>
@@ -34,7 +36,7 @@
         <li>Thirty lessons a month</li>
       </ul>
       <h3>$29/month</h3>
-      <%= link_to 'Subscribe', new_user_registration_path(plan: 'platinum'), :class => 'btn btn-primary' %>
+      <%= link_to 'Subscribe', new_user_registration_path(plan: 'platinum'), class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>
