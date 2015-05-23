@@ -1,20 +1,19 @@
 module Requests
   module SessionHelpers
-    
-    def sign_up
+    def sign_up(email, password, password_confirmation, plan_id)
       visit new_user_registration_path(plan: 'platinum')
-      expect(page).to have_selector("select#user_plan_id")
-      within('select#user_plan_id') do
-        select('Platinum')
+      within('#select_user_plan_id') do
+        plan = Plan.find_by_id(plan_id)
+        select plan.name
       end
-      fill_in('Email', with: 'platinum10@example.com')
-      fill_in('Password', with: 'please130')
-      fill_in('Password confirmation', with: 'please130')
-      fill_in('card_number', with: '4242424242424242')
-      fill_in('card_code', with: '123')
-      select(12, from: 'date_month')
-      select(2025, from: 'date_year')
-      click_button('Sign up')
+      fill_in 'Email', with: email
+      fill_in 'Password', with: password
+      fill_in 'Password confirmation', with: password_confirmation
+      fill_in 'card_number', with: '4242424242424242'
+      fill_in 'card_code', with: '123'
+      select 12, from: 'date_month'
+      select 2025, from: 'date_year'
+      click_button 'Sign up'
     end
 
     def sign_in(email, password)

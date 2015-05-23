@@ -37,9 +37,7 @@ describe 'User Sign in', :devise, type: :request, js: true do
   end
 
   it 'cannot sign in with wrong password' do
-    fill_in 'Email', with: 'test@example.com'
-    fill_in 'Password', with: 'pleaseletmein'
-    click_button 'Sign in'
+    sign_in(@user.email, "wrongpassword" )
     expect(page).to have_content 'Invalid email or password.'
     expect(page).to have_content I18n.t 'devise.failure.not_found_in_database', authentication_keys: 'email'
   end

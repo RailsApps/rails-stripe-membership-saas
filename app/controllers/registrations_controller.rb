@@ -43,7 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
       if current_user.update_attributes!(plan: plan, role: role)
         subscription = Payola::Subscription.find_by!(owner_id: current_user.id)
         Payola::ChangeSubscriptionPlan.call(subscription, plan)
-        redirect_to edit_user_registration_path, :notice => "Plan changed."
+        redirect_to edit_user_registration_path, notice: "Plan changed."
       else
         flash[:alert] = 'Unable to change plan.'
         build_resource
@@ -55,8 +55,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:email,
-    :password, :password_confirmation, :plan_id)
+    params.require(:user).permit(:email, :password, :password_confirmation, :plan_id)
   end
 
   def subscribe

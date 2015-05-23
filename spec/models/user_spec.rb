@@ -4,7 +4,7 @@ describe User do
     Warden.test_reset!
   end
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.build(:user) }
 
   it { should respond_to(:email) }
 

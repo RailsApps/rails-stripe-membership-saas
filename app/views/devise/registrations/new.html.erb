@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
       <fieldset>
-        <legend id="user_plan_id">
+        <legend id="select_user_plan_id">
           <%= f.label 'Subscription plan' %>
           <%= f.collection_select(:plan_id, Plan.all, :id, :name) %>
         </legend>
