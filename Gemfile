@@ -28,6 +28,7 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails'
   gem 'stripe-ruby-mock', '~> 2.1.1', :require => 'stripe_mock'
+  gem 'thin'
 end
 group :test do
   gem 'capybara'
