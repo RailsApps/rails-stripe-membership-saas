@@ -1,6 +1,6 @@
 # api_key : Note Stripe.api_key must be kept secret to prevent use of by other developers Stripe account.
 Stripe.api_key = ENV["STRIPE_API_KEY"]
-STRIPE_PUBLISABLE_KEY = ENV["STRIPE_PUBLISHABLE_KEY"]
+STRIPE_PUBLISHABLE_KEY = ENV["STRIPE_PUBLISHABLE_KEY"]
 
 # Note: do not listen for customer.subscription.updated
 # Reference : http://imzank.com/2012/11/how-to-use-stripe-com-to-email-your-customers/
