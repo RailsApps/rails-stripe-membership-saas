@@ -7,53 +7,52 @@ describe 'Charge API' do
     
   let(:stripe_helper) { StripeMock.create_test_helper }
 
+  before(:each) do
+    StripeMock.start
+  end
+
   after(:each) do
+    StripeMock.stop
     Warden.test_reset!
   end
 
   it "creates a stripe charge item with a card token" do
-    StripeMock.start
-    charge = Stripe::Charge.create(
+    charge = Stripe::Charge.create({
       amount: 995,
-      currency: 'USD',
-      card: stripe_helper.generate_card_token(last4: "4242", exp_month: 12, exp_year: 2018),
+      currency: 'usd',
+      source: stripe_helper.generate_card_token(last4: "4242", exp_month: 12, exp_year: 2018),
       description: 'card charge'
-    )
+    })
     expect(charge.id).to match(/^test_ch/)
     expect(charge.amount).to eq(995)
     expect(charge.description).to eq('card charge')
     expect(charge.captured).to eq(true)
-    StripeMock.stop
   end
 
   it "creates a stripe charge item with a customer and card id" do
-    StripeMock.start
     customer = Stripe::Customer.create({
       email: 'chargeitem@example.com',
-      card: stripe_helper.generate_card_token(number: '4242424242424242'),
+      source: stripe_helper.generate_card_token(number: '4242424242424242'),
       description: "customer creation with card token"
     })
-    card_token = customer.cards.data[0].id
-    expect(customer.cards.data.length).to eq(1)
-    expect(customer.cards.data[0].id).not_to be_nil
-    expect(customer.cards.data[0].last4).to eq('4242')
-    StripeMock.stop
+    card_token = customer.sources.data[0].id
+    expect(customer.sources.data.length).to eq(1)
+    expect(customer.sources.data[0].id).not_to be_nil
+    expect(customer.sources.data[0].last4).to eq('4242')
   end
 
   it "creates a stripe charge with a specific customer card" do
-    StripeMock.start
     begin
     customer = Stripe::Customer.create({
       email: 'chargeitem@example.com',
-      card: stripe_helper.generate_card_token(number: '4242424242424242'),
+      source: stripe_helper.generate_card_token(number: '4242424242424242'),
       description: "customer creation with card token"
     })
-    card = customer.cards.data[0]
+    card = customer.sources.data[0]
     charge = Stripe::Charge.create({
-      amount: 995,
-      currency: 'USD',
+      currency: 'usd',
       customer: customer.id,
-      card: stripe_helper.generate_card_token(number: '4242424242424242', amount: 995),
+      source: stripe_helper.generate_card_token(number: '4242424242424242', amount: 995),
       description: 'a charge with a specific card',
       })
     rescue Stripe::CardError => e
@@ -82,42 +81,35 @@ describe 'Charge API' do
     expect(charge.card.last4).to eq('4242')
     expect(charge.id).to match(/^test_ch/)
     end
-    StripeMock.stop
   end
 
-  it "requires a valid card token", :live => true do  # passing
-    StripeMock.start
+  it "requires a valid card token", :live => true do
     expect {
-      charge = Stripe::Charge.create(
+      charge = Stripe::Charge.create({
       amount: 995,
       currency: 'usd',
-      card: 'bogus_card_token'
-      )
+      source: 'bogus_card_token'
+      })
     }.to raise_error(Stripe::InvalidRequestError, /Invalid token id/)
-    StripeMock.stop
   end
 
-  it "retrieves a stripe charge" do  # passing
-    StripeMock.start
+  it "retrieves a stripe charge" do
     original = Stripe::Charge.create({
       amount: 995,
-      currency: 'USD',
-      card: stripe_helper.generate_card_token
+      currency: 'usd',
+      source: stripe_helper.generate_card_token
     })
     charge = Stripe::Charge.retrieve(original.id)
     expect(charge.id).to eq(original.id)
     expect(charge.amount).to eq(original.amount)
-    StripeMock.stop
   end
 
-  it "cannot retrieve a charge that doesn't exist" do  # passing
-    StripeMock.start
+  it "cannot retrieve a charge that doesn't exist" do
     expect { Stripe::Charge.retrieve('nope') }.to raise_error {|e|
-    expect(e).to be_a Stripe::InvalidRequestError
-    expect(e.param).to eq('charge')
-    expect(e.http_status).to eq(404)
-   }
-    StripeMock.stop
+      expect(e).to be_a Stripe::InvalidRequestError
+      expect(e.param).to eq('charge')
+      expect(e.http_status).to eq(404)
+    }
   end
 
 end

@@ -63,6 +63,3 @@ module StripeHelper
   end
 
 end
-
-    Status API Training Shop Blog About 
-

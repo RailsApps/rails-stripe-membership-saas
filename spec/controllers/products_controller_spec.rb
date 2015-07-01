@@ -1,5 +1,4 @@
 describe ProductsController do
-
   describe 'GET #show' do
 
     it "returns a PDF file" do
@@ -8,5 +7,4 @@ describe ProductsController do
     end
 
   end
-
 end

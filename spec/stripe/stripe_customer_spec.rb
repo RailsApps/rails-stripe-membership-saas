@@ -14,17 +14,18 @@ describe 'Customer API' do
     StripeMock.start
     customer = Stripe::Customer.create({
       email: 'user@example.com',
-      card: stripe_helper.generate_card_token,
+      source: stripe_helper.generate_card_token,
       description: "a customer description"
     })
     expect(customer.id).to match(/^test_cus/)
     expect(customer.email).to eq('user@example.com')
     expect(customer.description).to eq('a customer description')
-    expect(customer.cards.count).to eq(1)
-    expect(customer.cards.data.length).to eq(1)
-    expect(customer.default_card).not_to be_nil
-    expect(customer.default_card).to eq customer.cards.data.first.id
+    expect(customer.sources.total_count).to eq(1)
+    expect(customer.sources.data.length).to eq(1)
+    expect(customer.default_source).not_to be_nil
+    expect(customer.default_source).to eq customer.sources.data.first.id
     expect { customer.card }.to raise_error
+    expect { customer.sources }.not_to raise_error
     StripeMock.stop
   end
 
@@ -37,9 +38,9 @@ describe 'Customer API' do
     expect(customer.id).to match(/^test_cus/)
     expect(customer.email).to eq('cardless@example.com')
     expect(customer.description).to eq('no card')
-    expect(customer.cards.count).to eq(0)
-    expect(customer.cards.data.length).to eq(0)
-    expect(customer.default_card).to be_nil
+    expect(customer.sources.total_count).to eq(0)
+    expect(customer.sources.data.length).to eq(0)
+    expect(customer.default_source).to be_nil
     StripeMock.stop
   end
     
@@ -47,11 +48,11 @@ describe 'Customer API' do
     StripeMock.start
     customer = Stripe::Customer.create({
      email: 'storedinmemory@example.com',
-     card: stripe_helper.generate_card_token,
+     source: stripe_helper.generate_card_token,
     })
     customer2 = Stripe::Customer.create({
      email: 'bob@example.com',
-     card: stripe_helper.generate_card_token,
+     source: stripe_helper.generate_card_token,
     })
     customers = Stripe::Customer.all
     array = customers.to_a
@@ -68,13 +69,13 @@ describe 'Customer API' do
     StripeMock.start
     original = Stripe::Customer.create({
      email: 'retrievsidentifiedcustomer@example.com',
-     card: stripe_helper.generate_card_token,
+     source: stripe_helper.generate_card_token,
     })
     customer = Stripe::Customer.retrieve(original.id)
     expect(customer.id).to eq(original.id)
     expect(customer.email).to eq(original.email)
-    expect(customer.default_card).to eq(original.default_card)
-    expect(customer.subscriptions.count).to eq(0)
+    expect(customer.default_source).to eq(original.default_source)
+    expect(customer.subscriptions.total_count).to eq(0)
     expect(customer.subscriptions.data).to be_empty
     StripeMock.stop
   end
@@ -117,17 +118,19 @@ describe 'Customer API' do
     StripeMock.start
     customer = Stripe::Customer.create({
       id: 'test_customer_update', 
-      card: stripe_helper.generate_card_token,
+      source: stripe_helper.generate_card_token,
     })
-    card = customer.cards.data.first
-    expect(customer.default_card).to eq(card.id)
-    expect(customer.cards.count).to eq(1)
-    customer.card = stripe_helper.generate_card_token
+    card = customer.sources.data.first
+    expect(customer.default_source).to eq(card.id)
+    expect(customer.sources.total_count).to eq(1)
+    new_card = stripe_helper.generate_card_token
+    customer.source = new_card
     customer.save
-    new_card = customer.cards.data.first
-    expect(customer.cards.count).to eq(1)
-    expect(customer.default_card).to eq(new_card.id)
-    expect(new_card.id).not_to eq(card.id)
+    new_source = customer.sources.data.first
+    expect(customer.sources.total_count).to eq(1)
+    expect(customer.default_source).to eq(new_source.id)
+    expect(new_card).to match /^test_tok/
+    expect(new_source.id).to match /^test_cc/
     StripeMock.stop
   end
 
@@ -135,7 +138,7 @@ describe 'Customer API' do
     StripeMock.start
     customer = Stripe::Customer.create({
       email: 'deleteme@example.com',
-      card: stripe_helper.generate_card_token,
+      source: stripe_helper.generate_card_token,
     })
     customer = Stripe::Customer.retrieve(customer.id)
     customer = customer.delete

@@ -1,64 +1,68 @@
 require 'stripe_mock'
-require 'pry'
 
 include Warden::Test::Helpers
 Warden.test_mode!
 
 describe 'Card API' do
-    StripeMock.start
-    let(:stripe_helper) { StripeMock.create_test_helper }
-    let!(:card_token) { StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019) }
-    let!(:card) { customer.sources.create(card: card_token) }
-    let!(:card_token_2) { stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019) }
-    let!(:card_2) { customer.sources.create(card: card_token_2) }
-    let!(:customer) { Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original") }
 
-   after(:each) do
-      Warden.test_reset!
-    end
+  before(:each) do
+    StripeMock.start
+  end
+
+  after(:each) do
+    StripeMock.stop
+    Warden.test_reset!
+  end
+
+  let(:stripe_helper) { StripeMock.create_test_helper }
+  let!(:card_token) { stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019) }
+  let!(:card) { customer.sources.create(card: card_token) }
+  let!(:card_token_2) { stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019) }
+  let!(:card_2) { customer.sources.create(card: card_token_2) }
+  let!(:customer) { Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original") }
 
   it 'creates/returns a card when using customer.sources.create given a card token' do
     customer = Stripe::Customer.create(id: 'test_customer_sub')
-    card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2099)
+    card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 10, exp_year: 2020)
     card = customer.sources.create(card: card_token)
     expect(card.customer).to eq('test_customer_sub')
     expect(card.last4).to eq("1123")
-    expect(card.exp_month).to eq(11)
-    expect(card.exp_year).to eq(2099)
+    expect(card.exp_month).to eq(10)
+    expect(card.exp_year).to eq(2020)
     customer = Stripe::Customer.retrieve('test_customer_sub')
     expect(customer.sources.count).to eq(1)
     card = customer.sources.data.first
     expect(card.customer).to eq('test_customer_sub')
     expect(card.last4).to eq("1123")
-    expect(card.exp_month).to eq(11)
-    expect(card.exp_year).to eq(2099)
+    expect(card.exp_month).to eq(10)
+    expect(card.exp_year).to eq(2020)
   end
 
   it 'creates/returns a card when using customer.sources.create given card params' do
     customer = Stripe::Customer.create(id: 'test_customer_sub')
-    card = customer.sources.create(card: {
-      number: '4242424242424242',
+    source = customer.sources.create(card: {
+      card_number: '4242424242424242',
       exp_month: '11',
-      exp_year: '3031',
+      exp_year: '2021',
       cvc: '123'
     })
-    expect(card.customer).to eq('test_customer_sub')
-    expect(card.last4).to eq("4242")
-    expect(card.exp_month).to eq(11)
-    expect(card.exp_year).to eq(3031)
+    expect(source.customer).to eq 'test_customer_sub'
+    expect(source.last4).to eq "4242"
+    expect(source.exp_month).to eq 11
+    expect(source.exp_year).to eq 2021
     customer = Stripe::Customer.retrieve('test_customer_sub')
-    expect(customer.sources.count).to eq(1)
+    expect(customer.sources.count).to eq 1
     card = customer.sources.data.first
-    expect(card.customer).to eq('test_customer_sub')
-    expect(card.last4).to eq("4242")
-    expect(card.exp_month).to eq(11)
-    expect(card.exp_year).to eq(3031)
+    expect(card.customer).to eq 'test_customer_sub'
+    expect(card.last4).to eq "4242"
+    expect(card.exp_month).to eq 11
+    expect(card.exp_year).to eq 2021
   end
 
   it "creates a single card with a generated card token", :live => true do
     customer = Stripe::Customer.create
     expect(customer.sources.count).to eq 0
-    customer.sources.create( { :card => stripe_helper.generate_card_token })
+    customer.sources.create( { card: stripe_helper.generate_card_token })
     # Yes, stripe-ruby does not actually add the new card to the customer instance
     expect(customer.sources.count).to eq 0
     customer2 = Stripe::Customer.retrieve(customer.id)
@@ -68,16 +72,15 @@ describe 'Card API' do
 
   it 'create does not change the customers default card if already set' do
     customer = Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original")
-    card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
+    card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
     card = customer.sources.create(card: card_token)
     customer = Stripe::Customer.retrieve('test_customer_sub')
     expect(customer.default_source).to eq("test_cc_original")
-    #StripeMock.stop
   end
 
   it 'create updates the customers default card if not set' do
     customer = Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original")
-    card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
+    card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
     card = customer.sources.create(card: card_token)
     customer = Stripe::Customer.retrieve('test_customer_sub')
     expect(customer.default_source).not_to be_nil
@@ -87,48 +90,48 @@ describe 'Card API' do
 
     it "retrieves a customers card" do
       customer = Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original")
-      card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2099)
+      card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2099)
       card = customer.sources.create(card: card_token)
       retrieved = customer.sources.retrieve(card.id)
       expect(retrieved.to_s).to eq(card.to_s)
     end
-    
+
     it "retrieves a customer's card after re-fetching the customer" do
       customer = Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original")
-      card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
+      card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
       card = customer.sources.create(card: card_token)
       retrieved = Stripe::Customer.retrieve(customer.id).sources.retrieve(card.id)
       expect(retrieved.id).to eq card.id
     end
-    
+
     it "deletes a customers card" do
       customer = Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original")
-      card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
+      card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
       card = customer.sources.create(card: card_token)
       card.delete
       retrieved_cus = Stripe::Customer.retrieve(customer.id)
       expect(retrieved_cus.sources.data).to be_empty
     end
-    
+
     it "deletes a customers card then set the default_source to nil" do
       customer = Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original")
-      card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
+      card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
       card = customer.sources.create(card: card_token)
       card.delete
       retrieved_cus = Stripe::Customer.retrieve(customer.id)
       expect(retrieved_cus.default_source).to be_nil
     end
-    
+
     it "updates the default card if deleted" do
       customer = Stripe::Customer.create(id: 'test_customer_sub', default_source: "test_cc_original")
-      card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
+      card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
       card = customer.sources.create(card: card_token)
       card.delete
       retrieved_cus = Stripe::Customer.retrieve(customer.id)
       expect(retrieved_cus.default_source).to be_nil
     end
   end
-    
+
   context "deletion when the user has two card sources" do
     it "has just one card anymore" do
 #      StripeMock.start
@@ -167,15 +170,13 @@ describe 'Card API' do
   describe "update card" do
     it "updates the card" do
       customer = Stripe::Customer.create()
-      card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
+      card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2019)
       card = customer.sources.create(card: card_token)
       exp_month = 10
       exp_year = 2020
-
       card.exp_month = exp_month
       card.exp_year = exp_year
       card.save
-
       retrieved = customer.sources.retrieve(card.id)
       expect(retrieved.exp_month).to eq(exp_month)
       expect(retrieved.exp_year).to eq(exp_year)
@@ -185,9 +186,9 @@ describe 'Card API' do
   describe "retrieve multiple sources" do
     it "retrieves a list of multiple sources" do
       customer = Stripe::Customer.create(id: 'test_customer_card')
-      card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2099)
+      card_token = stripe_helper.generate_card_token(last4: "1123", exp_month: 11, exp_year: 2099)
       card1 = customer.sources.create(card: card_token)
-      card_token = StripeMock.generate_card_token(last4: "1124", exp_month: 12, exp_year: 2098)
+      card_token = stripe_helper.generate_card_token(last4: "1124", exp_month: 12, exp_year: 2098)
       card2 = customer.sources.create(card: card_token)
       customer = Stripe::Customer.retrieve('test_customer_card')
       list = customer.sources.all
