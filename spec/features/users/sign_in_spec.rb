@@ -2,31 +2,20 @@ include Features::SessionHelpers
 include Warden::Test::Helpers
 Warden.test_mode!
 
-RSpec.configure do |config|
-
-  config.before(:each) do
-    FactoryGirl.reload 
-  end
-
-  config.after(:each) do
-    Warden.test_reset!
-  end
-end
-
-feature 'mocking with RSpec', js: true do
-  scenario "passes when it should" do
-    user = double('user')
-    expect(user).to receive(:message)
-    user.message
-  end
-end
-
 # Feature: Sign in
 #   As a user
 #   I want to sign in
 #   So I can visit protected areas of the site
-feature 'User', :devise, js: true do 
- 
+feature 'User', :devise, js: true do
+
+  before(:each) do
+    FactoryGirl.reload 
+  end
+
+  after(:each) do
+    Warden.test_reset!
+  end
+
   # Scenario: User cannot sign in if not registered
   #   Given I do not exist as a user
   #   When I sign in with valid credentials
@@ -50,8 +39,10 @@ feature 'User', :devise, js: true do
     user = FactoryGirl.build(:user)
     user.role = 'admin'
     user.save!
-    sign_in('test@example.com', 'please123')
+    visit new_user_session_path
+    sign_in(user.email, user.password)
     expect(page).to have_content 'Signed in successfully.'
+    expect(page).to have_content I18n.t 'devise.sessions.signed_in'
     visit '/users'
     expect(current_path).to eq '/users'
   end
@@ -64,11 +55,10 @@ feature 'User', :devise, js: true do
   scenario 'cannot sign in with wrong email' do
     user = FactoryGirl.create(:user)
     visit new_user_session_path
-    sign_in('invalid@example.com', 'pleaseletmein')
+    sign_in('invalid@example.com', 'user.password')
     expect(page).to have_content 'Invalid email or password.'
     expect(page).to have_content I18n.t 'devise.failure.invalid', authentication_keys: 'email'
     expect(page).to have_content I18n.t 'devise.failure.not_found_in_database', authentication_keys: 'email'
-
   end
 
   # Scenario: User cannot sign in with wrong password
@@ -81,7 +71,7 @@ feature 'User', :devise, js: true do
     user.role = 'admin'
     user.save!
     visit new_user_session_path
-    sign_in('test@example.com', 'invalidpass')
+    sign_in(user.email, 'invalidpass')
     expect(page).to have_content 'Invalid email or password.'
     expect(page).to have_content I18n.t 'devise.failure.invalid', authentication_keys: 'email'
     expect(page).to have_content I18n.t 'devise.failure.not_found_in_database', authentication_keys: 'email'

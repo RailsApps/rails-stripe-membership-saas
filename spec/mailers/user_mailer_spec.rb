@@ -1,6 +1,6 @@
 describe UserMailer do
   describe '#expire_mail' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user, email: 'johnny@appleseed.com') }
     let(:mail) { UserMailer.expire_email(user) }
 
     it "has the correct user email" do

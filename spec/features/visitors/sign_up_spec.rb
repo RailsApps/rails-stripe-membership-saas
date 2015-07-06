@@ -23,14 +23,8 @@ end
 #   So I can visit protected areas of the site
 feature 'Sign Up', :devise, type: :controller, js: true do
 
-  let(:stripe_helper) { StripeMock.create_test_helper }
-
   before do
     CreatePlanService.new.call
-  end
-
-  after(:each) do
-    Warden.test_reset!
   end
 
   # Scenario: Visitor can sign up with valid email address and password
@@ -49,16 +43,13 @@ feature 'Sign Up', :devise, type: :controller, js: true do
     pending 'signups need more work'
     visit '/users/sign_up?plan=gold'
     expect(current_path).to eq '/users/sign_up'
-    sign_up_gold('user5@example.com', 'please125', 'please125')
+    sign_up_gold
     expect(page).to have_content 'Welcome! You have signed up successfully.'
   end
 
   scenario 'visitor can sign up as a platinum subscriber' do
     pending 'signups need more work'
-   #stripe_token = stripe_helper.generate_card_token(card_number: "4242424242424242", exp_month: 9, exp_year: 2019)
-   #sign_up_platinum('user6@example.com', 'please126', 'please126', stripe_token)
-    sign_up_platinum('user6@example.com', 'please126', 'please126')
-   #expect(current_path).to eq '/users/sign_up?plan=platinum'
+    sign_up_platinum
     expect(page).to have_content 'Welcome! You have signed up successfully.'
   end
 end
