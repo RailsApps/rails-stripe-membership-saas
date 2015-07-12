@@ -1,3 +1,9 @@
+# 20150709 : i blocked this test set out because it seems the idempotency_key cannot be tested
+#  as being useful or ever able to be used by Stripe, 
+#   due to the token key being limited to a one time use.
+# I have communications back and forth with stripe support on this matter.
+# Testing the idempotency_key can be ignored for now
+=begin
 require 'pry'
 require 'stripe_mock'
 
@@ -56,7 +62,7 @@ describe 'Stripe idempotency_key' do
     # do nothing because we cannot see the response, so we do the charge again again, and we expect no error because we use the idempotent key
     # because we did make the charge, the stripe response has been sent to us. here, we simply ignore that fact, and
     # try to make the same charge again : we are faking ourselves out on this first if statement, as we know it is true
-binding.pry  # update, the thing to do is first ask stripe for the charge, using the Stripe::Charge.retrieve(source_token) method.
+#binding.pry  # update, the thing to do is first ask stripe for the charge, using the Stripe::Charge.retrieve(source_token) method.
     if (expect(charge.id).to match /^test_ch/) == true
       charge = create_charge(source_token, uuid)
     elsif (expect(charge.id).to match /^test_ch/) == true
@@ -90,3 +96,4 @@ binding.pry  # update, the thing to do is first ask stripe for the charge, using
     }
   end
 end
+=end
