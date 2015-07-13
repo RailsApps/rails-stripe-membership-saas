@@ -147,18 +147,21 @@ describe 'Card API' do
 
     it "deletes a customers card" do
       card.delete
+
       retrieved_cus = Stripe::Customer.retrieve(customer.id)
       expect(retrieved_cus.sources.data).to be_empty
     end
 
     it "deletes a customers card then set the default_card to nil" do
       card.delete
+
       retrieved_cus = Stripe::Customer.retrieve(customer.id)
       expect(retrieved_cus.default_source).to be_nil
     end
 
     it "updates the default card if deleted" do
       card.delete
+
       retrieved_cus = Stripe::Customer.retrieve(customer.id)
       expect(retrieved_cus.default_source).to be_nil
     end
@@ -170,6 +173,7 @@ describe 'Card API' do
 
       it "has just one card anymore" do
         card.delete
+
         retrieved_cus = Stripe::Customer.retrieve(customer.id)
         expect(retrieved_cus.sources.data.count).to eq 1
         expect(retrieved_cus.sources.data.first.id).to eq card_2.id
@@ -177,6 +181,7 @@ describe 'Card API' do
 
       it "sets the default_card id to the last card remaining id" do
         card.delete
+
         retrieved_cus = Stripe::Customer.retrieve(customer.id)
         expect(retrieved_cus.default_source).to eq card_2.id
       end
@@ -196,12 +201,14 @@ describe 'Card API' do
 
     it "deletes a recipient card" do
       card.delete
+
       retrieved_cus = Stripe::Recipient.retrieve(recipient.id)
       expect(retrieved_cus.cards.data).to be_empty
     end
 
     it "deletes a recipient card then set the default_card to nil" do
       card.delete
+
       retrieved_cus = Stripe::Recipient.retrieve(recipient.id)
       expect(retrieved_cus.default_card).to be_nil
     end
@@ -213,6 +220,7 @@ describe 'Card API' do
 
       it "has just one card anymore" do
         card.delete
+
         retrieved_rec = Stripe::Recipient.retrieve(recipient.id)
         expect(retrieved_rec.cards.data.count).to eq 1
         expect(retrieved_rec.cards.data.first.id).to eq card_2.id
@@ -220,6 +228,7 @@ describe 'Card API' do
 
       it "sets the default_card id to the last card remaining id" do
         card.delete
+
         retrieved_rec = Stripe::Recipient.retrieve(recipient.id)
         expect(retrieved_rec.default_card).to eq card_2.id
       end
@@ -265,6 +274,7 @@ describe 'Card API' do
       card1 = customer.sources.create(source: card_token)
       card_token = stripe_helper.generate_card_token(last4: "1124", exp_month: 12, exp_year: 2030)
       card2 = customer.sources.create(source: card_token)
+
       customer = Stripe::Customer.retrieve('test_customer_card')
       list = customer.sources.all
       expect(list.object).to eq "list"
@@ -278,6 +288,7 @@ describe 'Card API' do
 
     it "retrieves an empty list if there's no subscriptions" do
       Stripe::Customer.create(id: 'no_cards')
+
       customer = Stripe::Customer.retrieve('no_cards')
       list = customer.sources.all
       expect(list.object).to eq "list"
