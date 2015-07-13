@@ -265,7 +265,6 @@ describe 'Card API' do
       card1 = customer.sources.create(source: card_token)
       card_token = stripe_helper.generate_card_token(last4: "1124", exp_month: 12, exp_year: 2030)
       card2 = customer.sources.create(source: card_token)
-
       customer = Stripe::Customer.retrieve('test_customer_card')
       list = customer.sources.all
       expect(list.object).to eq "list"
@@ -280,7 +279,6 @@ describe 'Card API' do
     it "retrieves an empty list if there's no subscriptions" do
       Stripe::Customer.create(id: 'no_cards')
       customer = Stripe::Customer.retrieve('no_cards')
-
       list = customer.sources.all
       expect(list.object).to eq "list"
       expect(list.count).to eq 0

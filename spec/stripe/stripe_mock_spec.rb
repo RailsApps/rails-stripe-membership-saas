@@ -74,7 +74,7 @@ describe StripeMock do
       StripeMock.stop
       StripeMock.instance_variable_set(:@state, 'remote')
       expect { StripeMock.toggle_live(true) }.to raise_error { |e|
-      expect(e).to be_a(RuntimeError)
+        expect(e).to be_a(RuntimeError)
       }
     end
   end
@@ -96,7 +96,7 @@ describe StripeMock do
 
     it "throws an error on an unknown strategy" do
       expect { StripeMock.create_test_helper(:lol) }.to raise_error { |e|
-      expect(e).to be_a(RuntimeError)
+        expect(e).to be_a(RuntimeError)
       }
     end
 

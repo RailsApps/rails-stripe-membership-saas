@@ -18,11 +18,11 @@ describe 'Customer API' do
 
   it "creates a stripe customer with a default source" do
     card_token = StripeMock.generate_card_token(last4: "1123", exp_month: 9, exp_year: 2016)
-    customer = Stripe::Customer.create({
+    customer = Stripe::Customer.create(
       email: 'user@example.com',
       source: card_token,
       description: "a customer description",
-    })
+    )
     charge = Stripe::Charge.create({
       amount: 900,
       currency: "usd",
@@ -53,10 +53,10 @@ describe 'Customer API' do
   end
 
   it "creates a stripe customer without a card" do
-    customer = Stripe::Customer.create({
+    customer = Stripe::Customer.create(
      email: 'cardless@example.com',
      description: "no card"
-    })
+    )
     expect(customer.id).to match(/^test_cus/)
     expect(customer.email).to eq('cardless@example.com')
     expect(customer.description).to eq 'no card'
@@ -66,14 +66,14 @@ describe 'Customer API' do
   end
     
   it "stores a created stripe customer in memory" do
-    customer = Stripe::Customer.create({
+    customer = Stripe::Customer.create(
      email: 'storedinmemory@example.com',
      source: stripe_helper.generate_card_token,
-    })
-    customer2 = Stripe::Customer.create({
+    )
+    customer2 = Stripe::Customer.create(
      email: 'bob@example.com',
      source: stripe_helper.generate_card_token,
-    })
+    )
     customers = Stripe::Customer.all
     array = customers.to_a
     data = array.pop
@@ -85,10 +85,10 @@ describe 'Customer API' do
   end
 
   it "retrieves an identified stripe customer" do
-    original = Stripe::Customer.create({
+    original = Stripe::Customer.create(
      email: 'retrievesidentifiedcustomer@example.com',
      source: stripe_helper.generate_card_token,
-    })
+    )
     customer = Stripe::Customer.retrieve(original.id)
     expect(customer.id).to eq original.id
     expect(customer.email).to eq original.email
@@ -128,10 +128,10 @@ describe 'Customer API' do
 
   it "updates a stripe customer's card" do
     card_one = stripe_helper.generate_card_token(last4: "4242", exp_month: 11, exp_year: 2018)
-    customer = Stripe::Customer.create({
+    customer = Stripe::Customer.create(
       id: 'test_customer_update', 
       source: card_one,
-    })
+    )
     card_one = customer.sources.data.first
     expect(card_one.id).to match(/^test_cc/)
     expect(customer.default_source).to match(/^test_cc/)
@@ -145,10 +145,10 @@ describe 'Customer API' do
   end
 
   it "deletes a customer" do
-    customer = Stripe::Customer.create({
+    customer = Stripe::Customer.create(
       email: 'deleteme@example.com',
       source: stripe_helper.generate_card_token,
-    })
+    )
     customer = Stripe::Customer.retrieve(customer.id)
     customer = customer.delete
     expect(customer.deleted).to eq true
