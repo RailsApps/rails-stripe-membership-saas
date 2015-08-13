@@ -1,3 +1,5 @@
+# Note for rails-stripe-memberships-saas app : this test can be ignored, removed, etc.
+# this is more of a test upon stripe_mock itself
 require 'stripe_mock'
 
 describe StripeMock do

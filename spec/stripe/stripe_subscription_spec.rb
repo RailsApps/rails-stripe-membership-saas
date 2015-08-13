@@ -16,12 +16,50 @@ describe 'Subscription API' do
     Warden.test_reset!
   end
 
+  it 'creates a stripe plan' do
+    plan = stripe_helper.create_plan(id: 'my_plan', amount: 1500)
+    # The above line creates / mocks / replaces the following:
+    # plan = Stripe::Plan.create(
+    #   id: 'my_plan',
+    #   name: 'StripeMock Default Plan ID',
+    #   amount: 1500,
+    #   currency: 'usd',
+    #   object: 'plan',
+    #   livemode: false,
+    #   interval: 'month',
+    #   interval_count: 1,
+    #   trial_period_days: null
+    # )
+    # any variable of plan can now be tested
+    expect(plan.id).to eq 'my_plan'
+    expect(plan.amount).to eq 1500
+    expect(plan.currency).to eq 'usd'
+    expect(plan.interval).to eq 'month'
+    expect(plan.interval_count).not_to eq 2
+    expect(plan.trial_period_days).not_to eq 7
+  end
+
+  it 'creates a different stripe plan' do
+    planb = stripe_helper.create_plan(
+      id: 'your_plan', 
+      amount: 500, 
+      name: 'Your Plan Name',
+      trial_period_days: 14
+    )
+    expect(planb.id).to eq 'your_plan'
+    expect(planb.amount).to eq 500
+    expect(planb.currency).to eq 'usd'
+    expect(planb.interval).to eq 'month'
+    expect(planb.interval_count).not_to eq 0
+    expect(planb.trial_period_days).to eq 14
+  end
+
   it 'allows customer to cancel subscription' do
     card_token = StripeMock.generate_card_token(last4: '4242', exp_month: 11, exp_year: 2016)
     customer = Stripe::Customer.create(
-      email:       'cancelsub@example.com',
-      source:      card_token,
-      description: 'a customer cancellation',
+      email: 'cancelsub@example.com',
+      source: card_token,
+      description: 'a customer cancellation'
     )
     @user = FactoryGirl.create(:user, email: 'cancelsub@example.com')
     customer = Stripe::Customer.retrieve(customer.id)

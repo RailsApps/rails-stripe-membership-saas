@@ -99,13 +99,12 @@ describe 'StripeToken' do
       expect(customer.default_source).to match /^test_cc/
     end
 
-    it "generates a stripe card token" do
-      card_token = StripeMock.generate_card_token(last4: "9191", exp_month: 12, exp_year: 2025)
-      customer = Stripe::Customer.create(source: card_token)
-      customer.save
-      user = Stripe::Customer.retrieve(customer.id)
+    it 'generates a stripe card token' do
+      card_token = StripeMock.generate_card_token(last4: '9191', exp_month: 12, exp_year: 2025)
+      cus = Stripe::Customer.create(source: card_token)
+      user = Stripe::Customer.retrieve(cus.id)
       card = user.sources.data.first
-      expect(card.last4).to eq "9191"
+      expect(card.last4).to eq '9191'
       expect(card.exp_month).to eq 12
       expect(card.exp_year).to eq 2025
       expect(user.sources.data.first.id).to match /^test_cc/

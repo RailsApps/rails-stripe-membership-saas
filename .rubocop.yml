@@ -1,0 +1,8 @@
+Style/Encoding:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 99
+
+AllCops:
+  RunRailsCops: true
