@@ -4,6 +4,8 @@ Rails 4.2 example application demonstrates how to use "Stripe":https://stripe.co
 
 This application replaces a very popular Rails 3.2 implementation, available in a "Rails 3.2 branch":https://github.com/RailsApps/rails-stripe-membership-saas/tree/rails3.2, and now uses the "Payola":https://www.payola.io/ gem.
 
+!http://railsapps.github.io/images/join/join-railsapps.png(Join the RailsApps Project)!:http://railsapps.github.io/
+
 See the tutorial for a complete explanation of the code:
 
 * "*Membership Site with Stripe*":https://tutorials.railsapps.org/rails-stripe-membership-saas
@@ -29,9 +31,11 @@ You can build this application in only a few minutes using the "Rails Composer":
 
 !http://railsapps.github.io/images/rails-stripe-membership-saas.png(Rails Application for a Membership, Subscription, or SaaS Site)!
 
-h4. What is the RailsApps Project?
+h4. From the RailsApps Project
 
-The "RailsApps project":http://railsapps.github.io/ provides example applications that developers use as starter apps. Hundreds of developers use the apps, report problems as they arise, and propose solutions. Rails changes frequently; each application is known to work and serves as your personal "reference implementation." Support for the project comes from subscribers. If this application is helpful to you, please "join the RailsApps project":http://railsapps.github.io/ to support our work.
+The "RailsApps":http://railsapps.github.io/ open source project offers starter applications and tutorials for Rails developers. Generate the applications with the Rails Composer tool.
+
+All the code is explained in the Capstone Rails Tutorials. You can purchase the "Capstone Rails Tutorials":https://tutorials.railsapps.org/ to support the project.
 
 h4. If You Are New to Rails
 
