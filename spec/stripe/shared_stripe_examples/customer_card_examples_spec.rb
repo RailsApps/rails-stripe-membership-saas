@@ -18,7 +18,7 @@ shared_examples "Multiple Customer Cards" do
   it "gives the same two card numbers the same fingerprints", live: true do
     tok1 = Stripe::Token.retrieve stripe_helper.generate_card_token number: "4242424242424242"
     tok2 = Stripe::Token.retrieve stripe_helper.generate_card_token number: "4242424242424242"
-    customer = Stripe::Customer.create(:email: 'alice@bob.com', card: tok1.id)
+    customer = Stripe::Customer.create(email: 'alice@bob.com', card: tok1.id)
     customer = Stripe::Customer.retrieve(customer.id)
     card = customer.sources.find do |existing_card|
       existing_card.fingerprint == tok2.card.fingerprint

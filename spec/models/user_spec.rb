@@ -1,6 +1,4 @@
 require 'stripe_mock'
-require 'stripe_mock/server'
-
 include Warden::Test::Helpers
 Warden.test_mode!
 
@@ -23,7 +21,7 @@ describe User do
     StripeMock.stop
     Warden.test_reset!
   end
-
+    
   it 'responds to email' do
     expect(@user).to respond_to(:email)
   end
@@ -39,6 +37,7 @@ describe User do
 
   it 'should require an email address' do
     expect(@user.email = '').not_to be_falsey
+
   end
 
   it 'should accept valid email addresses' do
@@ -129,6 +128,7 @@ describe 'password encryption' do
 
   it 'should set the encrypted password attribute' do
     expect(@user.password).not_to be_blank
+
   end
 end
 

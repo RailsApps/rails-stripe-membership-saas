@@ -1,6 +1,5 @@
 module Features
   module SessionHelpers
-
     def sign_up_silver
       fill_in 'Email', with: 'silver@johnnyappleseed.com'
       fill_in 'Password', with: 'please123'
@@ -33,6 +32,12 @@ module Features
       fill_in 'card_code', with: '123'
       select 12, from: 'date_month'
       select 2022, from: 'date_year'
+
+    def sign_up(email, password, confirmation)
+      visit new_user_registration_path
+      fill_in 'Email', with: email
+      fill_in 'Password', with: password
+      fill_in 'Password confirmation', with: confirmation
       click_button 'Sign up'
     end
 

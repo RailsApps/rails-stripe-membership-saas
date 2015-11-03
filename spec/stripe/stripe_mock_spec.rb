@@ -3,20 +3,20 @@
 require 'stripe_mock'
 
 describe StripeMock do
-  it "overrides stripe's request method" do
+  it 'overrides stripe request method' do
     StripeMock.start
     Stripe.request(:xtest, '/', 'abcde') # no error
     StripeMock.stop
   end
 
-  it "reverts overriding stripe's request method" do
+  it 'reverts overriding stripe request method' do
     StripeMock.start
     Stripe.request(:xtest, '/', 'abcde') # no error
     expect { Stripe.request(:x, '/', 'abcde') }.not_to raise_error
     StripeMock.stop
   end
 
-  it "does not persist data between mock sessions" do
+  it 'does not persist data between mock sessions' do
     StripeMock.start
     StripeMock.instance.customers[:x] = 9
     StripeMock.stop
@@ -26,7 +26,7 @@ describe StripeMock do
     StripeMock.stop
   end
 
-  it "throws an error when trying to prepare an error before starting" do
+  it 'throws an error when trying to prepare an error before starting' do
     StripeMock.stop
     expect { StripeMock.prepare_error(StandardError.new) }.to raise_error { |e|
       expect(e).to be_a(StripeMock::UnstartedStateError)
@@ -36,10 +36,10 @@ describe StripeMock do
     }
   end
 
-  describe "Live Testing" do
+  describe 'Live Testing' do
     after { StripeMock.instance_variable_set(:@state, 'ready') }
 
-    it "sets the default test strategy" do
+    it 'sets the default test strategy' do
       StripeMock.stop
       expect(StripeMock.state).to eq 'ready'
       StripeMock.toggle_live(true)
@@ -48,7 +48,7 @@ describe StripeMock do
       expect(StripeMock.create_test_helper).to be_a StripeMock::TestStrategies::Mock
     end
 
-    it "does not start when live" do
+    it 'does not start when live' do
       StripeMock.instance_variable_set(:@state, 'ready')
       expect(StripeMock.state).to eq 'ready'
       StripeMock.toggle_live(true)
@@ -57,7 +57,7 @@ describe StripeMock do
       expect(StripeMock.start_client).to eq false
     end
 
-    it "can be undone" do
+    it 'can be undone' do
       StripeMock.stop
       StripeMock.toggle_live(true)
       expect(StripeMock.state).to eq 'live'
@@ -68,7 +68,7 @@ describe StripeMock do
       StripeMock.stop
     end
 
-    it "cannot be toggled when already started" do
+    it 'cannot be toggled when already started' do
       StripeMock.start
       expect { StripeMock.toggle_live(true) }.to raise_error { |e|
         expect(e).to be_a(RuntimeError)
@@ -81,34 +81,34 @@ describe StripeMock do
     end
   end
 
-  describe "Test Helper Strategies" do
-    before { StripeMock.instance_variable_set("@__test_strat", nil) }
+  describe 'Test Helper Strategies' do
+    before { StripeMock.instance_variable_set('@__test_strat', nil) }
 
-    it "uses mock by default" do
+    it 'uses mock by default' do
       helper = StripeMock.create_test_helper
       expect(helper).to be_a StripeMock::TestStrategies::Mock
     end
 
-    it "can specify which strategy to use" do
+    it 'can specify which strategy to use' do
       helper = StripeMock.create_test_helper(:live)
       expect(helper).to be_a StripeMock::TestStrategies::Live
       helper = StripeMock.create_test_helper(:mock)
       expect(helper).to be_a StripeMock::TestStrategies::Mock
     end
 
-    it "throws an error on an unknown strategy" do
+    it 'throws an error on an unknown strategy' do
       expect { StripeMock.create_test_helper(:lol) }.to raise_error { |e|
         expect(e).to be_a(RuntimeError)
       }
     end
 
-    it "can configure the default strategy" do
+    it 'can configure the default strategy' do
       StripeMock.set_default_test_helper_strategy(:live)
       helper = StripeMock.create_test_helper
       expect(helper).to be_a StripeMock::TestStrategies::Live
     end
 
-    it "can overrige a set default strategy" do
+    it 'can override a set default strategy' do
       StripeMock.set_default_test_helper_strategy(:live)
       helper = StripeMock.create_test_helper(:mock)
       expect(helper).to be_a StripeMock::TestStrategies::Mock
