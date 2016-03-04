@@ -31,8 +31,7 @@ class User < ActiveRecord::Base
       body: {
         email_address: self.email,
         status: 'subscribed'
-      }
-    )
+    })
     Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
   end
 end

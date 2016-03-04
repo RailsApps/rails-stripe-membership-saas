@@ -21,6 +21,9 @@ db/*.sqlite3
 /log/*
 /tmp/*
 
+# add /config/database.yml if it contains passwords
+# /config/database.yml
+
 # various artifacts
 **.war
 *.rbc
@@ -28,7 +31,6 @@ db/*.sqlite3
 .redcar/
 .sass-cache
 /config/config.yml
-/config/database.yml
 /coverage.data
 /coverage/
 /db/*.javadb/
@@ -78,5 +80,9 @@ pickle-email-*.html
 .env
 .powenv
 
+# tilde files are usually backup files from a text editor
+*~
+
 # StripeMock log
 /stripe-mock-server.log
+/stripe-mock-server.pid
