@@ -1,8 +1,11 @@
-Style/Encoding:
+AlignParameters:
   Enabled: false
 
-Metrics/LineLength:
-  Max: 99
+Rails:
+  Enabled: true
 
-AllCops:
-  RunRailsCops: true
+Metrics/LineLength:
+  Max: 120
+
+Style/Encoding:
+  Enabled: false
