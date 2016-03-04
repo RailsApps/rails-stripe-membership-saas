@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
-gem 'rails', '4.2.5'
+ruby '2.3.0'
+gem 'rails', '4.2.5.2'
 gem 'sqlite3'
 gem 'bootstrap-sass'
 gem 'coffee-rails', '~> 4.1.0'
@@ -18,7 +18,7 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'spring-commands-rspec'
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 3.0'
 end
 group :development, :test do
   gem 'byebug'
