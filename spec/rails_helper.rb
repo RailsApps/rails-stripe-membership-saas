@@ -16,7 +16,8 @@ require 'stripe_mock/server'
 # require 'celluloid'             # 20150111 see controllers/users_controller.rb
 # require 'celluloid/autostart'   # ditto above line
 # require 'email_spec'
-require 'sucker_punch'
+# require 'sucker_punch'
+require 'sucker_punch/async_syntax'
 # require 'sucker_punch/testing/inline'
 require 'thin'
 # ARGV = [] # Reset ARGV so Dante will quit using rspec params
