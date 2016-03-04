@@ -32,6 +32,7 @@ module Features
       fill_in 'card_code', with: '123'
       select 12, from: 'date_month'
       select 2022, from: 'date_year'
+    end
 
     def sign_up(email, password, confirmation)
       visit new_user_registration_path

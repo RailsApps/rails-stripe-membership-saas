@@ -1,11 +1,9 @@
 require 'stripe_mock'
-
 include Features::SessionHelpers
 include Warden::Test::Helpers
 Warden.test_mode!
 
 RSpec.configure do |config|
-
   config.before(:each) do
     StripeMock.start
     FactoryGirl.reload
@@ -22,7 +20,6 @@ end
 #   I want to sign up
 #   So I can visit protected areas of the site
 feature 'Sign Up', :devise, type: :controller, js: true do
-
   before do
     CreatePlanService.new.call
   end

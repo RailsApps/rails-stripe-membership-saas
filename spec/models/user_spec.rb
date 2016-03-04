@@ -21,7 +21,7 @@ describe User do
     StripeMock.stop
     Warden.test_reset!
   end
-    
+
   it 'responds to email' do
     expect(@user).to respond_to(:email)
   end
@@ -37,7 +37,6 @@ describe User do
 
   it 'should require an email address' do
     expect(@user.email = '').not_to be_falsey
-
   end
 
   it 'should accept valid email addresses' do
@@ -128,7 +127,6 @@ describe 'password encryption' do
 
   it 'should set the encrypted password attribute' do
     expect(@user.password).not_to be_blank
-
   end
 end
 
@@ -144,7 +142,7 @@ describe 'expire' do
   it 'sends an email to user', live: true do
     pending 'needs work'
     @user.save
-    @user.expire_email
+    UserMailer.expire_email(@user)
     expect(ActionMailer::Base.deliveries.last.to).to eq @user.email
   end
 end

@@ -9,7 +9,6 @@ require 'rspec/mocks'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'factory_girl_rails'
-require 'rspec/mocks'
 require 'stripe_mock'
 require 'stripe_mock/server'
 # require 'celluloid'             # 20150111 see controllers/users_controller.rb
@@ -18,9 +17,9 @@ require 'stripe_mock/server'
 require 'sucker_punch'
 # require 'sucker_punch/testing/inline'
 require 'thin'
-ARGV = [] # Reset ARGV so Dante will quit using rspec params
-StripeMock.spawn_server # Live tests, run $ rspec -t live
-ActiveRecord::Base.connection.reconnect!
+# ARGV = [] # Reset ARGV so Dante will quit using rspec params
+# StripeMock.spawn_server # Live tests, run $ rspec -t live
+# ActiveRecord::Base.connection.reconnect!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

@@ -5,7 +5,7 @@ gem 'sqlite3'
 gem 'bootstrap-sass'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
-gem 'gibbon'
+gem 'gibbon', '~> 2.2', '>= 2.2.1'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'payola-payments'
@@ -27,7 +27,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'spring'
-  gem 'stripe-ruby-mock', '~> 2.2.0', require: 'stripe_mock'
+  # gem 'stripe-ruby-mock', '~> 2.2.0', require: 'stripe_mock'
+  gem 'stripe-ruby-mock', git: 'https://github.com/rebelidealist/stripe-ruby-mock.git', branch: 'master', require: 'stripe_mock'
   gem 'thin', '~> 1.6.3'
 end
 group :test do
