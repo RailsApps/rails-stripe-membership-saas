@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   enum role: [:user, :admin, :silver, :gold, :platinum]
-  after_initialize :set_default_role, :if => :new_record?
-  after_initialize :set_default_plan, :if => :new_record?
-  # after_create :sign_up_for_mailing_list
+  after_initialize :set_default_role, if: :new_record?
+  after_initialize :set_default_plan, if: :new_record?
+  after_create :sign_up_for_mailing_list
 
   belongs_to :plan
   validates_associated :plan
@@ -34,5 +34,4 @@ class User < ActiveRecord::Base
     })
     Rails.logger.info("Subscribed #{self.email} to MailChimp") if result
   end
-
 end

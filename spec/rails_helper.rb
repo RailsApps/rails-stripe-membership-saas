@@ -7,6 +7,23 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+require 'rspec/mocks'
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'factory_girl_rails'
+require 'stripe_mock'
+require 'stripe_mock/server'
+# require 'celluloid'             # 20150111 see controllers/users_controller.rb
+# require 'celluloid/autostart'   # ditto above line
+# require 'email_spec'
+# require 'sucker_punch'
+require 'sucker_punch/async_syntax'
+# require 'sucker_punch/testing/inline'
+require 'thin'
+# ARGV = [] # Reset ARGV so Dante will quit using rspec params
+# StripeMock.spawn_server # Live tests, run $ rspec -t live
+# ActiveRecord::Base.connection.reconnect!
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -25,6 +42,14 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+
+# Reference : http://stackoverflow.com/questions/8862967/visit-method-not-found-in-my-rspec
+module ::RSpec::Core
+  class ExampleGroup
+    include Capybara::DSL
+    include Capybara::RSpecMatchers
+  end
+end
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -54,4 +79,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.include Warden::Test::Helpers
 end

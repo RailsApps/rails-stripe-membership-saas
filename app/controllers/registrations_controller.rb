@@ -54,6 +54,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
+  def payola_can_modify_subscription?(subscription)
+    subscription.owner == current_user
+  end
+
   def sign_up_params
     params.require(:user).permit(:email,
     :password, :password_confirmation, :plan_id)

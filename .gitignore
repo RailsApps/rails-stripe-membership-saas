@@ -82,3 +82,7 @@ pickle-email-*.html
 
 # tilde files are usually backup files from a text editor
 *~
+
+# StripeMock log
+/stripe-mock-server.log
+/stripe-mock-server.pid

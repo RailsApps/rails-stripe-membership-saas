@@ -1,0 +1,11 @@
+AlignParameters:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Metrics/LineLength:
+  Max: 120
+
+Style/Encoding:
+  Enabled: false
