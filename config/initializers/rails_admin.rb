@@ -8,8 +8,19 @@ RailsAdmin.config do |config|
   # end
   config.current_user_method(&:current_user)
 
+  config.compact_show_view = false
+  config.parent_controller = 'Backend::ApplicationController'
+
   ## == Cancan ==
   config.authorize_with :cancan
+  # config.authorize_with do
+  #   if current_user.try(:admin?)
+  #     :cancan
+  #   else
+  #     flash[:error] = "You are not authorize to access this page!"
+  #     redirect_to main_app.root_path
+  #   end
+  # end
 
   ## == Pundit ==
   # config.authorize_with :pundit
@@ -24,8 +35,8 @@ RailsAdmin.config do |config|
   # config.show_gravatar true
 
   config.actions do
-    dashboard                     # mandatory
-    index                         # mandatory
+    dashboard # mandatory
+    index # mandatory
     new
     export
     bulk_delete
