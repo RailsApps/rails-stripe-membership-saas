@@ -11,6 +11,8 @@ class Ability
       can :access, :rails_admin
       can :manage, :all
 
+      cannot :edit, Plan
+
       # Protect self admin user.
       cannot :destroy, User do |u|
         u == user
