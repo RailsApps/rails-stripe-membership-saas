@@ -1,5 +1,4 @@
-#source 'https://rubygems.org'
-source 'http://localhost:8081/repository/gem'
+source 'https://rubygems.org'
 ruby '2.3.0'
 gem 'rails', '4.2.5'
 gem 'sqlite3'
