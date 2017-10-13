@@ -9,14 +9,29 @@ Bundler.require(*Rails.groups)
 module RailsStripeMembershipSaas
   class Application < Rails::Application
 
+    config.autoload_paths << "#{config.root}/lib"
+
+    config.to_prepare do
+      # Load application's model / class decorators
+      Dir.glob(File.join(File.dirname(__FILE__), '..', '{app,lib}', '**', '*_decorator*.rb')) do |c|
+        Rails.configuration.cache_classes ? require(c) : load(c)
+      end
+
+      # Load application's view overrides
+      Dir.glob(File.join(File.dirname(__FILE__), '..', 'app', 'overrides', '*.rb')) do |c|
+        Rails.configuration.cache_classes ? require(c) : load(c)
+      end
+
+    end
+
     config.generators do |g|
       g.test_framework :rspec,
-        fixtures: true,
-        view_specs: false,
-        helper_specs: false,
-        routing_specs: false,
-        controller_specs: false,
-        request_specs: false
+                       fixtures: true,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false,
+                       controller_specs: false,
+                       request_specs: false
       g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
 
